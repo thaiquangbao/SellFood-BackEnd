@@ -84,7 +84,7 @@ h3 {
 
 /* CSS for Food Search section */
 .food-search {
-    background-image: url(../images/bg.jpg);
+    background-image: url(/images/bg.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
