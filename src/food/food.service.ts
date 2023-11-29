@@ -23,7 +23,17 @@ export class FoodService {
     return food;
   }
   async deleteOne(id: string): Promise<boolean> {
-    await this.foodEntity.findByIdAndDelete(id);
+    const result = await this.foodEntity.findByIdAndDelete(id);
+    if (!result) {
+      return false;
+    }
     return true;
+  }
+  async updateFood(id: string, food: Food): Promise<Food> {
+    const result = await this.foodEntity.findByIdAndUpdate(id, food, {
+      new: true,
+      runValidators: true,
+    });
+    return result;
   }
 }

@@ -30,10 +30,10 @@ let FoodController = class FoodController {
         return this.foodService.findOneById(id);
     }
     async deleteOneFood(id) {
-        const result = this.foodService.deleteOne(id);
-        if ((await result) !== true) {
-            throw new common_1.NotFoundException("Xóa không thành công");
-        }
+        this.foodService.deleteOne(id);
+    }
+    async updateFood(id, food) {
+        return this.foodService.updateFood(id, food);
     }
 };
 exports.FoodController = FoodController;
@@ -64,6 +64,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], FoodController.prototype, "deleteOneFood", null);
+__decorate([
+    (0, common_1.Put)("updateFood/:id"),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, food_dto_1.FoodDTOUpdate]),
+    __metadata("design:returntype", Promise)
+], FoodController.prototype, "updateFood", null);
 exports.FoodController = FoodController = __decorate([
     (0, common_1.Controller)("foods"),
     __metadata("design:paramtypes", [food_service_1.FoodService])

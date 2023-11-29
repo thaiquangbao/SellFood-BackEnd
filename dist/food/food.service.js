@@ -34,8 +34,18 @@ let FoodService = class FoodService {
         return food;
     }
     async deleteOne(id) {
-        await this.foodEntity.findByIdAndDelete(id);
+        const result = await this.foodEntity.findByIdAndDelete(id);
+        if (!result) {
+            return false;
+        }
         return true;
+    }
+    async updateFood(id, food) {
+        const result = await this.foodEntity.findByIdAndUpdate(id, food, {
+            new: true,
+            runValidators: true,
+        });
+        return result;
     }
 };
 exports.FoodService = FoodService;

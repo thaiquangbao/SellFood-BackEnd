@@ -7,3 +7,10 @@ export class FoodDTO {
   readonly describe: string;
   readonly category: Category;
 }
+
+export class FoodDTOUpdate {
+  readonly nameFood: string;
+  readonly price: number;
+  readonly describe: string;
+  readonly category: Category;
+}

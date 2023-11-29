@@ -6,3 +6,9 @@ export declare class FoodDTO {
     readonly describe: string;
     readonly category: Category;
 }
+export declare class FoodDTOUpdate {
+    readonly nameFood: string;
+    readonly price: number;
+    readonly describe: string;
+    readonly category: Category;
+}
