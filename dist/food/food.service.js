@@ -25,6 +25,10 @@ let FoodService = class FoodService {
         const books = await this.foodEntity.find();
         return books;
     }
+    async insertFood(food) {
+        const res = await this.foodEntity.create(food);
+        return res;
+    }
 };
 exports.FoodService = FoodService;
 exports.FoodService = FoodService = __decorate([

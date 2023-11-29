@@ -28,4 +28,5 @@ export declare class FoodService {
     private foodEntity;
     constructor(foodEntity: mongoose.Model<Food>);
     findAllFood(): Promise<Food[]>;
+    insertFood(food: Food): Promise<Food>;
 }

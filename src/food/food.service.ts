@@ -14,4 +14,8 @@ export class FoodService {
     const books = await this.foodEntity.find();
     return books;
   }
+  async insertFood(food: Food): Promise<Food> {
+    const res = await this.foodEntity.create(food);
+    return res;
+  }
 }
