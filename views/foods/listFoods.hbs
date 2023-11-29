@@ -76,7 +76,7 @@
                 </tbody>
             </table>
             <div class="inserthv" style="margin-top: 50px; text-align: center;">
-                <a href="/foods/formAddFoods" class="btn btn-primary" style="border-top: 30px;,height: 100px; width: 200px; text-align: center; background-color: chocolate; border-color: chocolate;">Thêm khóa học</a>
+                <button onclick="changePage()" class="btn btn-primary" style="border-top: 30px;,height: 100px; width: 200px; text-align: center; background-color: chocolate; border-color: chocolate;">Thêm món ăn</button>
             </div> 
         </div>
     </div>
@@ -89,4 +89,7 @@
       element.textContent = stt++;
     });
   });
+  function changePage(){
+    window.location.href='/foods/formAddFoods'
+  }
 </script>

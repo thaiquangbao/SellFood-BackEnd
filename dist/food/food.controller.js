@@ -24,8 +24,8 @@ let FoodController = class FoodController {
         const foods = await this.foodService.findAllFood();
         return res.render("foods/listFoods", { foods });
     }
-    async getFoemFood(res) {
-        return res.redirect("foods/createFoods");
+    async getFormFood(res) {
+        return res.render("foods/createFoods");
     }
     async addFood(food) {
         return this.foodService.insertFood(food);
@@ -54,7 +54,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], FoodController.prototype, "getFoemFood", null);
+], FoodController.prototype, "getFormFood", null);
 __decorate([
     (0, common_1.Post)("insertFood"),
     __param(0, (0, common_1.Body)()),

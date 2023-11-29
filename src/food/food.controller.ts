@@ -22,8 +22,8 @@ export class FoodController {
     return res.render("foods/listFoods", { foods });
   }
   @Get("formAddFoods")
-  async getFoemFood(@Res() res: Response) {
-    return res.redirect("foods/createFoods");
+  async getFormFood(@Res() res: Response) {
+    return res.render("foods/createFoods");
   }
   @Post("insertFood")
   async addFood(@Body() food: FoodDTO): Promise<Food> {
