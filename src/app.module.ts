@@ -4,6 +4,9 @@ import { AppService } from "./app.service";
 import { FoodModule } from "./food/food.module";
 import { ConfigModule } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
+import { FoodSchema } from "./food/entity/food.entity";
+import { FoodController } from "./food/food.controller";
+import { FoodService } from "./food/food.service";
 
 @Module({
   imports: [
@@ -13,8 +16,9 @@ import { MongooseModule } from "@nestjs/mongoose";
     }),
     MongooseModule.forRoot(process.env.MONGO_DB),
     FoodModule,
+    MongooseModule.forFeature([{ name: "Food", schema: FoodSchema }]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, FoodController],
+  providers: [AppService, FoodService],
 })
 export class AppModule {}
