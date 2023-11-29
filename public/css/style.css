@@ -50,7 +50,14 @@ a:hover {
 .text-center {
     text-align: center;
 }
-
+.form-write label{
+    margin-left: 30px;
+    margin-top: 50px;
+  }
+  .form-write input{
+    margin-top: 5px;
+    margin-left: 10px;
+  }
 /* CSS for navbar section */
 .logo {
     width: 10%;
