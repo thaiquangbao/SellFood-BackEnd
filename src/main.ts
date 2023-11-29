@@ -9,15 +9,14 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  app.engine('hbs', hbs.__express);
-  app.setViewEngine('hbs');
-
-  // Register Handlebars partials
   hbs.registerPartials(join(__dirname, '..', 'views/layouts'));
-
-  // Create hbsUtils instance and register watched partials
-  const hbsUtilsInstance = hbsUtils(hbs);
-  hbsUtilsInstance.registerPartials(join(__dirname, '..', 'views/layouts'));
+  hbsUtils(hbs).registerWatchedPartials(
+    join(__dirname, '..', 'views/partials'),
+  );
+  app.setViewEngine('hbs');
+  app.set('view options', {
+    layout: 'layouts/main',
+  });
   await app.listen(3000);
 }
 bootstrap();
