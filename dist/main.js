@@ -4,15 +4,16 @@ const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const path_1 = require("path");
 const hbs = require("hbs");
-const hbsUtils = require("hbs-utils");
+const hbs_utils_1 = require("hbs-utils");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.useStaticAssets((0, path_1.join)(__dirname, '..', 'public'));
     app.setBaseViewsDir((0, path_1.join)(__dirname, '..', 'views'));
-    const hbsUtilsInstance = hbsUtils(hbs);
-    hbsUtilsInstance.registerWatchedPartials((0, path_1.join)(__dirname, '..', 'views/layouts'));
     app.engine('hbs', hbs.__express);
     app.setViewEngine('hbs');
+    hbs.registerPartials((0, path_1.join)(__dirname, '..', 'views/layouts'));
+    const hbsUtilsInstance = (0, hbs_utils_1.default)(hbs);
+    hbsUtilsInstance.registerPartials((0, path_1.join)(__dirname, '..', 'views/layouts'));
     await app.listen(3000);
 }
 bootstrap();
