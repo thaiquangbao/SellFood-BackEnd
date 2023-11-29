@@ -162,7 +162,16 @@ h3 {
 .social ul li img {
     width: 3%;
 }
-
+.head {
+    margin-top: 40px;
+    text-align: center; }
+  
+  .table-students {
+    margin-top: 20px;
+    margin-right: 20px; 
+    min-height: 500px;
+}
+  
 /* CSS for Mobile Size or smaller smaller screen */
 @media only screen and (max-width:768px) {
     /* Tablet-size devices */

@@ -20,8 +20,12 @@ let FoodController = class FoodController {
     constructor(foodService) {
         this.foodService = foodService;
     }
-    async getAllFood() {
-        return this.foodService.findAllFood();
+    async getAllFood(res) {
+        const foods = await this.foodService.findAllFood();
+        return res.render("foods/listFoods", { foods });
+    }
+    async getFoemFood(res) {
+        return res.redirect("foods/createFoods");
     }
     async addFood(food) {
         return this.foodService.insertFood(food);
@@ -39,10 +43,18 @@ let FoodController = class FoodController {
 exports.FoodController = FoodController;
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], FoodController.prototype, "getAllFood", null);
+__decorate([
+    (0, common_1.Get)("formAddFoods"),
+    __param(0, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], FoodController.prototype, "getFoemFood", null);
 __decorate([
     (0, common_1.Post)("insertFood"),
     __param(0, (0, common_1.Body)()),

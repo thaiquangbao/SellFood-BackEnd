@@ -6,18 +6,24 @@ import {
   Param,
   Post,
   Put,
+  Res,
 } from "@nestjs/common";
 import { FoodService } from "./food.service";
 import { Food } from "./entity/food.entity";
 import { FoodDTO, FoodDTOUpdate } from "./dto/food.dto";
+import { Response } from "express";
 
 @Controller("foods")
 export class FoodController {
   constructor(private foodService: FoodService) {}
-
   @Get()
-  async getAllFood(): Promise<Food[]> {
-    return this.foodService.findAllFood();
+  async getAllFood(@Res() res: Response) {
+    const foods = await this.foodService.findAllFood();
+    return res.render("foods/listFoods", { foods });
+  }
+  @Get("formAddFoods")
+  async getFoemFood(@Res() res: Response) {
+    return res.redirect("foods/createFoods");
   }
   @Post("insertFood")
   async addFood(@Body() food: FoodDTO): Promise<Food> {

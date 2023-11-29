@@ -1,0 +1,92 @@
+ <div class="container-fluid body-table" >
+        <div class="head">
+            <h1>Danh sách khóa học</h1>
+            <a href="#" class="button-rac">
+                <img style="width: 80px; height: 80px; margin-left: 1100px;" src="https://media.istockphoto.com/id/1187525428/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-m%C3%A0u-%C4%91%E1%BB%8F-d%C3%B2ng-th%C3%B9ng-r%C3%A1c-tr%C3%AAn-n%E1%BB%81n-tr%E1%BA%AFng-h%C3%ACnh-minh-h%E1%BB%8Da-vector-ki%E1%BB%83u-ph%E1%BA%B3ng-m%C3%A0u-%C4%91%E1%BB%8F.jpg?s=170667a&w=0&k=20&c=U49EM4UW6OfZC18mpM_h1a-5RbDXT8UhUiSBqE5EuPQ=" alt="">
+            </a>
+            {{!-- ({{deletedCount}}) --}}
+            
+            <div class="form-check" style="float: left; margin-bottom: 20px;">
+                <input class="form-check-input" type="checkbox" style="width: 20px; height: 20px;" value="" id="checkBox-all">
+                <label class="form-check-label" for="checkBox-all" style="margin-left: 15px;">
+                    Chọn tất cả
+                </label>
+                <a href="" data-toggle="modal" class="btn btn-primary disabled btn-deleteAll" data-target="#deleteAll-modal" >Xóa tất cả</a>
+            </div>
+            
+        </div>
+        
+        <div class="table-students">
+            <table class="table" >
+                <thead class="table-dark" >
+                    <tr >
+                    <th style="width: 70px;">Chọn</th>
+                    <th scope="col" style="width: 50px;">#</th>
+                    <th scope="col" style="width: 150px ;">
+                        Tên thức ăn
+                        
+                    </th>
+                    <th scope="col" style="width: 150px ;text-align: center;">
+                        Giá
+                       
+                    </th>
+                    
+                    <th scope="col " style="width: 250px;text-align: center;">Mô tả</th>
+                    <th scope="col" style="width: 150px;text-align: center;">Loại đồ ăn</th>
+                    <th scope="col" style="width: 150px ;text-align: center;">
+                       Hình ảnh
+                     </th>
+                    <th scope="col" style="width: 150px ;text-align: center;">
+                        Chỉnh sửa
+                     </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each foods}}
+                    <tr>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="courseItem[]" value="{{this._id}}">
+
+                        </div>
+                    </td>
+                    <th scope="row"><span class="stt"></span></th>
+                    <td>{{this.nameFood}}</td>
+                    <td style="text-align: center;">{{this.price}} VND</td>
+                    <td style="">{{this.describe}}</td>
+                    <td style="text-align: center;">{{this.category}}</td>
+                    <td style="text-align: center;"></td>
+                    
+                    <td style="text-align: center;">
+                        <a href="/editcourse/{{this._id}}/edit" class="btn btn-link ">Sửa</a>
+                        <a href="" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-modal" class="btn btn-link ">Xóa</a>
+                    </td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="9">
+                            <div class="mess-them" style="text-align: center;">
+                                <p>Bạn chưa đăng khóa học nào hãy bấm vào thêm khóa học để thêm khóa học mới bạn nhé :3</p>
+                                
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <div class="inserthv" style="margin-top: 50px; text-align: center;">
+                <a href="/foods/formAddFoods" class="btn btn-primary" style="border-top: 30px;,height: 100px; width: 200px; text-align: center; background-color: chocolate; border-color: chocolate;">Thêm khóa học</a>
+            </div> 
+        </div>
+    </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    let stt = 1;
+    const sttElements = document.querySelectorAll('span.stt');
+
+    sttElements.forEach(function(element) {
+      element.textContent = stt++;
+    });
+  });
+</script>
