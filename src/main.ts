@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express/interfaces';
 import * as hbs from 'hbs';
-import hbsUtils from 'hbs-utils';
+import * as hbsUtils from 'hbs-utils';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
