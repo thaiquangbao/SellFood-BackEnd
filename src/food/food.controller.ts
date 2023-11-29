@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+} from "@nestjs/common";
 import { FoodService } from "./food.service";
 import { Food } from "./entity/food.entity";
 import { FoodDTO } from "./dto/food.dto";
@@ -18,5 +26,12 @@ export class FoodController {
   @Get(":id")
   async findByIdFood(@Param("id") id: string): Promise<Food> {
     return this.foodService.findOneById(id);
+  }
+  @Delete("deleteFood/:id")
+  async deleteOneFood(@Param("id") id: string): Promise<void> {
+    const result = this.foodService.deleteOne(id);
+    if ((await result) !== true) {
+      throw new NotFoundException("Xóa không thành công");
+    }
   }
 }

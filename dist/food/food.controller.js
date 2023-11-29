@@ -29,6 +29,12 @@ let FoodController = class FoodController {
     async findByIdFood(id) {
         return this.foodService.findOneById(id);
     }
+    async deleteOneFood(id) {
+        const result = this.foodService.deleteOne(id);
+        if ((await result) !== true) {
+            throw new common_1.NotFoundException("Xóa không thành công");
+        }
+    }
 };
 exports.FoodController = FoodController;
 __decorate([
@@ -51,6 +57,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], FoodController.prototype, "findByIdFood", null);
+__decorate([
+    (0, common_1.Delete)("deleteFood/:id"),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], FoodController.prototype, "deleteOneFood", null);
 exports.FoodController = FoodController = __decorate([
     (0, common_1.Controller)("foods"),
     __metadata("design:paramtypes", [food_service_1.FoodService])

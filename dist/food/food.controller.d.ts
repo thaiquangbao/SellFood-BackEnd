@@ -7,4 +7,5 @@ export declare class FoodController {
     getAllFood(): Promise<Food[]>;
     addFood(food: FoodDTO): Promise<Food>;
     findByIdFood(id: string): Promise<Food>;
+    deleteOneFood(id: string): Promise<void>;
 }

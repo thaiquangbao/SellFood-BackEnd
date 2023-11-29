@@ -30,4 +30,5 @@ export declare class FoodService {
     findAllFood(): Promise<Food[]>;
     insertFood(food: Food): Promise<Food>;
     findOneById(id: string): Promise<Food>;
+    deleteOne(id: string): Promise<boolean>;
 }

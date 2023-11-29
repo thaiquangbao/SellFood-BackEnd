@@ -33,6 +33,10 @@ let FoodService = class FoodService {
         const food = await this.foodEntity.findById(id);
         return food;
     }
+    async deleteOne(id) {
+        await this.foodEntity.findByIdAndDelete(id);
+        return true;
+    }
 };
 exports.FoodService = FoodService;
 exports.FoodService = FoodService = __decorate([

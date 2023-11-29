@@ -22,4 +22,8 @@ export class FoodService {
     const food = await this.foodEntity.findById(id);
     return food;
   }
+  async deleteOne(id: string): Promise<boolean> {
+    await this.foodEntity.findByIdAndDelete(id);
+    return true;
+  }
 }
