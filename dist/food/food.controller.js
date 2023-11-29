@@ -15,15 +15,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FoodController = void 0;
 const common_1 = require("@nestjs/common");
 const food_service_1 = require("./food.service");
+const food_dto_1 = require("./dto/food.dto");
 let FoodController = class FoodController {
     constructor(foodService) {
         this.foodService = foodService;
     }
-    async getAllBook() {
+    async getAllFood() {
         return this.foodService.findAllFood();
     }
-    async addBook(food) {
+    async addFood(food) {
         return this.foodService.insertFood(food);
+    }
+    async findByIdFood(id) {
+        return this.foodService.findOneById(id);
     }
 };
 exports.FoodController = FoodController;
@@ -32,14 +36,21 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], FoodController.prototype, "getAllBook", null);
+], FoodController.prototype, "getAllFood", null);
 __decorate([
     (0, common_1.Post)("insertFood"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [food_dto_1.FoodDTO]),
     __metadata("design:returntype", Promise)
-], FoodController.prototype, "addBook", null);
+], FoodController.prototype, "addFood", null);
+__decorate([
+    (0, common_1.Get)(":id"),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], FoodController.prototype, "findByIdFood", null);
 exports.FoodController = FoodController = __decorate([
     (0, common_1.Controller)("foods"),
     __metadata("design:paramtypes", [food_service_1.FoodService])

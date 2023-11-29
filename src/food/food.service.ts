@@ -18,4 +18,8 @@ export class FoodService {
     const res = await this.foodEntity.create(food);
     return res;
   }
+  async findOneById(id: string): Promise<Food> {
+    const food = await this.foodEntity.findById(id);
+    return food;
+  }
 }
