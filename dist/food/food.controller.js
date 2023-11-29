@@ -12,6 +12,6 @@ let FoodController = class FoodController {
 };
 exports.FoodController = FoodController;
 exports.FoodController = FoodController = __decorate([
-    (0, common_1.Controller)('food')
+    (0, common_1.Controller)("food")
 ], FoodController);
 //# sourceMappingURL=food.controller.js.map

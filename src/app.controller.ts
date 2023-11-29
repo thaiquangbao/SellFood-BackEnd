@@ -1,6 +1,6 @@
-import { Controller, Get, Res } from '@nestjs/common';
-import { AppService } from './app.service';
-import { Response } from 'express';
+import { Controller, Get, Res } from "@nestjs/common";
+import { AppService } from "./app.service";
+import { Response } from "express";
 //import { Request } from 'express';
 @Controller()
 export class AppController {
@@ -8,6 +8,6 @@ export class AppController {
 
   @Get()
   getHello(@Res() res: Response) {
-    return res.render('index');
+    return res.render("index");
   }
 }

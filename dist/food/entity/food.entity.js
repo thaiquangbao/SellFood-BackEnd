@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Food = exports.Category = void 0;
+exports.FoodSchema = exports.Food = exports.Category = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 var Category;
 (function (Category) {
@@ -33,9 +33,14 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], Food.prototype, "describe", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Food.prototype, "category", void 0);
 exports.Food = Food = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,
     })
 ], Food);
+exports.FoodSchema = mongoose_1.SchemaFactory.createForClass(Food);
 //# sourceMappingURL=food.entity.js.map

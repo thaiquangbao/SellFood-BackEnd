@@ -1,4 +1,4 @@
-import { Prop, Schema } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 export enum Category {
   KHO = "Kho",
@@ -16,4 +16,7 @@ export class Food {
   price: number;
   @Prop()
   describe: string;
+  @Prop()
+  category: Category;
 }
+export const FoodSchema = SchemaFactory.createForClass(Food);

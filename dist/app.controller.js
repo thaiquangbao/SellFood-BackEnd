@@ -20,7 +20,7 @@ let AppController = class AppController {
         this.appService = appService;
     }
     getHello(res) {
-        return res.render('index');
+        return res.render("index");
     }
 };
 exports.AppController = AppController;
