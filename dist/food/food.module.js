@@ -10,11 +10,14 @@ exports.FoodModule = void 0;
 const common_1 = require("@nestjs/common");
 const food_controller_1 = require("./food.controller");
 const food_service_1 = require("./food.service");
+const mongoose_1 = require("@nestjs/mongoose");
+const food_entity_1 = require("./entity/food.entity");
 let FoodModule = class FoodModule {
 };
 exports.FoodModule = FoodModule;
 exports.FoodModule = FoodModule = __decorate([
     (0, common_1.Module)({
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: "Food", schema: food_entity_1.FoodSchema }])],
         controllers: [food_controller_1.FoodController],
         providers: [food_service_1.FoodService],
     })
