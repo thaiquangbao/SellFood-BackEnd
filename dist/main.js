@@ -7,13 +7,13 @@ const hbs = require("hbs");
 const hbsUtils = require("hbs-utils");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.useStaticAssets((0, path_1.join)(__dirname, '..', 'public'));
-    app.setBaseViewsDir((0, path_1.join)(__dirname, '..', 'views'));
-    hbs.registerPartials((0, path_1.join)(__dirname, '..', 'views/layouts'));
-    hbsUtils(hbs).registerWatchedPartials((0, path_1.join)(__dirname, '..', 'views/partials'));
-    app.setViewEngine('hbs');
-    app.set('view options', {
-        layout: 'layouts/main',
+    app.useStaticAssets((0, path_1.join)(__dirname, "..", "public"));
+    app.setBaseViewsDir((0, path_1.join)(__dirname, "..", "views"));
+    hbs.registerPartials((0, path_1.join)(__dirname, "..", "views/layouts"));
+    hbsUtils(hbs).registerWatchedPartials((0, path_1.join)(__dirname, "..", "views/partials"));
+    app.setViewEngine("hbs");
+    app.set("view options", {
+        layout: "layouts/main",
     });
     await app.listen(3000);
 }
