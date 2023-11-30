@@ -1,7 +1,7 @@
 
 <div class="form-input" style="min-height: 545px;">
     <h1 style="margin-left: 700px;">Thêm món ăn</h1>
-    <div class="form-aria" style="background-color: rgb(245, 240, 240); margin-right: 130px;margin-left: 130px; padding-bottom: 30px;  ">
+    <div class="form-aria" style="background-color: rgb(245, 240, 240); margin-right: 130px;margin-left: 130px; padding-bottom: 30px; padding-right: 30px; ">
         <div class="row g-3" style="margin-left: 150px; margin-top: 30px; " >
             <div class="col">
                 <label style="margin-bottom: 10px;">Tên món ăn</label>
@@ -15,6 +15,26 @@
                 <label style="margin-bottom: 10px;">Mô tả về món ăn</label>
                 <input type="text" class="form-control" placeholder="Mô tả" style="width: 500px;">
             </div>
+            <div class="col ">
+                <label style="margin-bottom: 10px;">Loại món ăn</label>
+                <select class="form-control form-select mb-3" aria-label=".form-select-lg example" style="width: 500px;">
+                    <option selected>--- Chọn loại món ăn ---</option>
+                {{#each Category}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+                </select>
+            </div>
+
         </div>
+        
     </div>    
+    <div class="add" style="margin-top: 30px;">
+        <button onclick="addFood()" class="btn btn-primary" style="margin-left: 350px; width: 1000px; height: 40px;" >Thêm</button>
+    </div>
 </div>
+<script>
+    function addFood(){
+        var = 
+    }
+
+</script>

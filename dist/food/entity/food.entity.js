@@ -9,14 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FoodSchema = exports.Food = exports.Category = void 0;
+exports.Categories = exports.FoodSchema = exports.Food = exports.Category = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 var Category;
 (function (Category) {
     Category["KHO"] = "Kho";
-    Category["XAO"] = "Xao";
-    Category["CHIEN"] = "Chien";
+    Category["XAO"] = "X\u00E0o";
+    Category["CHIEN"] = "Chi\u00EAn";
     Category["CANH"] = "Canh";
+    Category["Nuong"] = "Nu\u1EDBng";
 })(Category || (exports.Category = Category = {}));
 let Food = class Food {
 };
@@ -43,4 +44,5 @@ exports.Food = Food = __decorate([
     })
 ], Food);
 exports.FoodSchema = mongoose_1.SchemaFactory.createForClass(Food);
+exports.Categories = { Category };
 //# sourceMappingURL=food.entity.js.map

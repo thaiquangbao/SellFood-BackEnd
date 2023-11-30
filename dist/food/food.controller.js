@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FoodController = void 0;
 const common_1 = require("@nestjs/common");
 const food_service_1 = require("./food.service");
+const food_entity_1 = require("./entity/food.entity");
 const food_dto_1 = require("./dto/food.dto");
 let FoodController = class FoodController {
     constructor(foodService) {
@@ -25,7 +26,7 @@ let FoodController = class FoodController {
         return res.render("foods/listFoods", { foods });
     }
     async getFormFood(res) {
-        return res.render("foods/createFoods");
+        return res.render("foods/createFoods", { Category: food_entity_1.Category });
     }
     async addFood(food) {
         return this.foodService.insertFood(food);

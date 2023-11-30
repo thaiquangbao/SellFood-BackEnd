@@ -2,9 +2,10 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 export enum Category {
   KHO = "Kho",
-  XAO = "Xao",
-  CHIEN = "Chien",
+  XAO = "Xào",
+  CHIEN = "Chiên",
   CANH = "Canh",
+  Nuong = "Nuớng",
 }
 @Schema({
   timestamps: true,
@@ -20,3 +21,4 @@ export class Food {
   category: Category;
 }
 export const FoodSchema = SchemaFactory.createForClass(Food);
+export const Categories = { Category };

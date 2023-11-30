@@ -9,7 +9,7 @@ import {
   Res,
 } from "@nestjs/common";
 import { FoodService } from "./food.service";
-import { Food } from "./entity/food.entity";
+import { Category, Food } from "./entity/food.entity";
 import { FoodDTO, FoodDTOUpdate } from "./dto/food.dto";
 import { Response } from "express";
 
@@ -23,7 +23,7 @@ export class FoodController {
   }
   @Get("formAddFoods")
   async getFormFood(@Res() res: Response) {
-    return res.render("foods/createFoods");
+    return res.render("foods/createFoods", { Category });
   }
   @Post("insertFood")
   async addFood(@Body() food: FoodDTO): Promise<Food> {

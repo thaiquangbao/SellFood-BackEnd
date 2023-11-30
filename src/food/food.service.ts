@@ -9,10 +9,9 @@ export class FoodService {
     @InjectModel(Food.name)
     private foodEntity: mongoose.Model<Food>,
   ) {}
-
   async findAllFood(): Promise<Food[]> {
-    const books = await this.foodEntity.find();
-    return books;
+    const foods = await this.foodEntity.find();
+    return foods;
   }
   async insertFood(food: Food): Promise<Food> {
     const res = await this.foodEntity.create(food);

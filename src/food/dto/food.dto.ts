@@ -6,6 +6,7 @@ export class FoodDTO {
   readonly price: number;
   readonly describe: string;
   readonly category: Category;
+  readonly categories: Category[];
 }
 
 export class FoodDTOUpdate {

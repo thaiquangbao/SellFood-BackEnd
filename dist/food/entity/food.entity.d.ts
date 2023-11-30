@@ -25,9 +25,10 @@
 /// <reference types="mongoose/types/inferschematype" />
 export declare enum Category {
     KHO = "Kho",
-    XAO = "Xao",
-    CHIEN = "Chien",
-    CANH = "Canh"
+    XAO = "X\u00E0o",
+    CHIEN = "Chi\u00EAn",
+    CANH = "Canh",
+    Nuong = "Nu\u1EDBng"
 }
 export declare class Food {
     nameFood: string;
@@ -40,3 +41,6 @@ export declare const FoodSchema: import("mongoose").Schema<Food, import("mongoos
 }, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Food, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Food>> & import("mongoose").FlatRecord<Food> & {
     _id: import("mongoose").Types.ObjectId;
 }>;
+export declare const Categories: {
+    Category: typeof Category;
+};
