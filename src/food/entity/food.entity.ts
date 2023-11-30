@@ -6,6 +6,9 @@ export enum Category {
   CHIEN = "Chiên",
   CANH = "Canh",
   Nuong = "Nuớng",
+  Lau = "Lẩu",
+  Hap = "Hấp",
+  Luoc = "Luộc",
 }
 @Schema({
   timestamps: true,
@@ -19,6 +22,10 @@ export class Food {
   describe: string;
   @Prop()
   category: Category;
+  @Prop()
+  img: string;
+  @Prop()
+  noiBat: string;
 }
 export const FoodSchema = SchemaFactory.createForClass(Food);
 export const Categories = { Category };

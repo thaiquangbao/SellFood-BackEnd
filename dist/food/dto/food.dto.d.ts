@@ -5,11 +5,14 @@ export declare class FoodDTO {
     readonly price: number;
     readonly describe: string;
     readonly category: Category;
-    readonly categories: Category[];
+    readonly img: string;
+    readonly noiBat: string;
 }
 export declare class FoodDTOUpdate {
     readonly nameFood: string;
     readonly price: number;
     readonly describe: string;
     readonly category: Category;
+    readonly img: string;
+    readonly noiBat: string;
 }

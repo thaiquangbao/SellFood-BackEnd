@@ -31,8 +31,9 @@ let FoodController = class FoodController {
     async addFood(food) {
         return this.foodService.insertFood(food);
     }
-    async findByIdFood(id) {
-        return this.foodService.findOneById(id);
+    async findByIdFood(id, res) {
+        const food = await this.foodService.findOneById(id);
+        return res.render("foods/updateFood", { food, Category: food_entity_1.Category });
     }
     async deleteOneFood(id) {
         this.foodService.deleteOne(id);
@@ -66,8 +67,9 @@ __decorate([
 __decorate([
     (0, common_1.Get)(":id"),
     __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], FoodController.prototype, "findByIdFood", null);
 __decorate([

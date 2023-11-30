@@ -1,24 +1,23 @@
-
-    <div class="form-input" style="min-height: 545px;">
+ <div class="form-input" style="min-height: 545px;">
         <h1 style="margin-left: 700px;">Thêm món ăn</h1>
         <div class="form-aria" style="background-color: rgb(245, 240, 240); margin-right: 130px;margin-left: 130px; padding-bottom: 30px; padding-right: 30px; ">
             <div class="row g-3" style="margin-left: 150px; margin-top: 30px; " >
                 <div class="col">
                     <label style="margin-bottom: 10px;">Tên món ăn</label>
-                    <input type="text" class="form-control" id="nameFood" placeholder="Tên món ăn" style="width: 500px;">
+                    <input type="text" class="form-control" value="{{food.nameFood}}" id="nameFood" placeholder="Tên món ăn" style="width: 500px;">
                 </div>
                 <div class="col">
                     <label style="margin-bottom: 10px;">Giá</label>
-                    <input type="text" class="form-control" id="price" placeholder="Giá" style="width: 500px;">
+                    <input type="text" class="form-control" id="price" value="{{food.price}}" placeholder="Giá" style="width: 500px;">
                 </div>
                 <div class="col">
                     <label style="margin-bottom: 10px;">Mô tả về món ăn</label>
-                    <input type="text" class="form-control" id="moTa" placeholder="Mô tả" style="width: 500px;">
+                    <input type="text" class="form-control" id="moTa" value="{{food.describe}}" placeholder="Mô tả" style="width: 500px;">
                 </div>
                 <div class="col ">
                     <label style="margin-bottom: 10px;">Loại món ăn</label>
                     <select class="form-control form-select mb-3" id="category" aria-label=".form-select-lg example" style="width: 500px;">
-                        <option selected>--- Chọn loại món ăn ---</option>
+                        <option value="{{food.category}}">{{food.category}}</option>
                     {{#each Category}}
                         <option value="{{this}}">{{this}}</option>
                     {{/each}}
@@ -26,7 +25,7 @@
                 </div>
                 <div id="form-picture" class="col">
                     <div class="changeava">
-                        <img id="imgFood" data-origin="https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" src= "https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" alt="" class="ava">
+                        <img id="imgFood" data-origin="https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" src= "{{food.img}}" alt="" class="ava">
                             <div class="form-ava" style="margin-top: 40px;" >
                                 <input type="file" class="image-user" name="img"  accept=".jpg, .png"/><br>
                                 
@@ -36,6 +35,7 @@
             <div class="col ">
                     <label style="margin-bottom: 10px;">Nổi bật</label>
                     <select id="noiBat" class="form-control form-select mb-3" aria-label=".form-select-lg example" style="width: 500px;">
+                        <option value="{{food.noiBat}}">{{food.noiBat}}</option>
                         <option value="Có">Có</option>
                         <option value="Không">Không</option>
                     
@@ -47,11 +47,11 @@
             
         </div>    
         <div class="add" style="margin-top: 30px;">
-            <button onclick="addFood()" class="btn btn-primary" style="margin-left: 350px; width: 1000px; height: 40px;" >Thêm</button>
+            <button onclick="updateFood('{{food.id}}')" class="btn btn-primary" style="margin-left: 350px; width: 1000px; height: 40px;" >Sửa</button>
         </div>
     </div>
 <script>
-        function addFood(){
+        function updateFood(id){
             var ten = $('#nameFood').val();
             var gia = $('#price').val();
             var moTa = $('#moTa').val();
@@ -89,8 +89,8 @@
         }
 
             $.ajax({
-            url:'/foods/insertFood',
-                type:'POST',
+            url:'/foods/updateFood/'+id,
+                type:'PUT',
                 data:{
                     nameFood:ten,
                     price:gia,
@@ -101,7 +101,7 @@
                 }
             })
             .then(data =>{
-                alert("Thêm món ăn thành công");
+                alert("Cập nhật món ăn thành công");
                 window.location.href='/foods'
             })
             .catch(error=>{

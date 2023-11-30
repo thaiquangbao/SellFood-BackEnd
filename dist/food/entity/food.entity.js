@@ -18,6 +18,9 @@ var Category;
     Category["CHIEN"] = "Chi\u00EAn";
     Category["CANH"] = "Canh";
     Category["Nuong"] = "Nu\u1EDBng";
+    Category["Lau"] = "L\u1EA9u";
+    Category["Hap"] = "H\u1EA5p";
+    Category["Luoc"] = "Lu\u1ED9c";
 })(Category || (exports.Category = Category = {}));
 let Food = class Food {
 };
@@ -38,6 +41,14 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], Food.prototype, "category", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Food.prototype, "img", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Food.prototype, "noiBat", void 0);
 exports.Food = Food = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,

@@ -30,8 +30,9 @@ export class FoodController {
     return this.foodService.insertFood(food);
   }
   @Get(":id")
-  async findByIdFood(@Param("id") id: string): Promise<Food> {
-    return this.foodService.findOneById(id);
+  async findByIdFood(@Param("id") id: string, @Res() res: Response) {
+    const food = await this.foodService.findOneById(id);
+    return res.render("foods/updateFood", { food, Category });
   }
   @Delete("deleteFood/:id")
   async deleteOneFood(@Param("id") id: string): Promise<void> {

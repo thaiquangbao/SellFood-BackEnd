@@ -28,13 +28,18 @@ export declare enum Category {
     XAO = "X\u00E0o",
     CHIEN = "Chi\u00EAn",
     CANH = "Canh",
-    Nuong = "Nu\u1EDBng"
+    Nuong = "Nu\u1EDBng",
+    Lau = "L\u1EA9u",
+    Hap = "H\u1EA5p",
+    Luoc = "Lu\u1ED9c"
 }
 export declare class Food {
     nameFood: string;
     price: number;
     describe: string;
     category: Category;
+    img: string;
+    noiBat: string;
 }
 export declare const FoodSchema: import("mongoose").Schema<Food, import("mongoose").Model<Food, any, any, any, import("mongoose").Document<unknown, any, Food> & Food & {
     _id: import("mongoose").Types.ObjectId;
