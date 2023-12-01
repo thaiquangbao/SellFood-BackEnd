@@ -17,9 +17,22 @@ const common_1 = require("@nestjs/common");
 const food_service_1 = require("./food.service");
 const food_entity_1 = require("./entity/food.entity");
 const food_dto_1 = require("./dto/food.dto");
+const cloudinary_service_1 = require("../cloudinary/cloudinary.service");
+const platform_express_1 = require("@nestjs/platform-express");
 let FoodController = class FoodController {
-    constructor(foodService) {
+    constructor(foodService, cloudinaryService) {
         this.foodService = foodService;
+        this.cloudinaryService = cloudinaryService;
+    }
+    async uploadImage(file) {
+        try {
+            const result = await this.cloudinaryService.uploadFile(file.path);
+            console.log(result);
+            return result;
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
     async getAllFood(res) {
         const foods = await this.foodService.findAllFood();
@@ -43,6 +56,14 @@ let FoodController = class FoodController {
     }
 };
 exports.FoodController = FoodController;
+__decorate([
+    (0, common_1.Post)("uploads"),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)("files")),
+    __param(0, (0, common_1.UploadedFile)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], FoodController.prototype, "uploadImage", null);
 __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Res)()),
@@ -89,6 +110,7 @@ __decorate([
 ], FoodController.prototype, "updateFood", null);
 exports.FoodController = FoodController = __decorate([
     (0, common_1.Controller)("foods"),
-    __metadata("design:paramtypes", [food_service_1.FoodService])
+    __metadata("design:paramtypes", [food_service_1.FoodService,
+        cloudinary_service_1.CloudinaryService])
 ], FoodController);
 //# sourceMappingURL=food.controller.js.map

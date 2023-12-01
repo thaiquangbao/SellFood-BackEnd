@@ -7,7 +7,9 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { FoodSchema } from "./food/entity/food.entity";
 import { FoodController } from "./food/food.controller";
 import { FoodService } from "./food/food.service";
-import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { CloudinaryModule } from "./cloudinary/cloudinary.module";
+import { CloudinaryProvider } from "./cloudinary/cloudinary.provider";
+import { CloudinaryService } from "./cloudinary/cloudinary.service";
 
 @Module({
   imports: [
@@ -21,6 +23,6 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     CloudinaryModule,
   ],
   controllers: [AppController, FoodController],
-  providers: [AppService, FoodService],
+  providers: [AppService, FoodService, CloudinaryProvider, CloudinaryService],
 })
 export class AppModule {}

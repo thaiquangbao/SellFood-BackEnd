@@ -7,15 +7,35 @@ import {
   Post,
   Put,
   Res,
+  UploadedFile,
+  UseInterceptors,
 } from "@nestjs/common";
 import { FoodService } from "./food.service";
 import { Category, Food } from "./entity/food.entity";
 import { FoodDTO, FoodDTOUpdate } from "./dto/food.dto";
 import { Response } from "express";
+import { CloudinaryService } from "src/cloudinary/cloudinary.service";
+import { FileInterceptor } from "@nestjs/platform-express";
 
 @Controller("foods")
 export class FoodController {
-  constructor(private foodService: FoodService) {}
+  constructor(
+    private foodService: FoodService,
+    private cloudinaryService: CloudinaryService,
+  ) {}
+
+  @Post("uploads")
+  @UseInterceptors(FileInterceptor("files"))
+  async uploadImage(@UploadedFile() file: Express.Multer.File) {
+    try {
+      const result = await this.cloudinaryService.uploadFile(file.path);
+      console.log(result);
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   @Get()
   async getAllFood(@Res() res: Response) {
     const foods = await this.foodService.findAllFood();

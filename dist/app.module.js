@@ -16,6 +16,9 @@ const mongoose_1 = require("@nestjs/mongoose");
 const food_entity_1 = require("./food/entity/food.entity");
 const food_controller_1 = require("./food/food.controller");
 const food_service_1 = require("./food/food.service");
+const cloudinary_module_1 = require("./cloudinary/cloudinary.module");
+const cloudinary_provider_1 = require("./cloudinary/cloudinary.provider");
+const cloudinary_service_1 = require("./cloudinary/cloudinary.service");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -29,9 +32,10 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forRoot(process.env.MONGO_DB),
             food_module_1.FoodModule,
             mongoose_1.MongooseModule.forFeature([{ name: "Food", schema: food_entity_1.FoodSchema }]),
+            cloudinary_module_1.CloudinaryModule,
         ],
         controllers: [app_controller_1.AppController, food_controller_1.FoodController],
-        providers: [app_service_1.AppService, food_service_1.FoodService],
+        providers: [app_service_1.AppService, food_service_1.FoodService, cloudinary_provider_1.CloudinaryProvider, cloudinary_service_1.CloudinaryService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
