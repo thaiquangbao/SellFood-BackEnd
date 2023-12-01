@@ -4,18 +4,19 @@ import { CloudinaryResponse } from "./cloudinary-response";
 
 @Injectable()
 export class CloudinaryService {
-  uploadFile(filePath: string): Promise<CloudinaryResponse> {
+  uploadFileFromBuffer(fileBuffer: Buffer): Promise<CloudinaryResponse> {
     return new Promise<CloudinaryResponse>((resolve, reject) => {
-      cloudinary.uploader.upload(
-        filePath,
-        { folder: "Restaurant-Food" },
-        (error, result) => {
-          if (error) {
-            return reject(error);
-          }
-          resolve(result);
-        },
-      );
+      cloudinary.uploader
+        .upload_stream(
+          { resource_type: "image", folder: "Restaurant-Food" }, // Thêm tùy chọn folder
+          (error, result) => {
+            if (error) {
+              return reject(error);
+            }
+            resolve(result);
+          },
+        )
+        .end(fileBuffer);
     });
   }
 }

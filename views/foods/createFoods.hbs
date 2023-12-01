@@ -28,8 +28,8 @@
                     <div class="changeava">
                         <img id="imgFood" data-origin="https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" src= "https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" alt="" class="ava">
                             <div class="form-ava" style="margin-top: 40px;" >
-                                <input type="file" class="image-user" name="img"  accept=".jpg, .png"/><br>
-                                
+
+                                <input type="file" class="image-user" id="imageUpload" name="img" accept=".jpg, .png" onchange="previewImage(this)"/><br>
                             </div> 
                     </div>    
                 </div> 
@@ -50,7 +50,19 @@
             <button onclick="addFood()" class="btn btn-primary" style="margin-left: 350px; width: 1000px; height: 40px;" >Thêm</button>
         </div>
     </div>
+    
 <script>
+    function previewImage(input) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        $('#imgFood').attr('src', e.target.result);
+    };
+
+    if (input.files && input.files[0]) {
+        reader.readAsDataURL(input.files[0]);
+    }
+}
         function addFood(){
             var ten = $('#nameFood').val();
             var gia = $('#price').val();
@@ -59,8 +71,10 @@
             var anh = $('#imgFood').attr('src');
             var noiBat = $('#noiBat').val();
             var tenInHoa = ten.toUpperCase();
-            
-        if (ten.trim() === '') {
+            var imageFile = $('#imageUpload')[0].files[0];
+            var formData = new FormData();
+             formData.append("file", imageFile);
+             if (ten.trim() === '') {
             alert('Vui lòng nhập tên món ăn');
             return;
         }
@@ -83,30 +97,47 @@
             return;
         }
 
-        if (anh.trim() === '') {
+        if (!imageFile) {
             alert('Vui lòng chọn hình ảnh');
             return;
         }
-
             $.ajax({
-            url:'/foods/insertFood',
-                type:'POST',
-                data:{
-                    nameFood:ten,
-                    price:gia,
-                    describe:moTa,
-                    category:loai,
-                    img: anh,
-                    noiBat:noiBat
-                }
+            url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false
             })
-            .then(data =>{
-                alert("Thêm món ăn thành công");
-                window.location.href='/foods'
+            .then((cloudinaryResponse) => {
+                // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
+                var imageUrl = cloudinaryResponse.secure_url;
+                 $.ajax({
+                    url:'/foods/insertFood',
+                        type:'POST',
+                        data:{
+                            nameFood:ten,
+                            price:gia,
+                            describe:moTa,
+                            category:loai,
+                            img: imageUrl,
+                            noiBat:noiBat
+                        }
+                    })
+                    .then(data =>{
+                        alert("Thêm món ăn thành công");
+                        window.location.href='/foods'
+                    })
+                    .catch(error=>{
+                        alert("Lỗi")
+                    })
+                
             })
-            .catch(error=>{
-                alert("Lỗi")
-            })
+            .catch((error) => {
+                alert('Lỗi khi tải lên hình ảnh');
+                
+            }); 
         }
 
     </script>
+     
+   

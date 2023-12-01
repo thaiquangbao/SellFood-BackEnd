@@ -10,14 +10,16 @@ exports.CloudinaryService = void 0;
 const common_1 = require("@nestjs/common");
 const cloudinary_1 = require("cloudinary");
 let CloudinaryService = class CloudinaryService {
-    uploadFile(filePath) {
+    uploadFileFromBuffer(fileBuffer) {
         return new Promise((resolve, reject) => {
-            cloudinary_1.v2.uploader.upload(filePath, { folder: "Restaurant-Food" }, (error, result) => {
+            cloudinary_1.v2.uploader
+                .upload_stream({ resource_type: "image", folder: "Restaurant-Food" }, (error, result) => {
                 if (error) {
                     return reject(error);
                 }
                 resolve(result);
-            });
+            })
+                .end(fileBuffer);
         });
     }
 };

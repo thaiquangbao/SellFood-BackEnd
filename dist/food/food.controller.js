@@ -26,8 +26,7 @@ let FoodController = class FoodController {
     }
     async uploadImage(file) {
         try {
-            const result = await this.cloudinaryService.uploadFile(file.path);
-            console.log(result);
+            const result = await this.cloudinaryService.uploadFileFromBuffer(file.buffer);
             return result;
         }
         catch (error) {
@@ -58,7 +57,7 @@ let FoodController = class FoodController {
 exports.FoodController = FoodController;
 __decorate([
     (0, common_1.Post)("uploads"),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)("files")),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)("file")),
     __param(0, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

@@ -25,11 +25,12 @@ export class FoodController {
   ) {}
 
   @Post("uploads")
-  @UseInterceptors(FileInterceptor("files"))
+  @UseInterceptors(FileInterceptor("file"))
   async uploadImage(@UploadedFile() file: Express.Multer.File) {
     try {
-      const result = await this.cloudinaryService.uploadFile(file.path);
-      console.log(result);
+      const result = await this.cloudinaryService.uploadFileFromBuffer(
+        file.buffer,
+      );
       return result;
     } catch (error) {
       console.log(error);

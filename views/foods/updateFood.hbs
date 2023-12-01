@@ -4,19 +4,19 @@
             <div class="row g-3" style="margin-left: 150px; margin-top: 30px; " >
                 <div class="col">
                     <label style="margin-bottom: 10px;">Tên món ăn</label>
-                    <input type="text" class="form-control" value="{{food.nameFood}}" id="nameFood" placeholder="Tên món ăn" style="width: 500px;">
+                    <input type="text" class="form-control" data-origin="{{food.nameFood}}" value="{{food.nameFood}}" id="nameFood" placeholder="Tên món ăn" style="width: 500px;">
                 </div>
                 <div class="col">
                     <label style="margin-bottom: 10px;">Giá</label>
-                    <input type="text" class="form-control" id="price" value="{{food.price}}" placeholder="Giá" style="width: 500px;">
+                    <input type="text" class="form-control" id="price" data-origin="{{food.price}}" value="{{food.price}}" placeholder="Giá" style="width: 500px;">
                 </div>
                 <div class="col">
                     <label style="margin-bottom: 10px;">Mô tả về món ăn</label>
-                    <input type="text" class="form-control" id="moTa" value="{{food.describe}}" placeholder="Mô tả" style="width: 500px;">
+                    <input type="text" class="form-control" id="moTa" data-origin="{{food.describe}}" value="{{food.describe}}" placeholder="Mô tả" style="width: 500px;">
                 </div>
                 <div class="col ">
                     <label style="margin-bottom: 10px;">Loại món ăn</label>
-                    <select class="form-control form-select mb-3" id="category" aria-label=".form-select-lg example" style="width: 500px;">
+                    <select data-origin="{{food.category}}" class="form-control form-select mb-3" id="category" aria-label=".form-select-lg example" style="width: 500px;">
                         <option value="{{food.category}}">{{food.category}}</option>
                     {{#each Category}}
                         <option value="{{this}}">{{this}}</option>
@@ -25,7 +25,7 @@
                 </div>
                 <div id="form-picture" class="col">
                     <div class="changeava">
-                        <img id="imgFood" data-origin="https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" src= "{{food.img}}" alt="" class="ava">
+                        <img id="imgFood" data-origin="{{food.img}}" src= "{{food.img}}" alt="" class="ava">
                             <div class="form-ava" style="margin-top: 40px;" >
                                 <input type="file" class="image-user" name="img"  accept=".jpg, .png"/><br>
                                 
