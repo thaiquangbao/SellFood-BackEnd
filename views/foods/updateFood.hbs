@@ -27,14 +27,14 @@
                     <div class="changeava">
                         <img id="imgFood" data-origin="{{food.img}}" src= "{{food.img}}" alt="" class="ava">
                             <div class="form-ava" style="margin-top: 40px;" >
-                                <input type="file" class="image-user" name="img"  accept=".jpg, .png"/><br>
+                                <input type="file" class="image-user" id="imageUpload" name="img" accept=".jpg, .png" onchange="previewImage(this)"/><br>
                                 
                             </div> 
                     </div>    
                 </div> 
             <div class="col ">
                     <label style="margin-bottom: 10px;">Nổi bật</label>
-                    <select id="noiBat" class="form-control form-select mb-3" aria-label=".form-select-lg example" style="width: 500px;">
+                    <select data-origin="{{food.noiBat}}" id="noiBat" class="form-control form-select mb-3" aria-label=".form-select-lg example" style="width: 500px;">
                         <option value="{{food.noiBat}}">{{food.noiBat}}</option>
                         <option value="Có">Có</option>
                         <option value="Không">Không</option>
@@ -51,6 +51,17 @@
         </div>
     </div>
 <script>
+    function previewImage(input) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        $('#imgFood').attr('src', e.target.result);
+    };
+
+    if (input.files && input.files[0]) {
+        reader.readAsDataURL(input.files[0]);
+    }
+}
         function updateFood(id){
             var ten = $('#nameFood').val();
             var gia = $('#price').val();
@@ -59,7 +70,20 @@
             var anh = $('#imgFood').attr('src');
             var noiBat = $('#noiBat').val();
             var tenInHoa = ten.toUpperCase();
-            
+             var originTen = $('#nameFood').data('origin');
+            var originGia = $('#price').data('origin');
+            var originMoTa = $('#moTa').data('origin');
+            var originLoai = $('#category').data('origin');
+            var originAnh = $('#imgFood').data('origin');
+            var originNoiBat = $('#noiBat').data('origin');
+            var imageFile = $('#imageUpload')[0].files[0];
+            var formData = new FormData();
+             formData.append("file", imageFile);
+        if (ten === originTen && gia === String(originGia) && moTa === originMoTa && loai === originLoai && anh === originAnh && noiBat === originNoiBat) {
+        alert('Không có dữ liệu nào được thay đổi');
+            window.location.href='/foods'
+        return;
+        }
         if (ten.trim() === '') {
             alert('Vui lòng nhập tên món ăn');
             return;
@@ -87,26 +111,70 @@
             alert('Vui lòng chọn hình ảnh');
             return;
         }
-
+        if(anh === originAnh){
+           $.ajax({
+                url:'/foods/updateFood/'+id,
+                    type:'PUT',
+                    data:{
+                        nameFood:ten,
+                        price:gia,
+                        describe:moTa,
+                        category:loai,
+                        img: anh,
+                        noiBat:noiBat
+                    }
+                })
+                .then(data =>{
+                    alert("Cập nhật món ăn thành công");
+                    window.location.href='/foods'
+                })
+                .catch(error=>{
+                    alert("Lỗi")
+                })
+        }
+        else{
             $.ajax({
-            url:'/foods/updateFood/'+id,
-                type:'PUT',
-                data:{
-                    nameFood:ten,
-                    price:gia,
-                    describe:moTa,
-                    category:loai,
-                    img: anh,
-                    noiBat:noiBat
-                }
+            url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false
             })
-            .then(data =>{
-                alert("Cập nhật món ăn thành công");
-                window.location.href='/foods'
+            .then((cloudinaryResponse) => {
+                // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
+                var imageUrl = cloudinaryResponse.secure_url;
+                 $.ajax({
+                url:'/foods/updateFood/'+id,
+                    type:'PUT',
+                    data:{
+                        nameFood:ten,
+                        price:gia,
+                        describe:moTa,
+                        category:loai,
+                        img: imageUrl,
+                        noiBat:noiBat
+                    }
+                })
+                .then(data =>{
+                    alert("Cập nhật món ăn thành công");
+                    window.location.href='/foods'
+                })
+                .catch(error=>{
+                    alert("Lỗi")
+                })
+                
             })
-            .catch(error=>{
-                alert("Lỗi")
-            })
+            .catch((error) => {
+                alert('Lỗi khi tải lên hình ảnh');
+                
+            }); 
         }
 
+            
+           
+    }
+
     </script>
+{{!--     
+            
+            --}}
