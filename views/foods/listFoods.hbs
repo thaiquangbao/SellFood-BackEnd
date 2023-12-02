@@ -103,36 +103,43 @@
     const result = parts.slice(-2).join('/'); // Lấy hai phần tử cuối cùng và nối lại
     const cut = result.split('.')
     const deleteImageDto = cut[0]
-    $.ajax({
+    var confirmation = confirm("Bạn chắc có muốn xóa món ăn này không :<<");
+    if (confirmation) {
+        $.ajax({
         url:"foods/deleteCloud",
             type:"POST",
             data:{
                imgDTO:deleteImageDto
             }
             
-    })
-    .then(data =>{
-        if(data.code === 200){
-            $.ajax({
-                url:'/foods/deleteFood/'+id,
-                type:'DELETE'
-            })
-            .then(data =>{
-                alert("Xóa thành công")
-                window.location.reload();
-            })
-            .catch(error=>{
-                alert("Lỗi hệ thống")
-            })
-        }
-        else if(data.code === 500){
-            alert("Lỗi không thế xóa ảnh")
-        }
-    })
-    .catch(error =>{
-        alert("Lỗi xóa ảnh")
-    })
+        })
+        .then(data =>{
+            if(data.code === 200){
+                $.ajax({
+                    url:'/foods/deleteFood/'+id,
+                    type:'DELETE'
+                })
+                .then(data =>{
+                    alert("Xóa thành công")
+                    window.location.reload();
+                })
+                .catch(error=>{
+                    alert("Lỗi hệ thống")
+                })
+            }
+            else if(data.code === 500){
+                alert("Lỗi không thế xóa ảnh")
+            }
+        })
+        .catch(error =>{
+            alert("Lỗi xóa ảnh")
+        })
 
+    }
+    else{
+        window.location.reload();
+    }
+    
 
     
   }
