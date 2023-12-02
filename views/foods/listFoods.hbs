@@ -106,7 +106,7 @@
     var confirmation = confirm("Bạn chắc có muốn xóa món ăn này không :<<");
     if (confirmation) {
         $.ajax({
-        url:"foods/deleteCloud",
+        url:"/foods/deleteCloud",
             type:"POST",
             data:{
                imgDTO:deleteImageDto

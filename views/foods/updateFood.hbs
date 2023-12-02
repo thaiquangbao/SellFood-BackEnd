@@ -24,6 +24,7 @@
                     </select>
                 </div>
                 <div id="form-picture" class="col">
+                    <label style="margin-bottom: 10px;">Ảnh món ảnh</label>
                     <div class="changeava">
                         <img id="imgFood" data-origin="{{food.img}}" src= "{{food.img}}" alt="" class="ava">
                             <div class="form-ava" style="margin-top: 40px;" >
@@ -133,41 +134,62 @@
                 })
         }
         else{
+                const imageUrl = String(originAnh);
+                
+                const parts = imageUrl.split('/');
+                const result = parts.slice(-2).join('/'); // Lấy hai phần tử cuối cùng và nối lại
+                const cut = result.split('.')
+                const deleteImageDto = cut[0]
+                
             $.ajax({
-            url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false
-            })
-            .then((cloudinaryResponse) => {
-                // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
-                var imageUrl = cloudinaryResponse.secure_url;
-                 $.ajax({
-                url:'/foods/updateFood/'+id,
-                    type:'PUT',
+                url:"/foods/deleteCloud",
+                    type:"POST",
                     data:{
-                        nameFood:ten,
-                        price:gia,
-                        describe:moTa,
-                        category:loai,
-                        img: imageUrl,
-                        noiBat:noiBat
-                    }
+                    imgDTO:deleteImageDto
+                    } 
                 })
                 .then(data =>{
-                    alert("Cập nhật món ăn thành công");
-                    window.location.href='/foods'
+                   
+                    $.ajax({
+                        url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false
+                        })
+                        .then((cloudinaryResponse) => {
+                            // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
+                            var imageUrl = cloudinaryResponse.secure_url;
+                            $.ajax({
+                            url:'/foods/updateFood/'+id,
+                                type:'PUT',
+                                data:{
+                                    nameFood:ten,
+                                    price:gia,
+                                    describe:moTa,
+                                    category:loai,
+                                    img: imageUrl,
+                                    noiBat:noiBat
+                                }
+                            })
+                            .then(data =>{
+                                alert("Cập nhật món ăn thành công");
+                                window.location.href='/foods'
+                            })
+                            .catch(error=>{
+                                alert("Lỗi")
+                            })
+                    
+                    })
+                    .catch((error) => {
+                        alert('Lỗi khi tải lên hình ảnh');
+                        
+                    });
                 })
-                .catch(error=>{
-                    alert("Lỗi")
+                .catch(error =>{
+                    alert("Lỗi xóa ảnh")
                 })
-                
-            })
-            .catch((error) => {
-                alert('Lỗi khi tải lên hình ảnh');
-                
-            }); 
+             
         }
 
             
