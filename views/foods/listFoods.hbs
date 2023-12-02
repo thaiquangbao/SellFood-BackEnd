@@ -64,7 +64,7 @@
                     
                     <td style="text-align: center;">
                         <a href="/foods/{{this.id}}" class="btn btn-link ">Sửa</a>
-                        <button onclick="deleteOne('{{this.id}}')" data-toggle="modal" data-id="{{this.id}}" data-target="#delete-modal" class="btn btn-link ">Xóa</button>
+                        <button onclick="deleteOne('{{this.id}}','{{this.img}}')" data-toggle="modal" data-id="{{this.id}}" data-target="#delete-modal" class="btn btn-link ">Xóa</button>
                     </td>
                     </tr>
                     {{else}}
@@ -97,8 +97,32 @@
   function changePage(){
     window.location.href='/foods/formAddFoods'
   }
-  function deleteOne(id){
+  function deleteOne(id,avafood){
+    const imageUrl = avafood;
+    const parts = imageUrl.split('/');
+    const result = parts.slice(-2).join('/'); // Lấy hai phần tử cuối cùng và nối lại
+    const cut = result.split('.')
+    const deleteImageDto = cut[0]
     $.ajax({
+        url:"foods/deleteCloud",
+            type:"POST",
+            data:{
+               imgDTO:deleteImageDto
+            }
+            
+    })
+    .then(data =>{
+        alert("OK")
+    })
+    .catch(error =>{
+        alert("Lỗi xóa ảnh")
+    })
+
+
+    
+  }
+</script>
+{{!-- $.ajax({
         url:'/foods/deleteFood/'+id,
         type:'DELETE'
     })
@@ -108,6 +132,4 @@
     })
     .catch(error=>{
         alert("Lỗi hệ thống")
-    })
-  }
-</script>
+    }) --}}

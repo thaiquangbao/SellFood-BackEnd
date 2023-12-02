@@ -12,7 +12,7 @@ import {
 } from "@nestjs/common";
 import { FoodService } from "./food.service";
 import { Category, Food } from "./entity/food.entity";
-import { FoodDTO, FoodDTOUpdate } from "./dto/food.dto";
+import { FoodDTO, FoodDTOUpdate, ImgCloud } from "./dto/food.dto";
 import { Response } from "express";
 import { CloudinaryService } from "src/cloudinary/cloudinary.service";
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -36,7 +36,16 @@ export class FoodController {
       console.log(error);
     }
   }
-
+  @Post("deleteCloud")
+  async deleteImage(@Body() deleteImageDto: ImgCloud) {
+    try {
+      const { imgDTO } = deleteImageDto;
+      const result = await this.cloudinaryService.deleteImage(imgDTO);
+      return result;
+    } catch (error) {
+      throw new Error("Error deleting image from Cloudinary");
+    }
+  }
   @Get()
   async getAllFood(@Res() res: Response) {
     const foods = await this.foodService.findAllFood();

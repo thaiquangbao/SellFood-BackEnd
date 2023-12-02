@@ -19,4 +19,14 @@ export class CloudinaryService {
         .end(fileBuffer);
     });
   }
+  deleteImage(publicId: string): Promise<CloudinaryResponse> {
+    return new Promise<CloudinaryResponse>((resolve, reject) => {
+      cloudinary.uploader.destroy(publicId, (error, result) => {
+        if (error) {
+          return reject(error);
+        }
+        resolve(result);
+      });
+    });
+  }
 }

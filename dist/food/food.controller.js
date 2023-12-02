@@ -33,6 +33,16 @@ let FoodController = class FoodController {
             console.log(error);
         }
     }
+    async deleteImage(deleteImageDto) {
+        try {
+            const { imgDTO } = deleteImageDto;
+            const result = await this.cloudinaryService.deleteImage(imgDTO);
+            return result;
+        }
+        catch (error) {
+            throw new Error("Error deleting image from Cloudinary");
+        }
+    }
     async getAllFood(res) {
         const foods = await this.foodService.findAllFood();
         return res.render("foods/listFoods", { foods });
@@ -63,6 +73,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], FoodController.prototype, "uploadImage", null);
+__decorate([
+    (0, common_1.Post)("deleteCloud"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [food_dto_1.ImgCloud]),
+    __metadata("design:returntype", Promise)
+], FoodController.prototype, "deleteImage", null);
 __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Res)()),

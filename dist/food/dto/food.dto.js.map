@@ -1,1 +1,1 @@
-{"version":3,"file":"food.dto.js","sourceRoot":"","sources":["../../../src/food/dto/food.dto.ts"],"names":[],"mappings":";;;AAEA,MAAa,OAAO;CAQnB;AARD,0BAQC;AAED,MAAa,aAAa;CAOzB;AAPD,sCAOC"}
+{"version":3,"file":"food.dto.js","sourceRoot":"","sources":["../../../src/food/dto/food.dto.ts"],"names":[],"mappings":";;;AAEA,MAAa,OAAO;CAQnB;AARD,0BAQC;AAED,MAAa,aAAa;CAOzB;AAPD,sCAOC;AACD,MAAa,QAAQ;CAEpB;AAFD,4BAEC"}

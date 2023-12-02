@@ -16,3 +16,6 @@ export declare class FoodDTOUpdate {
     readonly img: string;
     readonly noiBat: string;
 }
+export declare class ImgCloud {
+    imgDTO: string;
+}

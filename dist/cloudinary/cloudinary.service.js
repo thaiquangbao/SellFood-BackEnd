@@ -22,6 +22,16 @@ let CloudinaryService = class CloudinaryService {
                 .end(fileBuffer);
         });
     }
+    deleteImage(publicId) {
+        return new Promise((resolve, reject) => {
+            cloudinary_1.v2.uploader.destroy(publicId, (error, result) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve(result);
+            });
+        });
+    }
 };
 exports.CloudinaryService = CloudinaryService;
 exports.CloudinaryService = CloudinaryService = __decorate([
