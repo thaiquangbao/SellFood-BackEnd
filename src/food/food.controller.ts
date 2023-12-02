@@ -37,11 +37,13 @@ export class FoodController {
     }
   }
   @Post("deleteCloud")
-  async deleteImage(@Body() deleteImageDto: ImgCloud) {
+  async deleteImage(@Body() deleteImageDto: ImgCloud, @Res() res: Response) {
     try {
       const { imgDTO } = deleteImageDto;
       const result = await this.cloudinaryService.deleteImage(imgDTO);
-      return result;
+      if (result === "ok") {
+        res.json({ code: 200 });
+      }
     } catch (error) {
       throw new Error("Error deleting image from Cloudinary");
     }

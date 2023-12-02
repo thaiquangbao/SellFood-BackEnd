@@ -33,11 +33,13 @@ let FoodController = class FoodController {
             console.log(error);
         }
     }
-    async deleteImage(deleteImageDto) {
+    async deleteImage(deleteImageDto, res) {
         try {
             const { imgDTO } = deleteImageDto;
             const result = await this.cloudinaryService.deleteImage(imgDTO);
-            return result;
+            if (result === "ok") {
+                res.json({ code: 200 });
+            }
         }
         catch (error) {
             throw new Error("Error deleting image from Cloudinary");
@@ -76,8 +78,9 @@ __decorate([
 __decorate([
     (0, common_1.Post)("deleteCloud"),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [food_dto_1.ImgCloud]),
+    __metadata("design:paramtypes", [food_dto_1.ImgCloud, Object]),
     __metadata("design:returntype", Promise)
 ], FoodController.prototype, "deleteImage", null);
 __decorate([

@@ -9,7 +9,7 @@ export declare class FoodController {
     private cloudinaryService;
     constructor(foodService: FoodService, cloudinaryService: CloudinaryService);
     uploadImage(file: Express.Multer.File): Promise<import("../cloudinary/cloudinary-response").CloudinaryResponse>;
-    deleteImage(deleteImageDto: ImgCloud): Promise<import("../cloudinary/cloudinary-response").CloudinaryResponse>;
+    deleteImage(deleteImageDto: ImgCloud, res: Response): Promise<void>;
     getAllFood(res: Response): Promise<void>;
     getFormFood(res: Response): Promise<void>;
     addFood(food: FoodDTO): Promise<Food>;
