@@ -41,8 +41,10 @@ export class FoodController {
     try {
       const { imgDTO } = deleteImageDto;
       const result = await this.cloudinaryService.deleteImage(imgDTO);
-      if (result === "ok") {
+      if (result.result === "ok") {
         res.json({ code: 200 });
+      } else {
+        res.json({ code: 500 });
       }
     } catch (error) {
       throw new Error("Error deleting image from Cloudinary");
