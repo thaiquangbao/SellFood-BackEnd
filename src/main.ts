@@ -2,8 +2,8 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { join } from "path";
 import { NestExpressApplication } from "@nestjs/platform-express/interfaces";
-import * as hbs from "hbs";
-import * as hbsUtils from "hbs-utils";
+//import * as hbs from "hbs";
+//import * as hbsUtils from "hbs-utils";
 import * as handlebars from "handlebars";
 import * as fs from "fs";
 async function bootstrap() {
@@ -19,9 +19,9 @@ async function bootstrap() {
     handlebars.registerPartial(layout, layoutContent);
   });
   //hbsUtils(hbs).registerPartials(join(__dirname, "..", "views/layouts"));
-  hbsUtils(hbs).registerWatchedPartials(
-    join(__dirname, "..", "views/partials"),
-  );
+  // hbsUtils(handlebars).registerWatchedPartials(
+  //   join(__dirname, "..", "views/partials"),
+  // );
   app.setViewEngine("hbs");
   app.set("view options", {
     layout: "layouts/main",
