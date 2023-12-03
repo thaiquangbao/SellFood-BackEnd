@@ -11,7 +11,7 @@
                 <label class="form-check-label" for="checkBox-all" style="margin-left: 15px;">
                     Chọn tất cả
                 </label>
-                <a href="" data-toggle="modal" class="btn btn-primary disabled btn-deleteAll" data-target="#deleteAll-modal" >Xóa tất cả</a>
+                <button onclick="deleteAll()" class="btn btn-primary disabled btn-deleteAll"  style="margin-left: 15px" >Xóa tất cả</button>
             </div>
             
         </div>
@@ -47,7 +47,7 @@
                     <tr>
                     <td>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="courseItem[]" value="{{this._id}}">
+                            <input class="form-check-input" type="checkbox" name="foodItem[]" value="{{this.id}}" data-img="{{this.img}}">
 
                         </div>
                     </td>
@@ -143,4 +143,131 @@
 
     
   }
+</script>
+<script>
+    var checkBoxAll = document.querySelectorAll('#checkBox-all')
+    var checkBoxItem = document.querySelectorAll('input[name="foodItem[]"]')
+    var deleteAllBtn = document.querySelectorAll('.btn-deleteAll')
+    var deleteAll = document.querySelectorAll('#btn-delete-all')
+ 
+
+    document.addEventListener('DOMContentLoaded',()=>{
+        checkBoxAll.forEach((checkAll) =>{
+            checkAll.addEventListener('click',(e)=>{
+                var isCheckedAll = e.target.checked;
+                checkBoxItem.forEach((checkItem)=>{
+                    checkItem.checked=isCheckedAll
+                        
+                    })
+                    ableCheckBox()
+                })
+            });
+        
+        checkBoxItem.forEach((check) =>{
+            check.addEventListener('click',(e) =>{
+                var isCheckedAll = checkBoxItem.length === document.querySelectorAll('input[name="foodItem[]"]:checked').length;
+                checkBoxAll.forEach(checkAll=>
+                checkAll.checked = isCheckedAll
+                
+                )
+                ableCheckBox()
+            })
+        })
+        function ableCheckBox(){
+            var checkedCount = document.querySelectorAll('input[name="foodItem[]"]:checked').length;
+            if(checkedCount > 0)
+            {
+                deleteAllBtn.forEach(btn => btn.classList.remove('disabled'))
+            }
+            else{
+                deleteAllBtn.forEach(btn => btn.classList.add('disabled'))
+            }
+        }
+        
+     
+    
+        
+    })
+    	
+
+</script>
+<script>
+function deleteAll() {
+        var isSubmitable = !$('.btn-deleteAll').hasClass('disabled');
+        if(isSubmitable)
+        {
+            var ids = [];
+            var anhes = [];
+            // Sử dụng jQuery để lặp qua các hộp kiểm đã chọn
+            $('input[name="foodItem[]"]:checked').each(function() {
+                ids.push($(this).val());
+                anhes.push($(this).data('img'))
+            });
+            
+            deleteCheckBox(ids,anhes);
+        }
+        function deleteCheckBox(ids,anhes){
+            $.ajax({
+                url:"/foods/deleteCheckBox",
+                type:"DELETE",
+                data:{
+                    ids: ids
+                }
+            })
+            .then(data =>{
+                if(data.code === 200){
+                    $.ajax({
+                        url: "/foods/deleteAllImg",
+                        type:"POST",
+                        data:{
+                            imgs: anhes
+                        }
+                    })
+                    .then(data =>{
+                        alert("Xóa món ăn thành ông");
+                        window.location.reload();
+                    })
+                    .catch(error =>{
+                        alert("Lỗi xóa ảnh")
+                    })
+                }
+                else{
+                    alert("Không thể xóa món ăn")
+                }
+            })
+            .catch(error =>{
+                alert("Lỗi xóa món ăn")
+            })
+        }
+     
+    }
+
+</script>
+<script>
+function formatPrice(priceString) {
+    // Trích xuất phần số và chuyển đổi thành số
+    const numericPart = parseFloat(priceString.replace(/[^\d.-]/g, ''));
+
+    // Kiểm tra xem numericPart có phải là số hợp lệ không
+    if (!isNaN(numericPart)) {
+        // Định dạng số với dấu chấm mỗi ba chữ số
+        const formattedPrice = numericPart.toLocaleString('vi-VN');
+        
+        // Nối " VND" lại với giá đã định dạng
+        return formattedPrice + ' VND';
+    }
+
+    // Trả lại chuỗi gốc nếu quá trình chuyển đổi thất bại
+    return priceString;
+}
+
+// Lặp qua mỗi hàng trong tbody và định dạng giá trong cột "Giá"
+document.querySelectorAll('.table-students tbody tr').forEach(row => {
+    const priceCell = row.querySelector('td:nth-child(4)');
+    const originalPrice = priceCell.textContent.trim();
+    
+    // Định dạng và cập nhật nội dung trong cột "Giá"
+    priceCell.textContent = formatPrice(originalPrice);
+});
+
 </script>

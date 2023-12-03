@@ -56,6 +56,9 @@ let FoodService = class FoodService {
             return false;
         }
     }
+    async deleteAll(ids) {
+        return this.foodEntity.deleteMany({ _id: { $in: ids } });
+    }
 };
 exports.FoodService = FoodService;
 exports.FoodService = FoodService = __decorate([

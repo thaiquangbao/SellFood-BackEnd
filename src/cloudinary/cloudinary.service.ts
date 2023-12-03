@@ -29,4 +29,9 @@ export class CloudinaryService {
       });
     });
   }
+  async deleteAllImg(imgs: string[]) {
+    return imgs.forEach((e) => {
+      cloudinary.uploader.destroy(e);
+    });
+  }
 }

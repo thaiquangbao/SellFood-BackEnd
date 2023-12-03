@@ -7,6 +7,8 @@ export declare class FoodDTO {
     readonly category: Category;
     readonly img: string;
     readonly noiBat: string;
+    readonly ids: string[];
+    readonly imgs: string[];
 }
 export declare class FoodDTOUpdate {
     readonly nameFood: string;

@@ -112,4 +112,24 @@ export class FoodController {
       res.json({ code: 200 });
     }
   }
+  @Delete("deleteCheckBox")
+  async deleteAllFood(@Body() food: FoodDTO, @Res() res: Response) {
+    const result = await this.foodService.deleteAll(food.ids);
+    if (result.deletedCount > 0) {
+      res.json({ code: 200 });
+    } else {
+      res.json({ code: 500 });
+    }
+  }
+  @Post("deleteAllImg")
+  async deleteAllI(@Body() food: FoodDTO) {
+    food.imgs.forEach(async (e) => {
+      const imageUrl = e;
+      const parts = imageUrl.split("/");
+      const result = parts.slice(-2).join("/"); // Lấy hai phần tử cuối cùng và nối lại
+      const cut = result.split(".");
+      const deleteImageDto = cut[0];
+      await this.cloudinaryService.deleteImage(deleteImageDto);
+    });
+  }
 }

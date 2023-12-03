@@ -16,4 +16,6 @@ export declare class FoodController {
     deleteOneFood(id: string): Promise<void>;
     updateFood(id: string, food: FoodDTOUpdate, res: Response): Promise<void>;
     checkNameFood(food: FoodDTO, res: Response): Promise<void>;
+    deleteAllFood(food: FoodDTO, res: Response): Promise<void>;
+    deleteAllI(food: FoodDTO): Promise<void>;
 }

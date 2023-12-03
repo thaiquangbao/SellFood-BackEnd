@@ -8,6 +8,8 @@ export class FoodDTO {
   readonly category: Category;
   readonly img: string;
   readonly noiBat: string;
+  readonly ids: string[];
+  readonly imgs: string[];
 }
 
 export class FoodDTOUpdate {

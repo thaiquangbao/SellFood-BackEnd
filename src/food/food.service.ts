@@ -44,4 +44,7 @@ export class FoodService {
       return false;
     }
   }
+  async deleteAll(ids: string[]) {
+    return this.foodEntity.deleteMany({ _id: { $in: ids } });
+  }
 }

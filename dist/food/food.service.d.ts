@@ -33,4 +33,5 @@ export declare class FoodService {
     deleteOne(id: string): Promise<boolean>;
     updateFood(id: string, food: Food): Promise<Food>;
     checkNameFood(nameFood: string): Promise<boolean>;
+    deleteAll(ids: string[]): Promise<mongoose.mongo.DeleteResult>;
 }

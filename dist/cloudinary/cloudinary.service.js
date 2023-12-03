@@ -32,6 +32,11 @@ let CloudinaryService = class CloudinaryService {
             });
         });
     }
+    async deleteAllImg(imgs) {
+        return imgs.forEach((e) => {
+            cloudinary_1.v2.uploader.destroy(e);
+        });
+    }
 };
 exports.CloudinaryService = CloudinaryService;
 exports.CloudinaryService = CloudinaryService = __decorate([

@@ -101,6 +101,25 @@ let FoodController = class FoodController {
             res.json({ code: 200 });
         }
     }
+    async deleteAllFood(food, res) {
+        const result = await this.foodService.deleteAll(food.ids);
+        if (result.deletedCount > 0) {
+            res.json({ code: 200 });
+        }
+        else {
+            res.json({ code: 500 });
+        }
+    }
+    async deleteAllI(food) {
+        food.imgs.forEach(async (e) => {
+            const imageUrl = e;
+            const parts = imageUrl.split("/");
+            const result = parts.slice(-2).join("/");
+            const cut = result.split(".");
+            const deleteImageDto = cut[0];
+            await this.cloudinaryService.deleteImage(deleteImageDto);
+        });
+    }
 };
 exports.FoodController = FoodController;
 __decorate([
@@ -173,6 +192,21 @@ __decorate([
     __metadata("design:paramtypes", [food_dto_1.FoodDTO, Object]),
     __metadata("design:returntype", Promise)
 ], FoodController.prototype, "checkNameFood", null);
+__decorate([
+    (0, common_1.Delete)("deleteCheckBox"),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [food_dto_1.FoodDTO, Object]),
+    __metadata("design:returntype", Promise)
+], FoodController.prototype, "deleteAllFood", null);
+__decorate([
+    (0, common_1.Post)("deleteAllImg"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [food_dto_1.FoodDTO]),
+    __metadata("design:returntype", Promise)
+], FoodController.prototype, "deleteAllI", null);
 exports.FoodController = FoodController = __decorate([
     (0, common_1.Controller)("foods"),
     __metadata("design:paramtypes", [food_service_1.FoodService,
