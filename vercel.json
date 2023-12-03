@@ -14,10 +14,5 @@
         "dest": "src/main.ts"
         
       }
-    ],
-    "functions": {
-      "/**/*.ts": {
-        "runtime": "@vercel/node"
-      }
-    }
+    ]
   }
