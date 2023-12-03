@@ -9,7 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(__dirname, "..", "public"));
   app.setBaseViewsDir(join(__dirname, "..", "views"));
-  hbs.registerPartials(join(__dirname, "..", "views/layouts"));
+  hbsUtils(hbs).registerPartials(join(__dirname, "..", "views/layouts"));
   hbsUtils(hbs).registerWatchedPartials(
     join(__dirname, "..", "views/partials"),
   );
