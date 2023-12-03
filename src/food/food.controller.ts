@@ -11,7 +11,7 @@ import {
   UseInterceptors,
 } from "@nestjs/common";
 import { FoodService } from "./food.service";
-import { Category, Food } from "./entity/food.entity";
+import { Category } from "./entity/food.entity";
 import { FoodDTO, FoodDTOUpdate, ImgCloud } from "./dto/food.dto";
 import { Response } from "express";
 import { CloudinaryService } from "src/cloudinary/cloudinary.service";
@@ -60,8 +60,16 @@ export class FoodController {
     return res.render("foods/createFoods", { Category });
   }
   @Post("insertFood")
-  async addFood(@Body() food: FoodDTO): Promise<Food> {
-    return this.foodService.insertFood(food);
+  async addFood(@Body() food: FoodDTO, @Res() res: Response) {
+    const result = await this.foodService.insertFood(food);
+    if (result) {
+      res.json({
+        code: 200,
+        message: "Món " + food.nameFood + " đã được thêm vào thức đơn ",
+      });
+    } else {
+      res.json({ code: 500 });
+    }
   }
   @Get(":id")
   async findByIdFood(@Param("id") id: string, @Res() res: Response) {
@@ -76,7 +84,32 @@ export class FoodController {
   async updateFood(
     @Param("id") id: string,
     @Body() food: FoodDTOUpdate,
-  ): Promise<Food> {
-    return this.foodService.updateFood(id, food);
+    @Res() res: Response,
+  ) {
+    const result = await this.foodService.updateFood(id, food);
+    if (result) {
+      res.json({
+        code: 200,
+        message: "Cập nhật món " + food.nameFood + " thành công",
+      });
+    } else {
+      res.json({
+        code: 500,
+        message: "Cập nhật món " + food.nameFood + " không thành công",
+      });
+    }
+  }
+  @Post("checkName")
+  async checkNameFood(@Body() food: FoodDTO, @Res() res: Response) {
+    const checkName = await this.foodService.checkNameFood(food.nameFood);
+    if (checkName === true) {
+      res.json({
+        code: 500,
+        message:
+          "Món " + food.nameFood + " đã tồn tại trong thực đơn của nhà hàng ",
+      });
+    } else {
+      res.json({ code: 200 });
+    }
   }
 }

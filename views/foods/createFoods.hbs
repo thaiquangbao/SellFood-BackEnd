@@ -75,7 +75,7 @@
             var imageFile = $('#imageUpload')[0].files[0];
             var formData = new FormData();
              formData.append("file", imageFile);
-             if (ten.trim() === '') {
+        if (ten.trim() === '') {
             alert('Vui lòng nhập tên món ăn');
             return;
         }
@@ -102,41 +102,68 @@
             alert('Vui lòng chọn hình ảnh');
             return;
         }
-            $.ajax({
-            url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false
-            })
-            .then((cloudinaryResponse) => {
-                // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
-                var imageUrl = cloudinaryResponse.secure_url;
-                 $.ajax({
-                    url:'/foods/insertFood',
-                        type:'POST',
-                        data:{
-                            nameFood:ten,
-                            price:gia,
-                            describe:moTa,
-                            category:loai,
-                            img: imageUrl,
-                            noiBat:noiBat
-                        }
-                    })
-                    .then(data =>{
-                        alert("Thêm món ăn thành công");
-                        window.location.href='/foods'
-                    })
-                    .catch(error=>{
-                        alert("Lỗi")
-                    })
-                
-            })
-            .catch((error) => {
-                alert('Lỗi khi tải lên hình ảnh');
-                
-            }); 
+        $.ajax({
+            url:"/foods/checkName",
+                type: "POST",
+                data:{
+                    nameFood:ten
+                }
+        })
+        .then(data =>{
+            if(data.code === 200){
+                $.ajax({
+                url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false
+                })
+                .then((cloudinaryResponse) => {
+                    // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
+                    var imageUrl = cloudinaryResponse.secure_url;
+                    $.ajax({
+                        url:'/foods/insertFood',
+                            type:'POST',
+                            data:{
+                                nameFood:ten,
+                                price:gia,
+                                describe:moTa,
+                                category:loai,
+                                img: imageUrl,
+                                noiBat:noiBat
+                            }
+                        })
+                        .then(data =>{
+                            if(data.code === 200)
+                            {
+                                alert(data.message);
+                                window.location.href='/foods'
+                            }
+                            else if(data.code === 500){
+                                alert("Thêm món ăn không thành công");
+                            }
+                        })
+                        .catch(error=>{
+                            alert("Lỗi")
+                        })
+                    
+                })
+                .catch((error) => {
+                    alert('Lỗi khi tải lên hình ảnh');
+                    
+                }); 
+            }
+            else if(data.code = 500){
+                alert(data.message);
+            }
+            else{
+                alert("Không thể check tên món ăn");
+            }
+        })
+        .catch(error =>{
+            alert("Lỗi check tên món ăn");
+        })
+            
         }
 
     </script>

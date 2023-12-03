@@ -47,6 +47,15 @@ let FoodService = class FoodService {
         });
         return result;
     }
+    async checkNameFood(nameFood) {
+        const result = await this.foodEntity.findOne({ nameFood });
+        if (result) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 };
 exports.FoodService = FoodService;
 exports.FoodService = FoodService = __decorate([

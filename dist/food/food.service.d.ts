@@ -32,4 +32,5 @@ export declare class FoodService {
     findOneById(id: string): Promise<Food>;
     deleteOne(id: string): Promise<boolean>;
     updateFood(id: string, food: Food): Promise<Food>;
+    checkNameFood(nameFood: string): Promise<boolean>;
 }

@@ -113,33 +113,168 @@
             return;
         }
         if(anh === originAnh){
-           $.ajax({
-                url:'/foods/updateFood/'+id,
-                    type:'PUT',
+            if(ten !== originTen){
+                $.ajax({
+                url:"/foods/checkName",
+                    type: "POST",
                     data:{
+                        nameFood:ten
+                    }
+                })
+                .then(data =>{
+                    if(data.code === 200){
+                        $.ajax({
+                        url:'/foods/updateFood/'+id,
+                            type:'PUT',
+                            data:{
+                                nameFood:ten,
+                                price:gia,
+                                describe:moTa,
+                                category:loai,
+                                img: anh,
+                                noiBat:noiBat
+                            }
+                        })
+                        .then(data =>{
+                            if(data.code === 200){
+                                alert(data.message);
+                                window.location.href='/foods'
+                            }
+                            else if(data.code === 500){
+                                alert(data.message);
+                            }
+                        
+                            
+                        })
+                        .catch(error=>{
+                            alert("Lỗi")
+                        })
+                    }
+                    else if(data.code = 500){
+                        alert(data.message);
+                    }
+                    else{
+                        alert("Không thể check tên món ăn");
+                    }
+                })
+                .catch(error =>{
+                    alert("Lỗi check tên món ăn");
+                })
+            }else{
+                $.ajax({
+                    url:'/foods/updateFood/'+id,
+                        type:'PUT',
+                        data:{
                         nameFood:ten,
                         price:gia,
                         describe:moTa,
                         category:loai,
                         img: anh,
-                        noiBat:noiBat
+                        noiBat:noiBat        
+                        }
+                    })
+                    .then(data =>{
+                        if(data.code === 200){
+                            alert(data.message);
+                            window.location.href='/foods'
+                        }
+                        else if(data.code === 500){
+                            alert(data.message);
+                        }
+                        
+                            
+                    })
+                    .catch(error=>{
+                        alert("Lỗi")
+                    })
+            }
+            
+           
+        }
+        else{
+            if(ten !== originTen){
+                $.ajax({
+                url:"/foods/checkName",
+                    type: "POST",
+                    data:{
+                        nameFood:ten
                     }
                 })
                 .then(data =>{
-                    alert("Cập nhật món ăn thành công");
-                    window.location.href='/foods'
+                    if(data.code === 200){
+                    const imageUrl = String(originAnh);
+                    const parts = imageUrl.split('/');
+                    const result = parts.slice(-2).join('/'); // Lấy hai phần tử cuối cùng và nối lại
+                    const cut = result.split('.')
+                    const deleteImageDto = cut[0]
+                        
+                    $.ajax({
+                        url:"/foods/deleteCloud",
+                            type:"POST",
+                            data:{
+                            imgDTO:deleteImageDto
+                            } 
+                        })
+                        .then(data =>{
+                        
+                            $.ajax({
+                                url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
+                                type: 'POST',
+                                data: formData,
+                                contentType: false,
+                                processData: false
+                                })
+                                .then((cloudinaryResponse) => {
+                                    // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
+                                    var imageUrl = cloudinaryResponse.secure_url;
+                                    $.ajax({
+                                    url:'/foods/updateFood/'+id,
+                                        type:'PUT',
+                                        data:{
+                                            nameFood:ten,
+                                            price:gia,
+                                            describe:moTa,
+                                            category:loai,
+                                            img: imageUrl,
+                                            noiBat:noiBat
+                                        }
+                                    })
+                                    .then(data =>{
+                                        alert("Cập nhật món ăn thành công");
+                                        window.location.href='/foods'
+                                    })
+                                    .catch(error=>{
+                                        alert("Lỗi")
+                                    })
+                            
+                            })
+                            .catch((error) => {
+                                alert('Lỗi khi tải lên hình ảnh');
+                                
+                            });
+                        })
+                        .catch(error =>{
+                            alert("Lỗi xóa ảnh")
+                        })
+                    }
+                    else if(data.code = 500){
+                        alert(data.message);
+                    }
+                    else{
+                        alert("Không thể check tên món ăn");
+                    }
                 })
-                .catch(error=>{
-                    alert("Lỗi")
-                })
-        }
-        else{
-                const imageUrl = String(originAnh);
-                
-                const parts = imageUrl.split('/');
-                const result = parts.slice(-2).join('/'); // Lấy hai phần tử cuối cùng và nối lại
-                const cut = result.split('.')
-                const deleteImageDto = cut[0]
+                .catch(error =>{
+                    alert("Lỗi check tên món ăn");
+                })    
+
+            }
+            else{
+            const imageUrl = String(originAnh);
+            const parts = imageUrl.split('/');
+            const result = parts.slice(-2).join('/'); // Lấy hai phần tử cuối cùng và nối lại
+            const cut = result.split('.')
+            const deleteImageDto = cut[0]
                 
             $.ajax({
                 url:"/foods/deleteCloud",
@@ -189,6 +324,8 @@
                 .catch(error =>{
                     alert("Lỗi xóa ảnh")
                 })
+            }    
+           
              
         }
 
