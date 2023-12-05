@@ -5,11 +5,21 @@ const app_module_1 = require("./app.module");
 const path_1 = require("path");
 const hbs = require("hbs");
 const hbsUtils = require("hbs-utils");
+const handlebars_1 = require("handlebars");
+const fs = require("fs");
+const path = require("path");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.useStaticAssets((0, path_1.join)(__dirname, "..", "public"));
     app.setBaseViewsDir((0, path_1.join)(__dirname, "..", "views"));
-    hbs.registerPartials((0, path_1.join)(__dirname, "..", "views/layouts"));
+    const partialsDir = path.join(__dirname, "..", "views/layouts");
+    const partialFiles = fs.readdirSync(partialsDir);
+    partialFiles.forEach((file) => {
+        const partialName = path.parse(file).name;
+        const partialPath = path.join(partialsDir, file);
+        const partialContent = fs.readFileSync(partialPath, "utf8");
+        handlebars_1.default.registerPartial(partialName, handlebars_1.default.compile(partialContent));
+    });
     hbsUtils(hbs).registerWatchedPartials((0, path_1.join)(__dirname, "..", "views/partials"));
     app.setViewEngine("hbs");
     app.set("view options", {

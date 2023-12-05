@@ -4,12 +4,28 @@ import { join } from "path";
 import { NestExpressApplication } from "@nestjs/platform-express/interfaces";
 import * as hbs from "hbs";
 import * as hbsUtils from "hbs-utils";
-
+import handlebars from "handlebars";
+import * as fs from "fs";
+import * as path from "path";
+import chokidar from "chokidar";
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(__dirname, "..", "public"));
   app.setBaseViewsDir(join(__dirname, "..", "views"));
-  hbs.registerPartials(join(__dirname, "..", "views/layouts"));
+
+  const partialsDir = path.join(__dirname, "..", "views/layouts");
+
+  // Đọc danh sách các tệp trong thư mục
+  const partialFiles = fs.readdirSync(partialsDir);
+
+  // Đăng ký từng partial
+  partialFiles.forEach((file) => {
+    const partialName = path.parse(file).name;
+    const partialPath = path.join(partialsDir, file);
+    const partialContent = fs.readFileSync(partialPath, "utf8");
+    handlebars.registerPartial(partialName, handlebars.compile(partialContent));
+  });
+  // hbs.registerPartials(join(__dirname, "..", "views/layouts"));
   hbsUtils(hbs).registerWatchedPartials(
     join(__dirname, "..", "views/partials"),
   );
