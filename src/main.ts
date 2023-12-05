@@ -2,12 +2,11 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { join } from "path";
 import { NestExpressApplication } from "@nestjs/platform-express/interfaces";
-import * as hbs from "hbs";
-import * as hbsUtils from "hbs-utils";
 import handlebars from "handlebars";
 import * as fs from "fs";
 import * as path from "path";
-import chokidar from "chokidar";
+import hbs from "hbs";
+import hbsUtils from "hbs-utils";
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(__dirname, "..", "public"));
@@ -25,7 +24,6 @@ async function bootstrap() {
     const partialContent = fs.readFileSync(partialPath, "utf8");
     handlebars.registerPartial(partialName, handlebars.compile(partialContent));
   });
-  // hbs.registerPartials(join(__dirname, "..", "views/layouts"));
   hbsUtils(hbs).registerWatchedPartials(
     join(__dirname, "..", "views/partials"),
   );
