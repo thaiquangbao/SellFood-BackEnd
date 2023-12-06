@@ -6,7 +6,8 @@ const path_1 = require("path");
 const handlebars_1 = require("handlebars");
 const fs = require("fs");
 const path = require("path");
-const handlebars_utils_1 = require("handlebars-utils");
+const hbs = require("hbs");
+const hbsUtils = require("hbs-utils");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.useStaticAssets((0, path_1.join)(__dirname, "..", "public"));
@@ -19,7 +20,7 @@ async function bootstrap() {
         const partialContent = fs.readFileSync(partialPath, "utf8");
         handlebars_1.default.registerPartial(partialName, handlebars_1.default.compile(partialContent));
     });
-    (0, handlebars_utils_1.default)(handlebars_1.default).registerWatchedPartials(__dirname, "..", "views/partials");
+    hbsUtils(hbs).registerWatchedPartials((0, path_1.join)(__dirname, "..", "views/partials"));
     app.setViewEngine("hbs");
     app.set("view options", {
         layout: "layouts/main",
