@@ -6,7 +6,7 @@ import handlebars from "handlebars";
 import * as fs from "fs";
 import * as path from "path";
 import * as hbs from "hbs";
-import * as hbsUtils from "hbs-utils";
+import hbsUtils from "hbs-utils";
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(__dirname, "..", "public"));
