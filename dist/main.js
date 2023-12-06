@@ -21,6 +21,7 @@ async function bootstrap() {
         handlebars_1.default.registerPartial(partialName, handlebars_1.default.compile(partialContent));
     });
     (0, hbs_utils_1.default)(hbs).registerWatchedPartials((0, path_1.join)(__dirname, "..", "views/partials"));
+    (0, hbs_utils_1.default)(hbs).registerWatchedPartials((0, path_1.join)(__dirname, "..", "views/partials"));
     app.setViewEngine("hbs");
     app.set("view options", {
         layout: "layouts/main",
