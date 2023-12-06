@@ -78,6 +78,8 @@ a:hover {
 .logo {
     width: 10%;
     float: left;
+    height: 2%;
+    
 }
 .menu {
     line-height: 45px;
