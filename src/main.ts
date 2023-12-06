@@ -5,8 +5,8 @@ import { NestExpressApplication } from "@nestjs/platform-express/interfaces";
 import handlebars from "handlebars";
 import * as fs from "fs";
 import * as path from "path";
-import * as hbs from "hbs";
-import * as hbsUtils from "hbs-utils";
+//import hbs from "hbs";
+import * as chokidar from "chokidar";
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(__dirname, "..", "public"));
@@ -24,10 +24,18 @@ async function bootstrap() {
     const partialContent = fs.readFileSync(partialPath, "utf8");
     handlebars.registerPartial(partialName, handlebars.compile(partialContent));
   });
-  const hbsUtilsEngine = hbsUtils(hbs);
-  hbsUtilsEngine.registerWatchedPartials(
-    join(__dirname, "..", "views/partials"),
-  );
+  // hbsUtils(hbs).registerWatchedPartials(
+  //   join(__dirname, "..", "views/partials"),
+  // );
+  const partialsDir1 = join(__dirname, "..", "views/partials");
+  const watcher = chokidar.watch(partialsDir1);
+
+  watcher.on("change", (partialPath: string) => {
+    const partialName = path.parse(partialPath).name;
+    const partialContent = fs.readFileSync(partialPath, "utf8");
+    handlebars.registerPartial(partialName, handlebars.compile(partialContent));
+    console.log(`Partial ${partialName} updated.`);
+  });
   app.setViewEngine("hbs");
   app.set("view options", {
     layout: "layouts/main",
