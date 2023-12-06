@@ -24,8 +24,7 @@ async function bootstrap() {
     const partialContent = fs.readFileSync(partialPath, "utf8");
     handlebars.registerPartial(partialName, handlebars.compile(partialContent));
   });
-  const hbsUtilsEngine = hbsUtils(hbs);
-  hbsUtilsEngine.registerWatchedPartials(
+  hbsUtils(hbs).registerWatchedPartials(
     join(__dirname, "..", "views/partials"),
   );
   app.setViewEngine("hbs");
