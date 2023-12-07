@@ -19,6 +19,7 @@ const food_service_1 = require("./food/food.service");
 const cloudinary_module_1 = require("./cloudinary/cloudinary.module");
 const cloudinary_provider_1 = require("./cloudinary/cloudinary.provider");
 const cloudinary_service_1 = require("./cloudinary/cloudinary.service");
+const slide_1 = require("./trangchu.entity/slide");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -31,6 +32,7 @@ exports.AppModule = AppModule = __decorate([
             }),
             mongoose_1.MongooseModule.forRoot(process.env.MONGO_DB),
             food_module_1.FoodModule,
+            mongoose_1.MongooseModule.forFeature([{ name: "Slide", schema: slide_1.SlideSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Food", schema: food_entity_1.FoodSchema }]),
             cloudinary_module_1.CloudinaryModule,
         ],

@@ -15,6 +15,9 @@ const food_entity_1 = require("./entity/food.entity");
 const cloudinary_service_1 = require("../cloudinary/cloudinary.service");
 const cloudinary_module_1 = require("../cloudinary/cloudinary.module");
 const cloudinary_provider_1 = require("../cloudinary/cloudinary.provider");
+const slide_1 = require("../trangchu.entity/slide");
+const app_service_1 = require("../app.service");
+const app_controller_1 = require("../app.controller");
 let FoodModule = class FoodModule {
 };
 exports.FoodModule = FoodModule;
@@ -22,10 +25,11 @@ exports.FoodModule = FoodModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: "Food", schema: food_entity_1.FoodSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: "Slide", schema: slide_1.SlideSchema }]),
             cloudinary_module_1.CloudinaryModule,
         ],
-        controllers: [food_controller_1.FoodController],
-        providers: [food_service_1.FoodService, cloudinary_service_1.CloudinaryService, cloudinary_provider_1.CloudinaryProvider],
+        controllers: [food_controller_1.FoodController, app_controller_1.AppController],
+        providers: [food_service_1.FoodService, app_service_1.AppService, cloudinary_service_1.CloudinaryService, cloudinary_provider_1.CloudinaryProvider],
     })
 ], FoodModule);
 //# sourceMappingURL=food.module.js.map

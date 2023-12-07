@@ -4,10 +4,12 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 })
 export class Slide {
   @Prop()
+  sttSlide?: number;
+  @Prop()
   imgSlide: string;
   @Prop()
   titleSlide: string;
   @Prop()
   noiDungSlide: string;
 }
-export const FoodSchema = SchemaFactory.createForClass(Slide);
+export const SlideSchema = SchemaFactory.createForClass(Slide);

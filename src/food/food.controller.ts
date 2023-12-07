@@ -16,12 +16,14 @@ import { FoodDTO, FoodDTOUpdate, ImgCloud } from "./dto/food.dto";
 import { Response } from "express";
 import { CloudinaryService } from "src/cloudinary/cloudinary.service";
 import { FileInterceptor } from "@nestjs/platform-express";
+import { AppService } from "src/app.service";
 
 @Controller("foods")
 export class FoodController {
   constructor(
     private foodService: FoodService,
     private cloudinaryService: CloudinaryService,
+    private appService: AppService,
   ) {}
 
   @Post("uploads")
@@ -53,7 +55,8 @@ export class FoodController {
   @Get()
   async getAllFood(@Res() res: Response) {
     const foods = await this.foodService.findAllFood();
-    return res.render("foods/listFoods", { foods });
+    const slides = await this.appService.findAllSlide();
+    return res.render("foods/listFoods", { foods, slides });
   }
   @Get("formAddFoods")
   async getFormFood(@Res() res: Response) {

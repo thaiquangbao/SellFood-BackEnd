@@ -10,6 +10,7 @@ import { FoodService } from "./food/food.service";
 import { CloudinaryModule } from "./cloudinary/cloudinary.module";
 import { CloudinaryProvider } from "./cloudinary/cloudinary.provider";
 import { CloudinaryService } from "./cloudinary/cloudinary.service";
+import { SlideSchema } from "./trangchu.entity/slide";
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CloudinaryService } from "./cloudinary/cloudinary.service";
     }),
     MongooseModule.forRoot(process.env.MONGO_DB),
     FoodModule,
+    MongooseModule.forFeature([{ name: "Slide", schema: SlideSchema }]),
     MongooseModule.forFeature([{ name: "Food", schema: FoodSchema }]),
     CloudinaryModule,
   ],

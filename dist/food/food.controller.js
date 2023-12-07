@@ -19,10 +19,12 @@ const food_entity_1 = require("./entity/food.entity");
 const food_dto_1 = require("./dto/food.dto");
 const cloudinary_service_1 = require("../cloudinary/cloudinary.service");
 const platform_express_1 = require("@nestjs/platform-express");
+const app_service_1 = require("../app.service");
 let FoodController = class FoodController {
-    constructor(foodService, cloudinaryService) {
+    constructor(foodService, cloudinaryService, appService) {
         this.foodService = foodService;
         this.cloudinaryService = cloudinaryService;
+        this.appService = appService;
     }
     async uploadImage(file) {
         try {
@@ -50,7 +52,8 @@ let FoodController = class FoodController {
     }
     async getAllFood(res) {
         const foods = await this.foodService.findAllFood();
-        return res.render("foods/listFoods", { foods });
+        const slides = await this.appService.findAllSlide();
+        return res.render("foods/listFoods", { foods, slides });
     }
     async getFormFood(res) {
         return res.render("foods/createFoods", { Category: food_entity_1.Category });
@@ -210,6 +213,7 @@ __decorate([
 exports.FoodController = FoodController = __decorate([
     (0, common_1.Controller)("foods"),
     __metadata("design:paramtypes", [food_service_1.FoodService,
-        cloudinary_service_1.CloudinaryService])
+        cloudinary_service_1.CloudinaryService,
+        app_service_1.AppService])
 ], FoodController);
 //# sourceMappingURL=food.controller.js.map

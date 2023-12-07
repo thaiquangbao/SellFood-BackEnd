@@ -9,11 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FoodSchema = exports.Slide = void 0;
+exports.SlideSchema = exports.Slide = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 let Slide = class Slide {
 };
 exports.Slide = Slide;
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", Number)
+], Slide.prototype, "sttSlide", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
@@ -31,5 +35,5 @@ exports.Slide = Slide = __decorate([
         timestamps: true,
     })
 ], Slide);
-exports.FoodSchema = mongoose_1.SchemaFactory.createForClass(Slide);
+exports.SlideSchema = mongoose_1.SchemaFactory.createForClass(Slide);
 //# sourceMappingURL=slide.js.map

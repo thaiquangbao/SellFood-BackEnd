@@ -24,11 +24,12 @@
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 export declare class Slide {
+    sttSlide?: number;
     imgSlide: string;
     titleSlide: string;
     noiDungSlide: string;
 }
-export declare const FoodSchema: import("mongoose").Schema<Slide, import("mongoose").Model<Slide, any, any, any, import("mongoose").Document<unknown, any, Slide> & Slide & {
+export declare const SlideSchema: import("mongoose").Schema<Slide, import("mongoose").Model<Slide, any, any, any, import("mongoose").Document<unknown, any, Slide> & Slide & {
     _id: import("mongoose").Types.ObjectId;
 }, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Slide, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Slide>> & import("mongoose").FlatRecord<Slide> & {
     _id: import("mongoose").Types.ObjectId;
