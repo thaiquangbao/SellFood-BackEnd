@@ -6,4 +6,4 @@ export class Memory {
   @Prop()
   imgMemory: string;
 }
-export const FoodSchema = SchemaFactory.createForClass(Memory);
+export const MemorySchema = SchemaFactory.createForClass(Memory);

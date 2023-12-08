@@ -1,0 +1,135 @@
+<div class="form-input" style="min-height: 545px; margin-top: 20px;">
+        <h1 style="margin-left: 700px;">Cập nhật ảnh kỷ niệm</h1>
+        <div class="form-aria" style="background-color: rgb(245, 240, 240); margin-right: 130px;margin-left: 130px; padding-bottom: 30px; padding-right: 30px; ">
+            <div class="row g-3" style="margin-left: 150px; margin-top: 30px; " >
+                
+                <div id="form-picture" class="col">
+                    <label style="margin-bottom: 10px;">Ảnh kỷ niệm</label>
+                    <div class="changeava">
+                        <img id="imgMemory" data-origin="{{memory.imgMemory}}" src="{{memory.imgMemory}}" alt="" class="ava">
+                            <div class="form-ava" style="margin-top: 40px;" >
+
+                                <input type="file" class="image-user" id="imageUpload" name="img" accept=".jpg, .png" onchange="previewImage(this)"/><br>
+                            </div> 
+                    </div>    
+                </div> 
+            </div>
+            
+        </div>    
+        <div class="add" style="margin-top: 30px;">
+            <button onclick="updateMemory('{{memory.id}}')" class="btn btn-primary" style="margin-left: 350px; width: 1000px; height: 40px;" >Sửa</button>
+        </div>
+</div>
+<script>
+    function previewImage(input) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        $('#imgMemory').attr('src', e.target.result);
+    };
+
+    if (input.files && input.files[0]) {
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+    function updateMemory(id){
+       
+        var currentImg = $('#imgMemory').attr('src');
+
+        // Lấy giá trị ban đầu từ thuộc tính data-origin
+        
+        var originalImg = $('#imgMemory').data('origin');
+        var imageFile = $('#imageUpload')[0].files[0];
+        var formData = new FormData();
+        formData.append("file", imageFile);
+        // Kiểm tra xem dữ liệu có thay đổi hay không
+       
+        var imgChanged = currentImg !== originalImg;
+          if (currentImg.trim() === '') {
+            alert('Vui lòng điền đầy đủ thông tin');
+            return; // Dừng hàm nếu có trường rỗng
+        }
+        // Kiểm tra điều kiện
+        if (!imgChanged) {
+            alert('Không có dữ liệu nào thay đổi');
+            window.location.href="/memory"
+        }
+        else if(imgChanged){
+            const imageUrl = String(originalImg);
+            const parts = imageUrl.split('/');
+            const result = parts.slice(-2).join('/'); // Lấy hai phần tử cuối cùng và nối lại
+            const cut = result.split('.')
+            const deleteImageDto = cut[0]
+            $.ajax({
+                url:"/foods/deleteCloud",
+                type:"POST",
+                data:{
+                    imgDTO:deleteImageDto
+                } 
+            })
+            .then(data => {
+                $.ajax({
+                    url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false
+                })
+                .then((cloudinaryResponse) => {
+                // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
+                var imageUrl1 = cloudinaryResponse.secure_url;
+                    $.ajax({
+                    url:"/memory/update/" + id,
+                    type:"PUT",
+                    data:{
+                       
+                        imgMemory:imageUrl1
+                    }
+                    }) 
+                    .then(data => {
+                        if(data.code === 200){
+                            alert("Cập nhật ảnh kỷ niệm thành công");
+                            window.location.href="/memory"
+                        }
+                        else{
+                            alert("Cập nhật không thành công");
+                        }
+                    })
+                    .catch(error =>{
+                        alert("Lỗi cập nhật Slide!!!")
+                    })
+                })
+                .catch(error =>{
+                    alert("Lỗi upload ảnh trên cloud!!!");
+                })
+            })
+            .catch(error =>{
+                alert("Lỗi xóa ảnh trên cloud!!!");
+            })
+        }
+        else{
+            $.ajax({
+                url:"/memory/update/" + id,
+                type:"PUT",
+                data:{
+
+                    imgMemory:currentImg
+                }
+            }) 
+            .then(data => {
+                if(data.code === 200){
+                    alert("Cập nhật ảnh kỷ niệm thành công");
+                    window.location.href="/slide"
+                }
+                else{
+                    alert("Cập nhật không thành công");
+                }
+            })
+            .catch(error =>{
+                alert("Lỗi cập nhật Slide!!!")
+            })
+        }
+        
+    }
+
+</script>

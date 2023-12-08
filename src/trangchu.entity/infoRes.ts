@@ -10,4 +10,4 @@ export class Information {
   @Prop()
   noiDungInfo: string;
 }
-export const FoodSchema = SchemaFactory.createForClass(Information);
+export const InformationSchema = SchemaFactory.createForClass(Information);

@@ -1,4 +1,4 @@
- <div class="container-fluid body-table" >
+<div class="container-fluid body-table" >
         <div class="head">
             <h1>Danh sách slide</h1>
            
@@ -9,16 +9,9 @@
             <table class="table" >
                 <thead class="table-dark" >
                     <tr >
-                  
+                   
                     <th scope="col" style="width: 50px;">#</th>
-                    <th scope="col" style="width: 200px ;text-align: center;">
-                        Tiêu đề
-                        
-                    </th>
-                    <th scope="col" style="width: 300px ;text-align: center;">
-                        Nội dung
-                       
-                    </th>
+                    
                     <th scope="col" style="width: 150px ;text-align: center;">
                        Hình ảnh
                      </th>
@@ -28,20 +21,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each slides}}
+                    {{#each memories}}
                     <tr>
-                   
+                    
                     <th scope="row"><span class="stt"></span></th>
-                    <td style="text-align: center;">{{this.titleSlide}}</td>
-                    <td style="text-align: center;">{{this.noiDungSlide}}</td>
+                  
 
                     <td style="text-align: center;">
-                        <img style="width:65px; height: 65px; border-radius: 50%;" src="{{this.imgSlide}}" >
+                        <img style="width:65px; height: 65px;" src="{{this.imgMemory}}" >
 
                     </td>
                     
                     <td style="text-align: center;">
-                        <a href="/slide/{{this.id}}" class="btn btn-link ">Sửa</a>
+                        <a href="/memory/{{this.id}}" class="btn btn-link ">Sửa</a>
                        
                     </td>
                     </tr>

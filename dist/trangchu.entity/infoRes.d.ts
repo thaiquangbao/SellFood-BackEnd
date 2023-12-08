@@ -28,7 +28,7 @@ export declare class Information {
     titleInfo: string;
     noiDungInfo: string;
 }
-export declare const FoodSchema: import("mongoose").Schema<Information, import("mongoose").Model<Information, any, any, any, import("mongoose").Document<unknown, any, Information> & Information & {
+export declare const InformationSchema: import("mongoose").Schema<Information, import("mongoose").Model<Information, any, any, any, import("mongoose").Document<unknown, any, Information> & Information & {
     _id: import("mongoose").Types.ObjectId;
 }, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Information, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Information>> & import("mongoose").FlatRecord<Information> & {
     _id: import("mongoose").Types.ObjectId;

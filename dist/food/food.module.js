@@ -18,6 +18,9 @@ const cloudinary_provider_1 = require("../cloudinary/cloudinary.provider");
 const slide_1 = require("../trangchu.entity/slide");
 const app_service_1 = require("../app.service");
 const app_controller_1 = require("../app.controller");
+const memory_service_1 = require("../memory.service");
+const kyNiemKH_1 = require("../trangchu.entity/kyNiemKH");
+const infoRes_1 = require("../trangchu.entity/infoRes");
 let FoodModule = class FoodModule {
 };
 exports.FoodModule = FoodModule;
@@ -26,10 +29,20 @@ exports.FoodModule = FoodModule = __decorate([
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: "Food", schema: food_entity_1.FoodSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Slide", schema: slide_1.SlideSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: "Memory", schema: kyNiemKH_1.MemorySchema }]),
+            mongoose_1.MongooseModule.forFeature([
+                { name: "Information", schema: infoRes_1.InformationSchema },
+            ]),
             cloudinary_module_1.CloudinaryModule,
         ],
         controllers: [food_controller_1.FoodController, app_controller_1.AppController],
-        providers: [food_service_1.FoodService, app_service_1.AppService, cloudinary_service_1.CloudinaryService, cloudinary_provider_1.CloudinaryProvider],
+        providers: [
+            food_service_1.FoodService,
+            app_service_1.AppService,
+            memory_service_1.MemoryService,
+            cloudinary_service_1.CloudinaryService,
+            cloudinary_provider_1.CloudinaryProvider,
+        ],
     })
 ], FoodModule);
 //# sourceMappingURL=food.module.js.map

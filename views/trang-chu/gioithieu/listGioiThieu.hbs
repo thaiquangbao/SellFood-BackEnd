@@ -1,6 +1,6 @@
  <div class="container-fluid body-table" >
         <div class="head">
-            <h1>Danh sách slide</h1>
+            <h1>Danh sách thông tin giói thiệu về quán</h1>
            
             
         </div>
@@ -28,20 +28,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each slides}}
+                    {{#each informations}}
                     <tr>
                    
                     <th scope="row"><span class="stt"></span></th>
-                    <td style="text-align: center;">{{this.titleSlide}}</td>
-                    <td style="text-align: center;">{{this.noiDungSlide}}</td>
+                    <td style="text-align: center;">{{this.titleInfo}}</td>
+                    <td style="text-align: center;">{{this.noiDungInfo}}</td>
 
                     <td style="text-align: center;">
-                        <img style="width:65px; height: 65px; border-radius: 50%;" src="{{this.imgSlide}}" >
+                        <img style="width:65px; height: 65px; border-radius: 50%;" src="{{this.imgInfo}}" >
 
                     </td>
                     
                     <td style="text-align: center;">
-                        <a href="/slide/{{this.id}}" class="btn btn-link ">Sửa</a>
+                        <a href="/information/{{this.id}}" class="btn btn-link ">Sửa</a>
                        
                     </td>
                     </tr>

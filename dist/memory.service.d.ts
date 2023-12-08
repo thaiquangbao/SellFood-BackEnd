@@ -21,13 +21,14 @@
 /// <reference types="mongoose/types/utility" />
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
-/// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-export declare class Memory {
-    imgMemory: string;
+import { Memory } from "./trangchu.entity/kyNiemKH";
+import mongoose from "mongoose";
+export declare class MemoryService {
+    private memoryEntity;
+    constructor(memoryEntity: mongoose.Model<Memory>);
+    findAllMemory(): Promise<Memory[]>;
+    insertMemory(memory: Memory): Promise<Memory>;
+    findOneMemory(id: string): Promise<Memory>;
+    updateMemory(id: string, memory: Memory): Promise<Memory>;
 }
-export declare const MemorySchema: import("mongoose").Schema<Memory, import("mongoose").Model<Memory, any, any, any, import("mongoose").Document<unknown, any, Memory> & Memory & {
-    _id: import("mongoose").Types.ObjectId;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Memory, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Memory>> & import("mongoose").FlatRecord<Memory> & {
-    _id: import("mongoose").Types.ObjectId;
-}>;

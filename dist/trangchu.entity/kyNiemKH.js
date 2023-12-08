@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FoodSchema = exports.Memory = void 0;
+exports.MemorySchema = exports.Memory = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 let Memory = class Memory {
 };
@@ -23,5 +23,5 @@ exports.Memory = Memory = __decorate([
         timestamps: true,
     })
 ], Memory);
-exports.FoodSchema = mongoose_1.SchemaFactory.createForClass(Memory);
+exports.MemorySchema = mongoose_1.SchemaFactory.createForClass(Memory);
 //# sourceMappingURL=kyNiemKH.js.map

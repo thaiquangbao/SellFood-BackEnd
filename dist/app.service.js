@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const slide_1 = require("./trangchu.entity/slide");
+const infoRes_1 = require("./trangchu.entity/infoRes");
 let AppService = class AppService {
-    constructor(slideEntity) {
+    constructor(slideEntity, informationEntity) {
         this.slideEntity = slideEntity;
+        this.informationEntity = informationEntity;
     }
     async findAllSlide() {
         const slides = await this.slideEntity.find();
@@ -40,11 +42,31 @@ let AppService = class AppService {
         });
         return result;
     }
+    async findAllInformation() {
+        const informations = await this.informationEntity.find();
+        return informations;
+    }
+    async insertInformation(information) {
+        const newinformation = await this.informationEntity.create(information);
+        return newinformation;
+    }
+    async findOneInformation(id) {
+        const information = await this.informationEntity.findById(id);
+        return information;
+    }
+    async updateInformation(id, information) {
+        const result = await this.informationEntity.findByIdAndUpdate(id, information, {
+            new: true,
+            runValidators: true,
+        });
+        return result;
+    }
 };
 exports.AppService = AppService;
 exports.AppService = AppService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(slide_1.Slide.name)),
-    __metadata("design:paramtypes", [mongoose_2.default.Model])
+    __param(1, (0, mongoose_1.InjectModel)(infoRes_1.Information.name)),
+    __metadata("design:paramtypes", [mongoose_2.default.Model, mongoose_2.default.Model])
 ], AppService);
 //# sourceMappingURL=app.service.js.map

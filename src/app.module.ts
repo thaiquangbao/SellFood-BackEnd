@@ -11,6 +11,9 @@ import { CloudinaryModule } from "./cloudinary/cloudinary.module";
 import { CloudinaryProvider } from "./cloudinary/cloudinary.provider";
 import { CloudinaryService } from "./cloudinary/cloudinary.service";
 import { SlideSchema } from "./trangchu.entity/slide";
+import { MemorySchema } from "./trangchu.entity/kyNiemKH";
+import { MemoryService } from "./memory.service";
+import { InformationSchema } from "./trangchu.entity/infoRes";
 
 @Module({
   imports: [
@@ -20,11 +23,21 @@ import { SlideSchema } from "./trangchu.entity/slide";
     }),
     MongooseModule.forRoot(process.env.MONGO_DB),
     FoodModule,
+    MongooseModule.forFeature([{ name: "Memory", schema: MemorySchema }]),
     MongooseModule.forFeature([{ name: "Slide", schema: SlideSchema }]),
     MongooseModule.forFeature([{ name: "Food", schema: FoodSchema }]),
+    MongooseModule.forFeature([
+      { name: "Information", schema: InformationSchema },
+    ]),
     CloudinaryModule,
   ],
   controllers: [AppController, FoodController],
-  providers: [AppService, FoodService, CloudinaryProvider, CloudinaryService],
+  providers: [
+    AppService,
+    FoodService,
+    MemoryService,
+    CloudinaryProvider,
+    CloudinaryService,
+  ],
 })
 export class AppModule {}
