@@ -122,16 +122,16 @@ h3 {
     font-size: 1rem;
     border: none;
 }
-.box-3 {
+ .box-ac {
     position: relative;
     overflow: hidden;
   }
 
-  .box-3 img {
+  .box-ac img {
     transition: transform 0.3s ease-in-out;
   }
 
-  .box-3:hover img {
+  .box-ac:hover img {
     transform: scale(1.1);
   }
 .float-container {
