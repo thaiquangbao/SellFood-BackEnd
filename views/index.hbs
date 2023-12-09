@@ -14,11 +14,11 @@
 
     <!-- Categories Section Starts Here -->
     
-        <div class="conta">
+        <div class="conta" style="margin-left: 50px;">
            
             {{#each memories}}
                 <div class="box-3 float-container">
-                    <img src="{{this.imgMemory}}" style="width: 500px; height: 500px; " alt="pizza" class="img-responsive img-curve">
+                    <img src="{{this.imgMemory}}" style="width: 450px; height: 450px; " alt="pizza" class="img-responsive img-curve">
 
                    
                 </div>
@@ -45,7 +45,7 @@
     <!-- Categories Section Ends Here -->
 
     <!-- Food Menu Section Starts Here -->
-    <section class="food-menu" >
+    <section class="food-menu" style="background-color: white;">
         <div class="container" >
             <div style="display: flex; align-items: center;justify-content: center;">
                 <span style="height: 2px; width: 36%; background-color: #999; "></span>
@@ -55,32 +55,54 @@
             <div style="text-align: center;">
                 -- Cơm Niêu Panda --
             </div>
-            <div style="display: flex; flex-wrap: wrap; margin-top: 30px;" >
-                <div class="card mb-3" style="max-width: 540px; background-color: rgba(0, 0, 0, 0.185); width: 50%; margin-left: 70px;">
+            <div style="display: flex; flex-wrap: wrap; margin-top: 30px;margin-left: 150px" >
+            {{#each foods}}
+                <div class="card mb-3" style="max-width: 540px; background-color: white; width: 50%;  border: none;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                        <img src="images/menu-pizza.jpg" class="img-fluid rounded-start" alt="...">
+                        <img style="border-radius: 50%; width: 200px; height: 100px;" src="{{this.img}}" class="img-fluid rounded-start" alt="...">
                         </div>
-                        <div class="col-md-8">
-                        <div class="card-body" style="color: black;" >
-                            <a style="font-weight: bold;" >Card title</a>
-                            <i class="card-text" style="color: rgb(148, 142, 142);" >-----------------------------  </i>
-                            <i style="color: rgb(250, 47, 47)">Giá:</i>
-                            <p class="card-text"><small class="text-muted">Mô tả: </small></p>
+                        <div class="col-md-8" > 
+                        <div class="card-body" style="color: black; " >
+                            <a style="font-weight: bold;" >{{this.nameFood}}</a>
+                            <p class="card-text">Giá :
+                            <i style="color: rgb(250, 47, 47)" id="priceNB">{{this.price}} </i>
+                            </p>
+                            
+                            <p class="card-text"><small class="text-muted">Mô tả:{{this.describe}} </small></p>
                         </div>
                         </div>
                     </div>
                 </div>
-                
+            {{/each}}    
             </div>
+            
             <div class="clearfix"></div>
         </div>
 
     </section>
-    <!-- Food Menu Section Ends Here -->
+    <script>
+         document.addEventListener("DOMContentLoaded", function() {
+    var priceElements = document.querySelectorAll("#priceNB");
 
-    <!-- Social Section Starts Here -->
-    
-    <!-- Footer Section Ends Here -->
+    priceElements.forEach(function(element) {
+      var price = element.textContent.trim();
+      var hiddenPrice = hideDigits(price, 3);
+      element.textContent = hiddenPrice + " VND";
+    });
+
+    function hideDigits(price, count) {
+      // Chuyển giá thành chuỗi
+      var priceStr = price.toString();
+      
+      // Ẩn chữ số thứ 4 trở đi bằng cách thêm dấu chấm
+      var hiddenPrice = priceStr.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+      return hiddenPrice;
+    }
+  });
+
+
+    </script>
 </body>
 </html>

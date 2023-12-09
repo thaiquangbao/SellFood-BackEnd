@@ -43,7 +43,7 @@
        var currentTitle = $('#titleSlide').val();
         var currentNoiDung = $('#noiDungSlide').val();
         var currentImg = $('#imgSlide').attr('src');
-
+        var tenInHoa = currentTitle.toUpperCase();
         // Lấy giá trị ban đầu từ thuộc tính data-origin
         var originalTitle = $('#titleSlide').data('origin');
         var originalNoiDung = $('#noiDungSlide').data('origin');
@@ -58,6 +58,10 @@
           if (currentTitle.trim() === '' || currentNoiDung.trim() === '' || currentImg.trim() === '') {
             alert('Vui lòng điền đầy đủ thông tin');
             return; // Dừng hàm nếu có trường rỗng
+        }
+        if(currentTitle !== tenInHoa){
+            alert("Tiêu đề phải viết in hoa !!!")
+            return;
         }
         // Kiểm tra điều kiện
         if (!titleChanged && !noiDungChanged && !imgChanged) {

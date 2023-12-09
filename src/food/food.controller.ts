@@ -60,7 +60,8 @@ export class FoodController {
   }
   @Get("formAddFoods")
   async getFormFood(@Res() res: Response) {
-    return res.render("foods/createFoods", { Category });
+    const slides = await this.appService.findAllSlide();
+    return res.render("foods/createFoods", { Category, slides });
   }
   @Post("insertFood")
   async addFood(@Body() food: FoodDTO, @Res() res: Response) {
@@ -77,7 +78,8 @@ export class FoodController {
   @Get(":id")
   async findByIdFood(@Param("id") id: string, @Res() res: Response) {
     const food = await this.foodService.findOneById(id);
-    return res.render("foods/updateFood", { food, Category });
+    const slides = await this.appService.findAllSlide();
+    return res.render("foods/updateFood", { food, Category, slides });
   }
   @Delete("deleteFood/:id")
   async deleteOneFood(@Param("id") id: string): Promise<void> {

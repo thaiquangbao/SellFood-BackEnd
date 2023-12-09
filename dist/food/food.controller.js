@@ -56,7 +56,8 @@ let FoodController = class FoodController {
         return res.render("foods/listFoods", { foods, slides });
     }
     async getFormFood(res) {
-        return res.render("foods/createFoods", { Category: food_entity_1.Category });
+        const slides = await this.appService.findAllSlide();
+        return res.render("foods/createFoods", { Category: food_entity_1.Category, slides });
     }
     async addFood(food, res) {
         const result = await this.foodService.insertFood(food);
@@ -72,7 +73,8 @@ let FoodController = class FoodController {
     }
     async findByIdFood(id, res) {
         const food = await this.foodService.findOneById(id);
-        return res.render("foods/updateFood", { food, Category: food_entity_1.Category });
+        const slides = await this.appService.findAllSlide();
+        return res.render("foods/updateFood", { food, Category: food_entity_1.Category, slides });
     }
     async deleteOneFood(id) {
         this.foodService.deleteOne(id);
