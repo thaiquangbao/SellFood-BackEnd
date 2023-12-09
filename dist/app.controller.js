@@ -62,7 +62,7 @@ let AppController = class AppController {
     async getListMemory(res) {
         const memories = await this.memoryService.findAllMemory();
         const slides = await this.appService.findAllSlide();
-        return res.render("trang-chu/memory/listmemmory", { memories, slides });
+        return res.render("trang-chu/memory/listmemory", { memories, slides });
     }
     async insertMem(memory) {
         const result = await this.memoryService.insertMemory(memory);

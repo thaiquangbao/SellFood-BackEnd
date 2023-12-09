@@ -23,6 +23,7 @@ const slide_1 = require("./trangchu.entity/slide");
 const kyNiemKH_1 = require("./trangchu.entity/kyNiemKH");
 const memory_service_1 = require("./memory.service");
 const infoRes_1 = require("./trangchu.entity/infoRes");
+const thucdon_controller_1 = require("./thucdon/thucdon.controller");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -43,7 +44,7 @@ exports.AppModule = AppModule = __decorate([
             ]),
             cloudinary_module_1.CloudinaryModule,
         ],
-        controllers: [app_controller_1.AppController, food_controller_1.FoodController],
+        controllers: [app_controller_1.AppController, food_controller_1.FoodController, thucdon_controller_1.ThucdonController],
         providers: [
             app_service_1.AppService,
             food_service_1.FoodService,

@@ -60,7 +60,7 @@ export class AppController {
   async getListMemory(@Res() res: Response) {
     const memories = await this.memoryService.findAllMemory();
     const slides = await this.appService.findAllSlide();
-    return res.render("trang-chu/memory/listmemmory", { memories, slides });
+    return res.render("trang-chu/memory/listmemory", { memories, slides });
   }
   @Post("memory/insert")
   async insertMem(@Body() memory: MemoryDTO) {

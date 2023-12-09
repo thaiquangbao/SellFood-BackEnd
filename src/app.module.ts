@@ -14,6 +14,7 @@ import { SlideSchema } from "./trangchu.entity/slide";
 import { MemorySchema } from "./trangchu.entity/kyNiemKH";
 import { MemoryService } from "./memory.service";
 import { InformationSchema } from "./trangchu.entity/infoRes";
+import { ThucdonController } from "./thucdon/thucdon.controller";
 
 @Module({
   imports: [
@@ -31,7 +32,7 @@ import { InformationSchema } from "./trangchu.entity/infoRes";
     ]),
     CloudinaryModule,
   ],
-  controllers: [AppController, FoodController],
+  controllers: [AppController, FoodController, ThucdonController],
   providers: [
     AppService,
     FoodService,

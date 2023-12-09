@@ -28,9 +28,6 @@ async function bootstrap() {
   hbsUtils(hbs).registerWatchedPartials(
     join(__dirname, "..", "views/partials"),
   );
-  hbsUtils(hbs).registerWatchedPartials(
-    join(__dirname, "..", "views/partials"),
-  );
   app.setViewEngine("hbs");
   app.set("view options", {
     layout: "layouts/main",

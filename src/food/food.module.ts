@@ -12,6 +12,7 @@ import { AppController } from "src/app.controller";
 import { MemoryService } from "src/memory.service";
 import { MemorySchema } from "src/trangchu.entity/kyNiemKH";
 import { InformationSchema } from "src/trangchu.entity/infoRes";
+import { ThucdonController } from "src/thucdon/thucdon.controller";
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { InformationSchema } from "src/trangchu.entity/infoRes";
     ]),
     CloudinaryModule,
   ],
-  controllers: [FoodController, AppController],
+  controllers: [FoodController, AppController, ThucdonController],
   providers: [
     FoodService,
     AppService,
