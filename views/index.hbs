@@ -31,13 +31,18 @@
         </div>
     {{#each informations}}
     <div class="card bg-white text-white" >
-        <img src="{{this.imgInfo}}" style="height: 500px;" class="card-img" alt="...">
-        <div class="card-img-overlay"  >
+        <img src="https://res.cloudinary.com/dk41ftplg/image/upload/v1702112881/Restaurant-Food/x2sdlvpyygbvv5wsduez.png" style="height: 500px;" class="card-img" alt="...">
+       <div class="card-img-overlay" style="width: 90%; height: 90%; margin-left: 20%; margin-top: 1%;"  >
             <div style="display: flexbox; background-color: rgba(48, 47, 47, 0.473); ; margin-top: 35px; width: 600px; height: 400px; text-align: center; margin-left: 500px;">
-               <div style="color: rgba(0, 0, 0, 0.432);">------------------------------</div>
-                <h5 class="card-title" style="margin-top: 30px;">{{this.titleInfo}}</h5>
-                <p class="card-text">{{this.noiDungInfo}}</p>
-                <p class="card-text">Last updated 3 mins ago</p>
+               <img style="width: 100%; height: 100%;"  src="{{this.imgInfo}}" alt="">
+            </div>
+        </div>
+        <div class="card-img-overlay"  >
+            <div style="display: flexbox; background-color: rgba(48, 47, 47, 0); text-align: justify ; margin-top: 5%; width: 600px; height: 400px;  margin-left: 10%;">
+               <p style="color: white; font-size: 20px; ">Chúc mừng đến với</p>
+                <p class="card-text" style="font-size: 30px; color: orange;">{{this.titleInfo}}</p>
+                <p  class="card-text">{{this.noiDungInfo}}</p>
+                
             </div>
         </div>
     </div>
