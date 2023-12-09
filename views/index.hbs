@@ -30,15 +30,20 @@
             <div class="clearfix"></div>
         </div>
     {{#each informations}}
-    <div class="card bg-white text-white" >
-        <img src="https://res.cloudinary.com/dk41ftplg/image/upload/v1702112881/Restaurant-Food/x2sdlvpyygbvv5wsduez.png" style="height: 500px;" class="card-img" alt="...">
+    <div class="card bg-white text-white" style="">
+        <div style="position: relative; width: 100%;">
+            <img src="https://res.cloudinary.com/dk41ftplg/image/upload/v1702112881/Restaurant-Food/x2sdlvpyygbvv5wsduez.png" style="height: 500px; width: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1;" class="card-img" alt="...">
+            <div style="background-color: rgb(17, 17, 17); width: 100%; height: 500px;"></div>
+        </div>
+
+        
        <div class="card-img-overlay" style="width: 85%; height: 85%; margin-left: 15%; margin-top: 1%;"  >
-            <div style="display: flexbox; background-color: rgba(48, 47, 47, 0); ; margin-top: 35px; width: 600px; height: 400px; text-align: center; margin-left: 500px;">
+            <div style="display: flexbox; background-color:  rgb(17, 17, 17); margin-top: 35px; width: 600px; height: 400px; text-align: center; margin-left: 500px;">
                <img style="width: 85%; height: 85%;"  src="{{this.imgInfo}}" alt="">
             </div>
         </div>
         <div class="card-img-overlay"  >
-            <div style="display: flexbox; background-color: rgba(48, 47, 47, 0); text-align: justify ; margin-top: 5%; width: 30%; height: 40%;  margin-left: 5%;">
+            <div style="display: flexbox; background-color:  rgb(17, 17, 17);text-align: justify ; margin-top: 5%; width: 30%; height: 40%;  margin-left: 5%;">
                <p style="color: white; font-size: 20px; ">Chúc mừng đến với</p>
                 <p class="card-text" style="font-size: 30px; color: orange;">{{this.titleInfo}}</p>
                 <p  class="card-text">{{this.noiDungInfo}}</p>
