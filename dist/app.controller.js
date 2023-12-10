@@ -20,11 +20,14 @@ const slideDTO_1 = require("./trangchu.entity/dto/slideDTO");
 const memoryDTO_1 = require("./trangchu.entity/dto/memoryDTO");
 const memory_service_1 = require("./memory.service");
 const infoResDTO_1 = require("./trangchu.entity/dto/infoResDTO");
+const footer_service_1 = require("./footer/footer.service");
+const footerDTO_1 = require("./trangchu.entity/dto/footerDTO");
 let AppController = class AppController {
-    constructor(foodService, appService, memoryService) {
+    constructor(foodService, appService, memoryService, footerService) {
         this.foodService = foodService;
         this.appService = appService;
         this.memoryService = memoryService;
+        this.footerService = footerService;
     }
     async getAllFood(res) {
         const foods = await this.foodService.findAllFood();
@@ -88,7 +91,11 @@ let AppController = class AppController {
     }
     async getListInformation(res) {
         const informations = await this.appService.findAllInformation();
-        return res.render("trang-chu/gioithieu/listGioiThieu", { informations });
+        const slides = await this.appService.findAllSlide();
+        return res.render("trang-chu/gioithieu/listGioiThieu", {
+            informations,
+            slides,
+        });
     }
     async insertInformation(information) {
         const result = await this.appService.insertInformation(information);
@@ -104,6 +111,36 @@ let AppController = class AppController {
     }
     async updateInfoResDTO(id, information, res) {
         const result = await this.appService.updateInformation(id, information);
+        if (result) {
+            res.json({
+                code: 200,
+            });
+        }
+        else {
+            res.json({
+                code: 500,
+            });
+        }
+    }
+    async getListFooter(res) {
+        const footers = await this.footerService.findAllFooter();
+        const slides = await this.appService.findAllSlide();
+        return res.render("trang-chu/footer/listFooter", { footers, slides });
+    }
+    async insertFooter(footer) {
+        const result = await this.footerService.insertFooter(footer);
+        return result;
+    }
+    async findOneFooterDTO(id, res) {
+        const footer = await this.footerService.findOneFooter(id);
+        const slides = await this.appService.findAllSlide();
+        return res.render("trang-chu/gioithieu/updateGioiThieu", {
+            footer,
+            slides,
+        });
+    }
+    async updateFooterDTO(id, footer, res) {
+        const result = await this.footerService.updateFooter(id, footer);
         if (result) {
             res.json({
                 code: 200,
@@ -217,10 +254,42 @@ __decorate([
     __metadata("design:paramtypes", [String, infoResDTO_1.UpdateInfoResDTO, Object]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "updateInfoResDTO", null);
+__decorate([
+    (0, common_1.Get)("footer"),
+    __param(0, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getListFooter", null);
+__decorate([
+    (0, common_1.Post)("footer/insert"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [footerDTO_1.FooterDTO]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "insertFooter", null);
+__decorate([
+    (0, common_1.Get)("footer/:id"),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "findOneFooterDTO", null);
+__decorate([
+    (0, common_1.Put)("footer/update/:id"),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, footerDTO_1.NewFooterDTO, Object]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "updateFooterDTO", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [food_service_1.FoodService,
         app_service_1.AppService,
-        memory_service_1.MemoryService])
+        memory_service_1.MemoryService,
+        footer_service_1.FooterService])
 ], AppController);
 //# sourceMappingURL=app.controller.js.map

@@ -1,0 +1,79 @@
+ <div class="container-fluid body-table" >
+        <div class="head">
+            <h1>Quản lý Footer</h1>
+           
+            
+        </div>
+        
+        <div class="table-students">
+            <table class="table" >
+                <thead class="table-dark" >
+                    <tr >
+                  
+                    <th scope="col" style="width: 50px;">#</th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                        Địa chỉ
+                        
+                    </th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                        Hotline
+                       
+                    </th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                       Email
+                     </th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                        Thời gian làm việc
+                     </th>
+                     <th scope="col" style="width: 200px ;text-align: center;">
+                        Địa chỉ quán
+                     </th>
+                     <th scope="col" style="width: 200px ;text-align: center;">
+                        Logo
+                     </th>
+                     <th scope="col" style="width: 100px ;text-align: center;">
+                        Chỉnh sửa
+                     </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{!-- {{#each informations}} --}}
+                    <tr>
+                   
+                    <th scope="row"><span class="stt"></span></th>
+                    <td style="text-align: center;">d</td>
+                    <td style="text-align: center;">d</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">r</td>
+                    <td style="text-align: center;">4</td>
+                    <td style="text-align: center;">
+                        <img style="width:200px; height: 100px; " src="" >
+
+                    </td>
+                    
+                    <td style="text-align: center;">
+                        <a href="{{this.id}}" class="btn btn-link ">Sửa</a>
+                       
+                    </td>
+                    </tr>
+                    
+                    {{!-- {{/each}} --}}
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    let stt = 1;
+    const sttElements = document.querySelectorAll('span.stt');
+
+    sttElements.forEach(function(element) {
+      element.textContent = stt++;
+    });
+  });
+ 
+
+    
+  
+</script>

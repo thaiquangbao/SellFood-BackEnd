@@ -13,12 +13,15 @@ import { MemoryService } from "src/memory.service";
 import { MemorySchema } from "src/trangchu.entity/kyNiemKH";
 import { InformationSchema } from "src/trangchu.entity/infoRes";
 import { ThucdonController } from "src/thucdon/thucdon.controller";
+import { FooterService } from "src/footer/footer.service";
+import { FooterSchema } from "src/trangchu.entity/footer";
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: "Food", schema: FoodSchema }]),
     MongooseModule.forFeature([{ name: "Slide", schema: SlideSchema }]),
     MongooseModule.forFeature([{ name: "Memory", schema: MemorySchema }]),
+    MongooseModule.forFeature([{ name: "Footer", schema: FooterSchema }]),
     MongooseModule.forFeature([
       { name: "Information", schema: InformationSchema },
     ]),
@@ -31,6 +34,7 @@ import { ThucdonController } from "src/thucdon/thucdon.controller";
     MemoryService,
     CloudinaryService,
     CloudinaryProvider,
+    FooterService,
   ],
 })
 export class FoodModule {}

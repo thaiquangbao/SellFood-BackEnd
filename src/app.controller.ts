@@ -7,12 +7,15 @@ import { SlideDTO, UpdateSlideDTO } from "./trangchu.entity/dto/slideDTO";
 import { MemoryDTO, UpdateMemoryDTO } from "./trangchu.entity/dto/memoryDTO";
 import { MemoryService } from "./memory.service";
 import { InfoResDTO, UpdateInfoResDTO } from "./trangchu.entity/dto/infoResDTO";
+import { FooterService } from "./footer/footer.service";
+import { FooterDTO, NewFooterDTO } from "./trangchu.entity/dto/footerDTO";
 @Controller()
 export class AppController {
   constructor(
     private readonly foodService: FoodService,
     private readonly appService: AppService,
     private readonly memoryService: MemoryService,
+    private readonly footerService: FooterService,
   ) {}
   @Get()
   async getAllFood(@Res() res: Response) {
@@ -94,7 +97,11 @@ export class AppController {
   @Get("information")
   async getListInformation(@Res() res: Response) {
     const informations = await this.appService.findAllInformation();
-    return res.render("trang-chu/gioithieu/listGioiThieu", { informations });
+    const slides = await this.appService.findAllSlide();
+    return res.render("trang-chu/gioithieu/listGioiThieu", {
+      informations,
+      slides,
+    });
   }
   @Post("information/insert")
   async insertInformation(@Body() information: InfoResDTO) {
@@ -117,6 +124,44 @@ export class AppController {
     @Res() res: Response,
   ) {
     const result = await this.appService.updateInformation(id, information);
+    if (result) {
+      res.json({
+        code: 200,
+      });
+    } else {
+      res.json({
+        code: 500,
+      });
+    }
+  }
+  // Footer
+  @Get("footer")
+  async getListFooter(@Res() res: Response) {
+    const footers = await this.footerService.findAllFooter();
+    const slides = await this.appService.findAllSlide();
+    return res.render("trang-chu/footer/listFooter", { footers, slides });
+  }
+  @Post("footer/insert")
+  async insertFooter(@Body() footer: FooterDTO) {
+    const result = await this.footerService.insertFooter(footer);
+    return result;
+  }
+  @Get("footer/:id")
+  async findOneFooterDTO(@Param("id") id: string, @Res() res: Response) {
+    const footer = await this.footerService.findOneFooter(id);
+    const slides = await this.appService.findAllSlide();
+    return res.render("trang-chu/gioithieu/updateGioiThieu", {
+      footer,
+      slides,
+    });
+  }
+  @Put("footer/update/:id")
+  async updateFooterDTO(
+    @Param("id") id: string,
+    @Body() footer: NewFooterDTO,
+    @Res() res: Response,
+  ) {
+    const result = await this.footerService.updateFooter(id, footer);
     if (result) {
       res.json({
         code: 200,

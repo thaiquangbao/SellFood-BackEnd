@@ -24,6 +24,8 @@ const kyNiemKH_1 = require("./trangchu.entity/kyNiemKH");
 const memory_service_1 = require("./memory.service");
 const infoRes_1 = require("./trangchu.entity/infoRes");
 const thucdon_controller_1 = require("./thucdon/thucdon.controller");
+const footer_service_1 = require("./footer/footer.service");
+const footer_1 = require("./trangchu.entity/footer");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -39,6 +41,7 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: "Memory", schema: kyNiemKH_1.MemorySchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Slide", schema: slide_1.SlideSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Food", schema: food_entity_1.FoodSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: "Footer", schema: footer_1.FooterSchema }]),
             mongoose_1.MongooseModule.forFeature([
                 { name: "Information", schema: infoRes_1.InformationSchema },
             ]),
@@ -51,6 +54,7 @@ exports.AppModule = AppModule = __decorate([
             memory_service_1.MemoryService,
             cloudinary_provider_1.CloudinaryProvider,
             cloudinary_service_1.CloudinaryService,
+            footer_service_1.FooterService,
         ],
     })
 ], AppModule);

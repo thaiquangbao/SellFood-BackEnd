@@ -14,7 +14,7 @@
 
     <!-- Categories Section Starts Here -->
     
-       <div class="container-fluid">
+    <div class="container-fluid">
         {{#each memories}}
             <div class="box-3 box-ac float-container">
             <img src="{{this.imgMemory}}" style="width: 100%; height: 400px; object-fit: cover;" alt="memory" class="img-responsive img-curve">
@@ -107,5 +107,21 @@
 
 
     </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var images = document.querySelectorAll(".img-curve");
+
+        images.forEach(function (image) {
+            image.addEventListener("mouseover", function () {
+                this.style.transform = "scale(1.1)";
+            });
+
+            image.addEventListener("mouseout", function () {
+                this.style.transform = "scale(1)";
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

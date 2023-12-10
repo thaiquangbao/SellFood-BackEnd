@@ -5,11 +5,14 @@ import { SlideDTO, UpdateSlideDTO } from "./trangchu.entity/dto/slideDTO";
 import { MemoryDTO, UpdateMemoryDTO } from "./trangchu.entity/dto/memoryDTO";
 import { MemoryService } from "./memory.service";
 import { InfoResDTO, UpdateInfoResDTO } from "./trangchu.entity/dto/infoResDTO";
+import { FooterService } from "./footer/footer.service";
+import { FooterDTO, NewFooterDTO } from "./trangchu.entity/dto/footerDTO";
 export declare class AppController {
     private readonly foodService;
     private readonly appService;
     private readonly memoryService;
-    constructor(foodService: FoodService, appService: AppService, memoryService: MemoryService);
+    private readonly footerService;
+    constructor(foodService: FoodService, appService: AppService, memoryService: MemoryService, footerService: FooterService);
     getAllFood(res: Response): Promise<void>;
     getListSlide(res: Response): Promise<void>;
     insert(slide: SlideDTO): Promise<import("./trangchu.entity/slide").Slide>;
@@ -23,4 +26,8 @@ export declare class AppController {
     insertInformation(information: InfoResDTO): Promise<import("./trangchu.entity/infoRes").Information>;
     findOneInfoResDTO(id: string, res: Response): Promise<void>;
     updateInfoResDTO(id: string, information: UpdateInfoResDTO, res: Response): Promise<void>;
+    getListFooter(res: Response): Promise<void>;
+    insertFooter(footer: FooterDTO): Promise<import("./trangchu.entity/footer").Footer>;
+    findOneFooterDTO(id: string, res: Response): Promise<void>;
+    updateFooterDTO(id: string, footer: NewFooterDTO, res: Response): Promise<void>;
 }
