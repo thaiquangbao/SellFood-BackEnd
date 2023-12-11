@@ -23,12 +23,20 @@ export class AppController {
     const slides = await this.appService.findAllSlide();
     const memories = await this.memoryService.findAllMemory();
     const informations = await this.appService.findAllInformation();
-    return res.render("index", { foods, slides, memories, informations });
+    const footers = await this.footerService.findAllFooter();
+    return res.render("index", {
+      foods,
+      slides,
+      memories,
+      informations,
+      footers,
+    });
   }
   @Get("slide")
   async getListSlide(@Res() res: Response) {
     const slides = await this.appService.findAllSlide();
-    return res.render("trang-chu/slider", { slides });
+    const footers = await this.footerService.findAllFooter();
+    return res.render("trang-chu/slider", { slides, footers });
   }
   @Post("slide/insert")
   async insert(@Body() slide: SlideDTO) {
@@ -39,7 +47,8 @@ export class AppController {
   async findOne(@Param("id") id: string, @Res() res: Response) {
     const slide = await this.appService.findOneSlide(id);
     const slides = await this.appService.findAllSlide();
-    return res.render("trang-chu/updateslider", { slide, slides });
+    const footers = await this.footerService.findAllFooter();
+    return res.render("trang-chu/updateslider", { slide, slides, footers });
   }
   @Put("slide/update/:id")
   async update(
@@ -63,7 +72,12 @@ export class AppController {
   async getListMemory(@Res() res: Response) {
     const memories = await this.memoryService.findAllMemory();
     const slides = await this.appService.findAllSlide();
-    return res.render("trang-chu/memory/listmemory", { memories, slides });
+    const footers = await this.footerService.findAllFooter();
+    return res.render("trang-chu/memory/listmemory", {
+      memories,
+      slides,
+      footers,
+    });
   }
   @Post("memory/insert")
   async insertMem(@Body() memory: MemoryDTO) {
@@ -74,7 +88,12 @@ export class AppController {
   async findOneMem(@Param("id") id: string, @Res() res: Response) {
     const memory = await this.memoryService.findOneMemory(id);
     const slides = await this.appService.findAllSlide();
-    return res.render("trang-chu/memory/updateMemory", { slides, memory });
+    const footers = await this.footerService.findAllFooter();
+    return res.render("trang-chu/memory/updateMemory", {
+      slides,
+      memory,
+      footers,
+    });
   }
   @Put("memory/update/:id")
   async updateMem(
@@ -98,9 +117,11 @@ export class AppController {
   async getListInformation(@Res() res: Response) {
     const informations = await this.appService.findAllInformation();
     const slides = await this.appService.findAllSlide();
+    const footers = await this.footerService.findAllFooter();
     return res.render("trang-chu/gioithieu/listGioiThieu", {
       informations,
       slides,
+      footers,
     });
   }
   @Post("information/insert")
@@ -112,9 +133,11 @@ export class AppController {
   async findOneInfoResDTO(@Param("id") id: string, @Res() res: Response) {
     const information = await this.appService.findOneInformation(id);
     const slides = await this.appService.findAllSlide();
+    const footers = await this.footerService.findAllFooter();
     return res.render("trang-chu/gioithieu/updateGioiThieu", {
       information,
       slides,
+      footers,
     });
   }
   @Put("information/update/:id")
@@ -150,9 +173,11 @@ export class AppController {
   async findOneFooterDTO(@Param("id") id: string, @Res() res: Response) {
     const footer = await this.footerService.findOneFooter(id);
     const slides = await this.appService.findAllSlide();
-    return res.render("trang-chu/gioithieu/updateGioiThieu", {
+    const footers = await this.footerService.findAllFooter();
+    return res.render("trang-chu/footer/formUpdateFooter", {
       footer,
       slides,
+      footers,
     });
   }
   @Put("footer/update/:id")

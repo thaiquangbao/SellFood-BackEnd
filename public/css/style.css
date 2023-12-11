@@ -122,7 +122,15 @@ h3 {
     font-size: 1rem;
     border: none;
 }
- 
+
+.dropdown-menu {
+    display: none;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
 .float-container {
     position: relative;
 }

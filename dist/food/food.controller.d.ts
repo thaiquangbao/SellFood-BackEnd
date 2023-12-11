@@ -4,11 +4,13 @@ import { FoodDTO, FoodDTOUpdate, ImgCloud } from "./dto/food.dto";
 import { Response } from "express";
 import { CloudinaryService } from "src/cloudinary/cloudinary.service";
 import { AppService } from "src/app.service";
+import { FooterService } from "src/footer/footer.service";
 export declare class FoodController {
     private foodService;
     private cloudinaryService;
     private appService;
-    constructor(foodService: FoodService, cloudinaryService: CloudinaryService, appService: AppService);
+    private footerService;
+    constructor(foodService: FoodService, cloudinaryService: CloudinaryService, appService: AppService, footerService: FooterService);
     uploadImage(file: Express.Multer.File): Promise<import("../cloudinary/cloudinary-response").CloudinaryResponse>;
     deleteImage(deleteImageDto: ImgCloud, res: Response): Promise<void>;
     getAllFood(res: Response): Promise<void>;

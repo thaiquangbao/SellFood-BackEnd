@@ -1,0 +1,171 @@
+<div class="form-input" style="min-height: 545px; margin-top: 20px;">
+        <h1 style="margin-left: 700px;">Cập nhật Footer</h1>
+        <div class="form-aria" style="background-color: rgb(245, 240, 240); margin-right: 130px;margin-left: 130px; padding-bottom: 30px; padding-right: 30px; ">
+            <div class="row g-3" style="margin-left: 150px; margin-top: 30px; " >
+                <div class="col">
+                    <label style="margin-bottom: 10px;">Địa chỉ</label>
+                    <input type="text" class="form-control" id="address" data-origin="{{footer.address}}" value="{{footer.address}}" placeholder="Địa chỉ nhà hàng" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label style="margin-bottom: 10px;">Hotline</label>
+                    <input type="text" class="form-control" data-origin="{{footer.hotline}}" value="{{footer.hotline}}" id="hotline" placeholder="Hotline nhà hàng" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label style="margin-bottom: 10px;">Email</label>
+                    <input type="text" class="form-control" data-origin="{{footer.mail}}" value="{{footer.mail}}" id="mail" placeholder="Địa chỉ mail" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label style="margin-bottom: 10px;">Thời gian làm việc</label>
+                    <input type="text" class="form-control" data-origin="{{footer.timeWork}}" value="{{footer.timeWork}}" id="timeWork" placeholder="Thời gian hoạt động của nhà hàng" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label style="margin-bottom: 10px;">Vị trí quán</label>
+                    <input type="text" class="form-control" data-origin="{{footer.iframe}}" value="{{footer.iframe}}" id="iframe" placeholder="Vị trí của nhà hàng" style="width: 500px;">
+                </div>
+                <div id="form-picture" class="col">
+                    <label style="margin-bottom: 10px;">Logo</label>
+                    <div class="changeava">
+                        <img id="imgSlide" data-origin="{{footer.logo}}" src="{{footer.logo}}" alt="" class="ava">
+                            <div class="form-ava" style="margin-top: 40px;" >
+
+                                <input type="file" class="image-user" id="imageUpload" name="img" accept=".jpg, .png" onchange="previewImage(this)"/><br>
+                            </div> 
+                    </div>    
+                </div> 
+            </div>
+            
+        </div>    
+        <div class="add" style="margin-top: 30px;">
+            <button onclick="updateSlide('{{footer.id}}')" class="btn btn-primary" style="margin-left: 350px; width: 1000px; height: 40px;" >Sửa</button>
+        </div>
+</div>
+<script>
+    function previewImage(input) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        $('#imgSlide').attr('src', e.target.result);
+    };
+
+    if (input.files && input.files[0]) {
+        reader.readAsDataURL(input.files[0]);
+    }
+    }
+    function updateSlide(id){
+       var address = $("#address").val();   
+       var hotline = $("#hotline").val();
+       var email = $("#mail").val();
+       var timeWork = $("#timeWork").val();
+       var viTri = $("#iframe").val();
+       var logo = $("#imgSlide").attr('src');
+
+       var originaddress = $("#address").data('origin');   
+       var originhotline = $("#hotline").data('origin');
+       var originemail = $("#mail").data('origin');
+       var origintimeWork = $("#timeWork").data('origin');
+       var originviTri = $("#iframe").data('origin');
+       var originlogo = $("#imgSlide").data('origin'); 
+        if (address.trim() === '' || hotline.trim() === '' || email.trim() === '' || timeWork.trim() === '' || viTri.trim() === '' || logo.trim() === '') {
+            alert("Vui lòng điền đầy đủ thông tin");
+            return;
+        }
+        if (
+        address === originaddress &&
+        hotline === originhotline &&
+        email === originemail &&
+        timeWork === origintimeWork &&
+        viTri === originviTri &&
+        logo === originlogo
+        ) {
+            alert("Không có dữ liệu nào thay đổi");
+            window.location.href="/footer"
+            return;
+        }
+        var imageFile = $('#imageUpload')[0].files[0];
+        var formData = new FormData();
+        formData.append("file", imageFile);
+        if(logo !== originlogo){
+            const imageUrl = String(originlogo);
+            const parts = imageUrl.split('/');
+            const result = parts.slice(-2).join('/'); // Lấy hai phần tử cuối cùng và nối lại
+            const cut = result.split('.')
+            const deleteImageDto = cut[0]
+           $.ajax({
+                url:"/foods/deleteCloud",
+                type:"POST",
+                data:{
+                    imgDTO:deleteImageDto
+                } 
+            })
+            .then(data => {
+                $.ajax({
+                    url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false
+                })
+                .then((cloudinaryResponse) => {
+                // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
+                var imageUrl1 = cloudinaryResponse.secure_url;
+                    $.ajax({
+                    url:"/footer/update/" + id,
+                    type:"PUT",
+                    data:{
+                        logo: imageUrl1,
+                        address:address,
+                        hotline:hotline,
+                        mail: email,
+                        timeWork: timeWork,
+                        iframe: viTri
+                    }
+                    }) 
+                    .then(data => {
+                        if(data.code === 200){
+                            alert("Cập nhật Footer thành công");
+                            window.location.href="/footer"
+                        }
+                        else{
+                            alert("Cập nhật không thành công");
+                        }
+                    })
+                    .catch(error =>{
+                        alert("Lỗi cập nhật Footer!!!")
+                    })
+                })
+                .catch(error =>{
+                    alert("Lỗi upload ảnh trên cloud!!!");
+                })
+            })
+            .catch(error =>{
+                alert("Lỗi xóa ảnh trên cloud!!!");
+            })
+        }else{
+            $.ajax({
+                url:"/footer/update/" + id,
+                type:"PUT",
+                data:{
+                    logo: logo,
+                    address:address,
+                    hotline:hotline,
+                    mail: email,
+                    timeWork: timeWork,
+                    iframe: viTri
+                }
+            }) 
+            .then(data => {
+                if(data.code === 200){
+                    alert("Cập nhật thông tin Footer thành công");
+                    window.location.href="/footer"
+                }
+                else{
+                    alert("Cập nhật không thành công");
+                }
+            })
+            .catch(error =>{
+                alert("Lỗi cập nhật Footer!!!")
+            })
+        }
+    }
+
+</script>

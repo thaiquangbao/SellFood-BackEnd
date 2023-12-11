@@ -37,27 +37,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{!-- {{#each informations}} --}}
+                    {{#each footers}}
                     <tr>
                    
                     <th scope="row"><span class="stt"></span></th>
-                    <td style="text-align: center;">d</td>
-                    <td style="text-align: center;">d</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">r</td>
-                    <td style="text-align: center;">4</td>
+                    <td style="text-align: center;">{{this.address}}</td>
+                    <td style="text-align: center;">{{this.hotline}}</td>
+                    <td style="text-align: center;">{{this.mail}}</td>
+                    <td style="text-align: center;">{{this.timeWork}}</td>
                     <td style="text-align: center;">
-                        <img style="width:200px; height: 100px; " src="" >
+                        <iframe style='width: 90%; margin-top: 5%; height: 150px;'  src='{{this.iframe}}' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy' referrerpolicy='no-referrer-when-downgrade'></iframe>
+                        
+                    </td>
+                    <td style="text-align: center;">
+                        <img style="width:200px; height: 100px; " src="{{this.logo}}" >
 
                     </td>
                     
                     <td style="text-align: center;">
-                        <a href="{{this.id}}" class="btn btn-link ">Sửa</a>
+                        <a href="/footer/{{this.id}}" class="btn btn-link ">Sửa</a>
                        
                     </td>
                     </tr>
                     
-                    {{!-- {{/each}} --}}
+                    {{/each}}
                 </tbody>
             </table>
             

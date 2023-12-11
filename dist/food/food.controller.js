@@ -20,11 +20,13 @@ const food_dto_1 = require("./dto/food.dto");
 const cloudinary_service_1 = require("../cloudinary/cloudinary.service");
 const platform_express_1 = require("@nestjs/platform-express");
 const app_service_1 = require("../app.service");
+const footer_service_1 = require("../footer/footer.service");
 let FoodController = class FoodController {
-    constructor(foodService, cloudinaryService, appService) {
+    constructor(foodService, cloudinaryService, appService, footerService) {
         this.foodService = foodService;
         this.cloudinaryService = cloudinaryService;
         this.appService = appService;
+        this.footerService = footerService;
     }
     async uploadImage(file) {
         try {
@@ -53,11 +55,13 @@ let FoodController = class FoodController {
     async getAllFood(res) {
         const foods = await this.foodService.findAllFood();
         const slides = await this.appService.findAllSlide();
-        return res.render("foods/listFoods", { foods, slides });
+        const footers = await this.footerService.findAllFooter();
+        return res.render("foods/listFoods", { foods, slides, footers });
     }
     async getFormFood(res) {
         const slides = await this.appService.findAllSlide();
-        return res.render("foods/createFoods", { Category: food_entity_1.Category, slides });
+        const footers = await this.footerService.findAllFooter();
+        return res.render("foods/createFoods", { Category: food_entity_1.Category, slides, footers });
     }
     async addFood(food, res) {
         const result = await this.foodService.insertFood(food);
@@ -74,7 +78,8 @@ let FoodController = class FoodController {
     async findByIdFood(id, res) {
         const food = await this.foodService.findOneById(id);
         const slides = await this.appService.findAllSlide();
-        return res.render("foods/updateFood", { food, Category: food_entity_1.Category, slides });
+        const footers = await this.footerService.findAllFooter();
+        return res.render("foods/updateFood", { food, Category: food_entity_1.Category, slides, footers });
     }
     async deleteOneFood(id) {
         this.foodService.deleteOne(id);
@@ -216,6 +221,7 @@ exports.FoodController = FoodController = __decorate([
     (0, common_1.Controller)("foods"),
     __metadata("design:paramtypes", [food_service_1.FoodService,
         cloudinary_service_1.CloudinaryService,
-        app_service_1.AppService])
+        app_service_1.AppService,
+        footer_service_1.FooterService])
 ], FoodController);
 //# sourceMappingURL=food.controller.js.map

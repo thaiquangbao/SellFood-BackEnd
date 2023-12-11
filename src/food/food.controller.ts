@@ -17,6 +17,7 @@ import { Response } from "express";
 import { CloudinaryService } from "src/cloudinary/cloudinary.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { AppService } from "src/app.service";
+import { FooterService } from "src/footer/footer.service";
 
 @Controller("foods")
 export class FoodController {
@@ -24,6 +25,7 @@ export class FoodController {
     private foodService: FoodService,
     private cloudinaryService: CloudinaryService,
     private appService: AppService,
+    private footerService: FooterService,
   ) {}
 
   @Post("uploads")
@@ -56,12 +58,14 @@ export class FoodController {
   async getAllFood(@Res() res: Response) {
     const foods = await this.foodService.findAllFood();
     const slides = await this.appService.findAllSlide();
-    return res.render("foods/listFoods", { foods, slides });
+    const footers = await this.footerService.findAllFooter();
+    return res.render("foods/listFoods", { foods, slides, footers });
   }
   @Get("formAddFoods")
   async getFormFood(@Res() res: Response) {
     const slides = await this.appService.findAllSlide();
-    return res.render("foods/createFoods", { Category, slides });
+    const footers = await this.footerService.findAllFooter();
+    return res.render("foods/createFoods", { Category, slides, footers });
   }
   @Post("insertFood")
   async addFood(@Body() food: FoodDTO, @Res() res: Response) {
@@ -79,7 +83,8 @@ export class FoodController {
   async findByIdFood(@Param("id") id: string, @Res() res: Response) {
     const food = await this.foodService.findOneById(id);
     const slides = await this.appService.findAllSlide();
-    return res.render("foods/updateFood", { food, Category, slides });
+    const footers = await this.footerService.findAllFooter();
+    return res.render("foods/updateFood", { food, Category, slides, footers });
   }
   @Delete("deleteFood/:id")
   async deleteOneFood(@Param("id") id: string): Promise<void> {
