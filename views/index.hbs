@@ -114,10 +114,12 @@
         images.forEach(function (image) {
             image.addEventListener("mouseover", function () {
                 this.style.transform = "scale(1.1)";
+                this.style.transition = "filter 0.3s ease, transform 0.3s ease";
             });
 
             image.addEventListener("mouseout", function () {
                 this.style.transform = "scale(1)";
+                this.style.transition = "filter 0.3s ease, transform 0.3s ease";
             });
         });
     });
@@ -125,7 +127,7 @@
 <script>
 function addBlurEffect(element) {
    
-    element.style.transform = "scale(1.1)"; // Phóng to khung (ví dụ, 1.2 lần)
+    element.style.transform = "scale(1.05)"; // Phóng to khung (ví dụ, 1.2 lần)
     element.style.transition = "filter 0.3s ease, transform 0.3s ease"; // Chuyển động cho cả hai hiệu ứng// Chuyển động cho cả hai hiệu ứng
 }
 

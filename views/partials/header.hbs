@@ -15,7 +15,7 @@
                     <a class="nav-link active" aria-current="page" style="font-size: 20px;color: white" href="/">Giới Thiệu</a>
                   </li>
                  <li class="nav-item dropdown" style="margin-right: 50px;" onmouseenter="toggleDropdown(this, true)" onmouseleave="toggleDropdown(this, false)" onmouseover="hoverEffect(this)" onmouseout="unhoverEffect(this)">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-size: 20px; color: white" href="#" role="button" aria-expanded="false">Thực đơn</a>
+                    <a class="nav-link dropdown-toggle"  style="font-size: 20px; color: white" href="/thucdon"  aria-expanded="false">Thực đơn</a>
                     <ul class="dropdown-menu" style="background-color: rgba(0, 0, 0, 0.644)">
                       <li><a class="dropdown-item" style="color: burlywood;" href="#">Món Nướng</a></li>
                       <li><hr class="dropdown-divider"></li>
@@ -119,21 +119,28 @@
 <script>
     function openDropdown(element) {
         element.querySelector('.dropdown-menu').style.display = 'block';
+         element.querySelector('.dropdown-menu').style.transition = "filter 0.3s ease, transform 0.3s ease";
     }
 
     function closeDropdown(element) {
         element.querySelector('.dropdown-menu').style.display = 'none';
+         element.querySelector('.dropdown-menu').style.transition = "filter 0.3s ease, transform 0.3s ease";
     }
     function toggleDropdown(element, show) {
         element.querySelector('.dropdown-menu').style.display = show ? 'block' : 'none';
+         element.querySelector('.dropdown-menu').style.transition = "filter 0.3s ease, transform 0.3s ease";
     }
 </script>
 <script>
     function hoverEffect(element) {
-        element.querySelector('.nav-link').style.fontWeight = 'bold';
+        var navLink = element.querySelector('.nav-link');
+        navLink.style.fontWeight = 'bold';
+        navLink.style.marginTop = '2px';
     }
 
     function unhoverEffect(element) {
-        element.querySelector('.nav-link').style.fontWeight = 'normal';
+        var navLink = element.querySelector('.nav-link');
+        navLink.style.fontWeight = 'normal';
+        navLink.style.marginTop = '0';
     }
 </script>
