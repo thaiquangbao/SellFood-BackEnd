@@ -8,13 +8,13 @@
                     <img src="https://res.cloudinary.com/dk41ftplg/image/upload/v1701855873/Restaurant-Food/pbdfcjipmxdfqb3st4ag.png" style="border-radius: 50%;  border: 5px black;; border-style: double; margin-left: 55%; width: 200px" alt="restaurant logo" class="img-responsive" >
                 </a>
                 <ul class="nav" style="margin-left: 300px;" >
-                  <li class="nav-item" style="margin-right: 50px;">
+                  <li class="nav-item" style="margin-right: 50px; "onmouseover="hoverEffect(this)" onmouseout="unhoverEffect(this)">
                     <a class="nav-link active" aria-current="page" style="font-size: 20px;color: white" href="/">Trang chủ</a>
                   </li>
-                  <li class="nav-item" style="margin-right: 50px;">
+                  <li class="nav-item" style="margin-right: 50px;"onmouseover="hoverEffect(this)" onmouseout="unhoverEffect(this)">
                     <a class="nav-link active" aria-current="page" style="font-size: 20px;color: white" href="/">Giới Thiệu</a>
                   </li>
-                 <li class="nav-item dropdown" style="margin-right: 50px;" onmouseenter="toggleDropdown(this, true)" onmouseleave="toggleDropdown(this, false)">
+                 <li class="nav-item dropdown" style="margin-right: 50px;" onmouseenter="toggleDropdown(this, true)" onmouseleave="toggleDropdown(this, false)" onmouseover="hoverEffect(this)" onmouseout="unhoverEffect(this)">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-size: 20px; color: white" href="#" role="button" aria-expanded="false">Thực đơn</a>
                     <ul class="dropdown-menu" style="background-color: rgba(0, 0, 0, 0.644)">
                       <li><a class="dropdown-item" style="color: burlywood;" href="#">Món Nướng</a></li>
@@ -34,12 +34,15 @@
                       <li><a class="dropdown-item" style="color: burlywood;" href="#">Món Luộc</a></li>
                     </ul>
                   </li>
-                  <li class="nav-item" style="margin-right: 50px;">
+                  <li class="nav-item" style="margin-right: 50px;"onmouseover="hoverEffect(this)" onmouseout="unhoverEffect(this)">
                     <a class="nav-link" style="font-size: 20px;color: white" href="#">Liên hệ</a>
                   </li>
-                  
+                  <li  class="nav-item" style="margin-right: 50px;"onmouseover="hoverEffect(this)" onmouseout="unhoverEffect(this)"> 
+                    <a class="nav-link" style="font-size: 18px;color: white; margin-top: 3px;" href="#">HOTLINE: 0378841836</a>
+                  </li>
                 </ul>
-                <a style="color: white;">HOTLINE: 0378841836</a>
+                
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -123,5 +126,14 @@
     }
     function toggleDropdown(element, show) {
         element.querySelector('.dropdown-menu').style.display = show ? 'block' : 'none';
+    }
+</script>
+<script>
+    function hoverEffect(element) {
+        element.querySelector('.nav-link').style.fontWeight = 'bold';
+    }
+
+    function unhoverEffect(element) {
+        element.querySelector('.nav-link').style.fontWeight = 'normal';
     }
 </script>
