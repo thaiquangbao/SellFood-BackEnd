@@ -1,19 +1,139 @@
  <div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px;">
    <div class="col-lg-12 justify-content-center " style="display: flex;">
-      <div class="col-lg-3">
-         <div class="card" style="width: 18rem;">
-         <div class="card-header" style="background-color: orange;">
-            <img style="width: 30px; height: 30px;" src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e" alt="">
-            Featured
-         </div>
-         <ul class="list-group list-group-flush">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-         </ul>
-         </div>
+      
+      <div class="col-lg-12"  >
+         <section id="thucDon" class="food-menu" style="background-color: white;width: 100%; padding-top: 10%;">
+        <div class="container-fluid" >
+            <div style="display: flex; align-items: center;justify-content: center; ">
+                <span style="height: 2px; width: 36%; background-color: #999; "></span>
+                <h3 class="text-titler" style="color: black; height: 50px; margin: 0 30px;">Thức đơn</h3>
+                <span style="height: 2px; width: 36%; background-color: #999; "></span>
+            </div>
+           
+            <div style="display: flex; flex-wrap: wrap; " >
+            {{#each foods}}
+                <div style="width: 10%; color: antiquewhite;">---</div>
+                <div  class="card mb-3" style="max-width: 540px; background-color: white; width: 50%;  border: none;  margin-top: 3%;">
+                  <div class="row g-0"  style="margin-left: 10%; padding-left: 15%;">
+                     <div class="col-md-5" >
+                        <img style="border-radius: 50%; width: 400px; height: 150px;" src="{{this.img}}" onmouseover="addBlurEffect(this)" onmouseout="removeBlurEffect(this)" class="img-fluid rounded-start" alt="...">
+                     </div>
+                     <div class="col-md-7" > 
+                           <div class="card-body" style="color: black; " >
+                              <a style="font-weight: bold;" >{{this.nameFood}}</a>
+                              <p class="card-text">Giá :
+                              <i style="color: rgb(250, 47, 47)" id="priceNB">{{this.price}} </i>
+                              </p>
+                              
+                              <p class="card-text"><small class="text-muted">Mô tả:{{this.describe}} </small></p>
+                           </div>
+                     </div>
+                      
+                  </div>
+                 
+                </div>
+               
+            {{/each}}    
             
+            </div>
+            
+            <div class="clearfix"></div>
+        </div>
+
+    </section>
+    {{#each listFoodArrays}}
+    
+    <section id="{{@key}}" class="food-menu" style="background-color: white; width: 100%;padding-top: 10%;">
+      <div  class="container-fluid">
+        
+        <div style="display: flex; align-items: center; justify-content: center;">
+          
+          <span style="height: 2px; width: 36%; background-color: #999; "></span>
+          
+          <h3 class="text-titler" style="color: black; height: 50px; margin: 0 30px;" >{{@key}}</h3>
+          
+          <span style="height: 2px; width: 36%; background-color: #999; "></span>
+        </div>
+      
+      <div style="display: flex; flex-wrap: wrap; ">
+
+        {{#each this}}
+        <div style="width: 10%; color: antiquewhite;">---</div>
+          <div class="card mb-3" style="max-width: 540px; background-color: white; width: 50%;  border: none;  margin-top: 3%;">
+            <div class="row g-0" style="margin-left: 10%; padding-left: 15%;">
+              <div class="col-md-5">
+                <img style="border-radius: 50%; width: 400px; height: 150px;" src="{{this.img}}" onmouseover="addBlurEffect(this)" onmouseout="removeBlurEffect(this)" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-7">
+                <div class="card-body" style="color: black; ">
+                  <a style="font-weight: bold;">{{this.nameFood}}</a>
+                  <p class="card-text">Giá :
+                    <i style="color: rgb(250, 47, 47)" id="priceNB">{{this.price}} </i>
+                  </p>
+                  <p class="card-text"><small class="text-muted">Mô tả:{{this.describe}} </small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      </section>
+      
+    {{/each}}
       </div>
-      <div class="col-lg-7" style="background-color: black; height: 600px;" >ok</div>
    </div>
  </div>
+ <script>
+function addBlurEffect(element) {
+   
+    element.style.transform = "scale(1.05)"; // Phóng to khung (ví dụ, 1.2 lần)
+    element.style.transition = "filter 0.3s ease, transform 0.3s ease"; // Chuyển động cho cả hai hiệu ứng// Chuyển động cho cả hai hiệu ứng
+}
+
+// Hàm loại bỏ hiệu ứng blur và độ trong suốt
+function removeBlurEffect(element) {
+ 
+    element.style.transform = "scale(1)"; // Khôi phục kích thước ban đầu
+    element.style.transition = "filter 0.3s ease, transform 0.3s ease"; // Chuyển động cho cả hai hiệu ứng
+}
+
+  
+</script>
+<script>
+         document.addEventListener("DOMContentLoaded", function() {
+    var priceElements = document.querySelectorAll("#priceNB");
+
+    priceElements.forEach(function(element) {
+      var price = element.textContent.trim();
+      var hiddenPrice = hideDigits(price, 3);
+      element.textContent = hiddenPrice + " VND";
+    });
+
+    function hideDigits(price, count) {
+      // Chuyển giá thành chuỗi
+      var priceStr = price.toString();
+      
+      // Ẩn chữ số thứ 4 trở đi bằng cách thêm dấu chấm
+      var hiddenPrice = priceStr.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+      return hiddenPrice;
+    }
+  });
+</script>
+<script>
+ const cardDiv = document.getElementById('list-example');
+
+  // Bắt sự kiện khi lăn chuột
+  document.addEventListener('scroll', () => {
+    // Lấy vị trí cuối cùng của trình duyệt
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
+    // Đặt vị trí của div dựa trên vị trí cuối cùng của trình duyệt
+    cardDiv.style.top = `${1 + scrollPosition}px`; // 50 là vị trí ban đầu của div, bạn có thể điều chỉnh nếu cần
+  });
+</script>
+    

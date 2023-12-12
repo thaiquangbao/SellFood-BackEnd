@@ -59,13 +59,17 @@ export class FoodController {
     const foods = await this.foodService.findAllFood();
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
-    return res.render("foods/listFoods", { foods, slides, footers });
+    return res.render("foods/listFoods", { foods, slides, footers, Category });
   }
   @Get("formAddFoods")
   async getFormFood(@Res() res: Response) {
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
-    return res.render("foods/createFoods", { Category, slides, footers });
+    return res.render("foods/createFoods", {
+      Category,
+      slides,
+      footers,
+    });
   }
   @Post("insertFood")
   async addFood(@Body() food: FoodDTO, @Res() res: Response) {

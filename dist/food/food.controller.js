@@ -56,12 +56,16 @@ let FoodController = class FoodController {
         const foods = await this.foodService.findAllFood();
         const slides = await this.appService.findAllSlide();
         const footers = await this.footerService.findAllFooter();
-        return res.render("foods/listFoods", { foods, slides, footers });
+        return res.render("foods/listFoods", { foods, slides, footers, Category: food_entity_1.Category });
     }
     async getFormFood(res) {
         const slides = await this.appService.findAllSlide();
         const footers = await this.footerService.findAllFooter();
-        return res.render("foods/createFoods", { Category: food_entity_1.Category, slides, footers });
+        return res.render("foods/createFoods", {
+            Category: food_entity_1.Category,
+            slides,
+            footers,
+        });
     }
     async addFood(food, res) {
         const result = await this.foodService.insertFood(food);

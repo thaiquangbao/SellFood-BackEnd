@@ -9,6 +9,7 @@ import { MemoryService } from "./memory.service";
 import { InfoResDTO, UpdateInfoResDTO } from "./trangchu.entity/dto/infoResDTO";
 import { FooterService } from "./footer/footer.service";
 import { FooterDTO, NewFooterDTO } from "./trangchu.entity/dto/footerDTO";
+import { Category } from "./food/entity/food.entity";
 @Controller()
 export class AppController {
   constructor(
@@ -30,13 +31,14 @@ export class AppController {
       memories,
       informations,
       footers,
+      Category,
     });
   }
   @Get("slide")
   async getListSlide(@Res() res: Response) {
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
-    return res.render("trang-chu/slider", { slides, footers });
+    return res.render("trang-chu/slider", { slides, footers, Category });
   }
   @Post("slide/insert")
   async insert(@Body() slide: SlideDTO) {
@@ -48,7 +50,12 @@ export class AppController {
     const slide = await this.appService.findOneSlide(id);
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
-    return res.render("trang-chu/updateslider", { slide, slides, footers });
+    return res.render("trang-chu/updateslider", {
+      slide,
+      slides,
+      footers,
+      Category,
+    });
   }
   @Put("slide/update/:id")
   async update(
@@ -77,6 +84,7 @@ export class AppController {
       memories,
       slides,
       footers,
+      Category,
     });
   }
   @Post("memory/insert")
@@ -93,6 +101,7 @@ export class AppController {
       slides,
       memory,
       footers,
+      Category,
     });
   }
   @Put("memory/update/:id")
@@ -122,6 +131,7 @@ export class AppController {
       informations,
       slides,
       footers,
+      Category,
     });
   }
   @Post("information/insert")
@@ -138,6 +148,7 @@ export class AppController {
       information,
       slides,
       footers,
+      Category,
     });
   }
   @Put("information/update/:id")
@@ -162,7 +173,11 @@ export class AppController {
   async getListFooter(@Res() res: Response) {
     const footers = await this.footerService.findAllFooter();
     const slides = await this.appService.findAllSlide();
-    return res.render("trang-chu/footer/listFooter", { footers, slides });
+    return res.render("trang-chu/footer/listFooter", {
+      footers,
+      slides,
+      Category,
+    });
   }
   @Post("footer/insert")
   async insertFooter(@Body() footer: FooterDTO) {
@@ -178,6 +193,7 @@ export class AppController {
       footer,
       slides,
       footers,
+      Category,
     });
   }
   @Put("footer/update/:id")

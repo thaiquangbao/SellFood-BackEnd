@@ -22,6 +22,7 @@ const memory_service_1 = require("./memory.service");
 const infoResDTO_1 = require("./trangchu.entity/dto/infoResDTO");
 const footer_service_1 = require("./footer/footer.service");
 const footerDTO_1 = require("./trangchu.entity/dto/footerDTO");
+const food_entity_1 = require("./food/entity/food.entity");
 let AppController = class AppController {
     constructor(foodService, appService, memoryService, footerService) {
         this.foodService = foodService;
@@ -41,12 +42,13 @@ let AppController = class AppController {
             memories,
             informations,
             footers,
+            Category: food_entity_1.Category,
         });
     }
     async getListSlide(res) {
         const slides = await this.appService.findAllSlide();
         const footers = await this.footerService.findAllFooter();
-        return res.render("trang-chu/slider", { slides, footers });
+        return res.render("trang-chu/slider", { slides, footers, Category: food_entity_1.Category });
     }
     async insert(slide) {
         const result = await this.appService.insertSlide(slide);
@@ -56,7 +58,12 @@ let AppController = class AppController {
         const slide = await this.appService.findOneSlide(id);
         const slides = await this.appService.findAllSlide();
         const footers = await this.footerService.findAllFooter();
-        return res.render("trang-chu/updateslider", { slide, slides, footers });
+        return res.render("trang-chu/updateslider", {
+            slide,
+            slides,
+            footers,
+            Category: food_entity_1.Category,
+        });
     }
     async update(id, slide, res) {
         const result = await this.appService.updateSlide(id, slide);
@@ -79,6 +86,7 @@ let AppController = class AppController {
             memories,
             slides,
             footers,
+            Category: food_entity_1.Category,
         });
     }
     async insertMem(memory) {
@@ -93,6 +101,7 @@ let AppController = class AppController {
             slides,
             memory,
             footers,
+            Category: food_entity_1.Category,
         });
     }
     async updateMem(id, memory, res) {
@@ -116,6 +125,7 @@ let AppController = class AppController {
             informations,
             slides,
             footers,
+            Category: food_entity_1.Category,
         });
     }
     async insertInformation(information) {
@@ -130,6 +140,7 @@ let AppController = class AppController {
             information,
             slides,
             footers,
+            Category: food_entity_1.Category,
         });
     }
     async updateInfoResDTO(id, information, res) {
@@ -148,7 +159,11 @@ let AppController = class AppController {
     async getListFooter(res) {
         const footers = await this.footerService.findAllFooter();
         const slides = await this.appService.findAllSlide();
-        return res.render("trang-chu/footer/listFooter", { footers, slides });
+        return res.render("trang-chu/footer/listFooter", {
+            footers,
+            slides,
+            Category: food_entity_1.Category,
+        });
     }
     async insertFooter(footer) {
         const result = await this.footerService.insertFooter(footer);
@@ -162,6 +177,7 @@ let AppController = class AppController {
             footer,
             slides,
             footers,
+            Category: food_entity_1.Category,
         });
     }
     async updateFooterDTO(id, footer, res) {

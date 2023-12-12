@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Food } from "./entity/food.entity";
+import { Category, Food } from "./entity/food.entity";
 import * as mongoose from "mongoose";
 
 @Injectable()
@@ -11,6 +11,10 @@ export class FoodService {
   ) {}
   async findAllFood(): Promise<Food[]> {
     const foods = await this.foodEntity.find();
+    return foods;
+  }
+  async findAllFoodC(category: Category): Promise<Food[]> {
+    const foods = await this.foodEntity.find({ category });
     return foods;
   }
   async insertFood(food: Food): Promise<Food> {

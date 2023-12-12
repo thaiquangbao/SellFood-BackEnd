@@ -5,7 +5,7 @@
            <nav class="navbar navbar-light fixed-top" style="background-color: rgb(17, 17, 17); height: 15%;">
             <div class="container-fluid">
                  <a class="logo" href="/">
-                    <img src="https://res.cloudinary.com/dk41ftplg/image/upload/v1701855873/Restaurant-Food/pbdfcjipmxdfqb3st4ag.png" style="border-radius: 50%;  border: 5px black;; border-style: double; margin-left: 55%; width: 200px" alt="restaurant logo" class="img-responsive" >
+                    <img src="https://res.cloudinary.com/dk41ftplg/image/upload/v1701855873/Restaurant-Food/pbdfcjipmxdfqb3st4ag.png" style="border-radius: 50%;  border: 5px black;; border-style: double; margin-left: 55%; width: 130%" alt="restaurant logo" class="img-responsive" >
                 </a>
                 <ul class="nav" style="margin-left: 300px;" >
                   <li class="nav-item" style="margin-right: 50px; "onmouseover="hoverEffect(this)" onmouseout="unhoverEffect(this)">
@@ -15,23 +15,12 @@
                     <a class="nav-link active" aria-current="page" style="font-size: 20px;color: white" href="/">Giới Thiệu</a>
                   </li>
                  <li class="nav-item dropdown" style="margin-right: 50px;" onmouseenter="toggleDropdown(this, true)" onmouseleave="toggleDropdown(this, false)" onmouseover="hoverEffect(this)" onmouseout="unhoverEffect(this)">
-                    <a class="nav-link dropdown-toggle"  style="font-size: 20px; color: white" href="/thucdon"  aria-expanded="false">Thực đơn</a>
+                    <a class="nav-link dropdown-toggle"  style="font-size: 20px; color: white" href="/thucdon/#thucDon"  aria-expanded="false">Thực đơn</a>
                     <ul class="dropdown-menu" style="background-color: rgba(0, 0, 0, 0.644)">
-                      <li><a class="dropdown-item" style="color: burlywood;" href="#">Món Nướng</a></li>
+                    {{#each Category}}
+                      <li><a class="dropdown-item" style="color: burlywood;" href="/thucdon#{{this}}">Món {{this}}</a></li>
                       <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" style="color: burlywood;" href="#">Món Kho</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" style="color: burlywood;" href="#">Món Xào</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" style="color: burlywood;" href="#">Món Chiên</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" style="color: burlywood;" href="#">Món Canh</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" style="color: burlywood;" href="#">Món Lẩu</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" style="color: burlywood;" href="#">Món Hấp</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" style="color: burlywood;" href="#">Món Luộc</a></li>
+                    {{/each}}
                     </ul>
                   </li>
                   <li class="nav-item" style="margin-right: 50px;"onmouseover="hoverEffect(this)" onmouseout="unhoverEffect(this)">
@@ -134,13 +123,13 @@
 <script>
     function hoverEffect(element) {
         var navLink = element.querySelector('.nav-link');
-        navLink.style.fontWeight = 'bold';
+        navLink.style.color = 'rgb(248, 248, 154)';
         navLink.style.marginTop = '2px';
     }
 
     function unhoverEffect(element) {
         var navLink = element.querySelector('.nav-link');
-        navLink.style.fontWeight = 'normal';
+        navLink.style.color = 'white';
         navLink.style.marginTop = '0';
     }
 </script>

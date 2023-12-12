@@ -22,12 +22,13 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Food } from "./entity/food.entity";
+import { Category, Food } from "./entity/food.entity";
 import * as mongoose from "mongoose";
 export declare class FoodService {
     private foodEntity;
     constructor(foodEntity: mongoose.Model<Food>);
     findAllFood(): Promise<Food[]>;
+    findAllFoodC(category: Category): Promise<Food[]>;
     insertFood(food: Food): Promise<Food>;
     findOneById(id: string): Promise<Food>;
     deleteOne(id: string): Promise<boolean>;
