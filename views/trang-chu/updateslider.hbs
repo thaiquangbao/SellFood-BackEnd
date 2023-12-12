@@ -55,8 +55,8 @@
         var titleChanged = currentTitle !== originalTitle;
         var noiDungChanged = currentNoiDung !== originalNoiDung;
         var imgChanged = currentImg !== originalImg;
-          if (currentTitle.trim() === '' || currentNoiDung.trim() === '' || currentImg.trim() === '') {
-            alert('Vui lòng điền đầy đủ thông tin');
+          if (currentImg.trim() === '') {
+            alert('Vui lòng chọn ảnh');
             return; // Dừng hàm nếu có trường rỗng
         }
         // Kiểm tra điều kiện

@@ -14,8 +14,12 @@ export class AppService {
   ) {}
   // Slider
   async findAllSlide(): Promise<Slide[]> {
-    const slides = await this.slideEntity.find();
+    const slides = await this.slideEntity.find({ sttSlide: { $ne: 0 } });
     return slides;
+  }
+  async findSlideOne(): Promise<Slide> {
+    const slide = await this.slideEntity.findOne({ sttSlide: 0 });
+    return slide;
   }
   async insertSlide(slide: Slide): Promise<Slide> {
     const newslide = await this.slideEntity.create(slide);

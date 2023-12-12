@@ -5,6 +5,7 @@ import { Response } from "express";
 import { FooterService } from "src/footer/footer.service";
 import { FoodService } from "src/food/food.service";
 import { Category } from "src/food/entity/food.entity";
+import { Slide } from "src/trangchu.entity/slide";
 
 @Controller("thucdon")
 export class ThucdonController {
@@ -16,8 +17,9 @@ export class ThucdonController {
   @Get()
   async thucDon(@Res() res: Response) {
     const slides = await this.appService.findAllSlide();
-    const foods = await this.foodService.findAllFood();
+    const foods = await this.foodService.findAllFoodNB();
     const footers = await this.footerService.findAllFooter();
+    const slideOne = await this.appService.findSlideOne();
     const categories = [
       Category.Lau,
       Category.CANH,
@@ -48,29 +50,13 @@ export class ThucdonController {
       foods,
       footers,
       listFoodArrays,
+      slideOne,
     });
   }
   @Get("test")
-  async test() {
-    try {
-      const categories = [Category.CANH, Category.Lau, Category.CHIEN];
-
-      const result = {};
-
-      // Lặp qua từng category và gọi hàm findAllFoodC
-      for (const category of categories) {
-        const foods = await this.foodService.findAllFoodC(category);
-        result[category] = foods;
-      }
-
-      // Kết quả trả về là một đối tượng với key là category và value là danh sách món ăn
-      console.log(result);
-
-      return result;
-    } catch (error) {
-      // Xử lý lỗi nếu cần thiết
-      console.error("Error fetching foods:", error);
-      throw new Error("Unable to fetch foods.");
-    }
+  async test(): Promise<Slide> {
+    const slideOne = await this.appService.findSlideOne();
+    console.log(slideOne);
+    return slideOne;
   }
 }

@@ -20,8 +20,9 @@ export class AppController {
   ) {}
   @Get()
   async getAllFood(@Res() res: Response) {
-    const foods = await this.foodService.findAllFood();
+    const foods = await this.foodService.findAllFoodNB();
     const slides = await this.appService.findAllSlide();
+    const slideOne = await this.appService.findSlideOne();
     const memories = await this.memoryService.findAllMemory();
     const informations = await this.appService.findAllInformation();
     const footers = await this.footerService.findAllFooter();
@@ -32,13 +33,20 @@ export class AppController {
       informations,
       footers,
       Category,
+      slideOne,
     });
   }
   @Get("slide")
   async getListSlide(@Res() res: Response) {
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
-    return res.render("trang-chu/slider", { slides, footers, Category });
+    const slideOne = await this.appService.findSlideOne();
+    return res.render("trang-chu/slider", {
+      slides,
+      footers,
+      Category,
+      slideOne,
+    });
   }
   @Post("slide/insert")
   async insert(@Body() slide: SlideDTO) {
@@ -50,11 +58,13 @@ export class AppController {
     const slide = await this.appService.findOneSlide(id);
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
+    const slideOne = await this.appService.findSlideOne();
     return res.render("trang-chu/updateslider", {
       slide,
       slides,
       footers,
       Category,
+      slideOne,
     });
   }
   @Put("slide/update/:id")
@@ -80,11 +90,13 @@ export class AppController {
     const memories = await this.memoryService.findAllMemory();
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
+    const slideOne = await this.appService.findSlideOne();
     return res.render("trang-chu/memory/listmemory", {
       memories,
       slides,
       footers,
       Category,
+      slideOne,
     });
   }
   @Post("memory/insert")
@@ -97,11 +109,13 @@ export class AppController {
     const memory = await this.memoryService.findOneMemory(id);
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
+    const slideOne = await this.appService.findSlideOne();
     return res.render("trang-chu/memory/updateMemory", {
       slides,
       memory,
       footers,
       Category,
+      slideOne,
     });
   }
   @Put("memory/update/:id")
@@ -127,11 +141,13 @@ export class AppController {
     const informations = await this.appService.findAllInformation();
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
+    const slideOne = await this.appService.findSlideOne();
     return res.render("trang-chu/gioithieu/listGioiThieu", {
       informations,
       slides,
       footers,
       Category,
+      slideOne,
     });
   }
   @Post("information/insert")
@@ -144,11 +160,13 @@ export class AppController {
     const information = await this.appService.findOneInformation(id);
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
+    const slideOne = await this.appService.findSlideOne();
     return res.render("trang-chu/gioithieu/updateGioiThieu", {
       information,
       slides,
       footers,
       Category,
+      slideOne,
     });
   }
   @Put("information/update/:id")
@@ -173,10 +191,12 @@ export class AppController {
   async getListFooter(@Res() res: Response) {
     const footers = await this.footerService.findAllFooter();
     const slides = await this.appService.findAllSlide();
+    const slideOne = await this.appService.findSlideOne();
     return res.render("trang-chu/footer/listFooter", {
       footers,
       slides,
       Category,
+      slideOne,
     });
   }
   @Post("footer/insert")
@@ -189,11 +209,13 @@ export class AppController {
     const footer = await this.footerService.findOneFooter(id);
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
+    const slideOne = await this.appService.findSlideOne();
     return res.render("trang-chu/footer/formUpdateFooter", {
       footer,
       slides,
       footers,
       Category,
+      slideOne,
     });
   }
   @Put("footer/update/:id")

@@ -26,8 +26,8 @@
 export declare class Slide {
     sttSlide?: number;
     imgSlide: string;
-    titleSlide: string;
-    noiDungSlide: string;
+    titleSlide?: string;
+    noiDungSlide?: string;
 }
 export declare const SlideSchema: import("mongoose").Schema<Slide, import("mongoose").Model<Slide, any, any, any, import("mongoose").Document<unknown, any, Slide> & Slide & {
     _id: import("mongoose").Types.ObjectId;

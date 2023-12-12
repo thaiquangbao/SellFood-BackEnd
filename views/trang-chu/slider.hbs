@@ -51,6 +51,58 @@
             </table>
             
         </div>
+        <div class="head">
+            <h1>Slide đầu</h1>
+           
+            
+        </div>
+        
+        <div class="table-students">
+            <table class="table" >
+                <thead class="table-dark" >
+                    <tr >
+                  
+                    <th scope="col" style="width: 50px;">#</th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                        Tiêu đề
+                        
+                    </th>
+                    <th scope="col" style="width: 300px ;text-align: center;">
+                        Nội dung
+                       
+                    </th>
+                    <th scope="col" style="width: 150px ;text-align: center;">
+                       Hình ảnh
+                     </th>
+                    <th scope="col" style="width: 150px ;text-align: center;">
+                        Chỉnh sửa
+                     </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                   
+                    <th scope="row"><span class="stt"></span></th>
+                    <td style="text-align: center;">{{slideOne.titleSlide}}</td>
+                    <td style="text-align: center;">{{slideOne.noiDungSlide}}</td>
+
+                    <td style="text-align: center;">
+                        <img style="width:65px; height: 65px; border-radius: 50%;" src="{{slideOne.imgSlide}}" >
+
+                    </td>
+                    
+                    <td style="text-align: center;">
+                        <a href="/slide/{{slideOne.id}}" class="btn btn-link ">Sửa</a>
+                       
+                    </td>
+                    </tr>
+                    
+                    
+                </tbody>
+            </table>
+            
+        </div>
     </div>
 <script>
   document.addEventListener("DOMContentLoaded", function() {

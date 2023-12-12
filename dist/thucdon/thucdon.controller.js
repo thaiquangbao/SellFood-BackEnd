@@ -26,8 +26,9 @@ let ThucdonController = class ThucdonController {
     }
     async thucDon(res) {
         const slides = await this.appService.findAllSlide();
-        const foods = await this.foodService.findAllFood();
+        const foods = await this.foodService.findAllFoodNB();
         const footers = await this.footerService.findAllFooter();
+        const slideOne = await this.appService.findSlideOne();
         const categories = [
             food_entity_1.Category.Lau,
             food_entity_1.Category.CANH,
@@ -49,23 +50,13 @@ let ThucdonController = class ThucdonController {
             foods,
             footers,
             listFoodArrays,
+            slideOne,
         });
     }
     async test() {
-        try {
-            const categories = [food_entity_1.Category.CANH, food_entity_1.Category.Lau, food_entity_1.Category.CHIEN];
-            const result = {};
-            for (const category of categories) {
-                const foods = await this.foodService.findAllFoodC(category);
-                result[category] = foods;
-            }
-            console.log(result);
-            return result;
-        }
-        catch (error) {
-            console.error("Error fetching foods:", error);
-            throw new Error("Unable to fetch foods.");
-        }
+        const slideOne = await this.appService.findSlideOne();
+        console.log(slideOne);
+        return slideOne;
     }
 };
 exports.ThucdonController = ThucdonController;

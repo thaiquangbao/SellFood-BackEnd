@@ -24,8 +24,12 @@ let AppService = class AppService {
         this.informationEntity = informationEntity;
     }
     async findAllSlide() {
-        const slides = await this.slideEntity.find();
+        const slides = await this.slideEntity.find({ sttSlide: { $ne: 0 } });
         return slides;
+    }
+    async findSlideOne() {
+        const slide = await this.slideEntity.findOne({ sttSlide: 0 });
+        return slide;
     }
     async insertSlide(slide) {
         const newslide = await this.slideEntity.create(slide);

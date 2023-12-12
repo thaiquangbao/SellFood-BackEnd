@@ -17,6 +17,10 @@ export class FoodService {
     const foods = await this.foodEntity.find({ category });
     return foods;
   }
+  async findAllFoodNB(): Promise<Food[]> {
+    const foods = await this.foodEntity.find({ noiBat: "Có" });
+    return foods;
+  }
   async insertFood(food: Food): Promise<Food> {
     const res = await this.foodEntity.create(food);
     return res;

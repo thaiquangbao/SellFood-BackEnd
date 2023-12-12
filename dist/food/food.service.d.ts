@@ -29,6 +29,7 @@ export declare class FoodService {
     constructor(foodEntity: mongoose.Model<Food>);
     findAllFood(): Promise<Food[]>;
     findAllFoodC(category: Category): Promise<Food[]>;
+    findAllFoodNB(): Promise<Food[]>;
     insertFood(food: Food): Promise<Food>;
     findOneById(id: string): Promise<Food>;
     deleteOne(id: string): Promise<boolean>;

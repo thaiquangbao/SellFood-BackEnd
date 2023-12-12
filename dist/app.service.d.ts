@@ -30,6 +30,7 @@ export declare class AppService {
     private informationEntity;
     constructor(slideEntity: mongoose.Model<Slide>, informationEntity: mongoose.Model<Information>);
     findAllSlide(): Promise<Slide[]>;
+    findSlideOne(): Promise<Slide>;
     insertSlide(slide: Slide): Promise<Slide>;
     findOneSlide(id: string): Promise<Slide>;
     updateSlide(id: string, slide: Slide): Promise<Slide>;

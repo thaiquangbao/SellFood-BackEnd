@@ -8,8 +8,8 @@ export class Slide {
   @Prop()
   imgSlide: string;
   @Prop()
-  titleSlide: string;
+  titleSlide?: string;
   @Prop()
-  noiDungSlide: string;
+  noiDungSlide?: string;
 }
 export const SlideSchema = SchemaFactory.createForClass(Slide);

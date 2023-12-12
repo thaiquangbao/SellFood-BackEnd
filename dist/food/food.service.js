@@ -29,6 +29,10 @@ let FoodService = class FoodService {
         const foods = await this.foodEntity.find({ category });
         return foods;
     }
+    async findAllFoodNB() {
+        const foods = await this.foodEntity.find({ noiBat: "Có" });
+        return foods;
+    }
     async insertFood(food) {
         const res = await this.foodEntity.create(food);
         return res;
