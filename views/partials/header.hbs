@@ -16,7 +16,7 @@
                   </li>
                  <li class="nav-item dropdown" style="margin-left: 40px;" onmouseenter="toggleDropdown(this, true)" onmouseleave="toggleDropdown(this, false)" onmouseover="hoverEffect(this)" onmouseout="unhoverEffect(this)">
                     <a class="nav-link dropdown-toggle"  style="font-size: 18px; color: white" href="/thucdon/#thucDon"  aria-expanded="false">Thực đơn</a>
-                    <ul class="dropdown-menu" style="background-color: rgba(0, 0, 0, 0.644)">
+                    <ul class="dropdown-menu" style="background-color: rgba(0, 0, 0, 0.644);  column-count: 2;column-gap: 20px;max-width: 400px;">
                     {{#each Category}}
                       <li><a class="dropdown-item" style="color: burlywood;" href="/thucdon#{{this}}">{{this}}</a></li>
                       <li><hr class="dropdown-divider"></li>
