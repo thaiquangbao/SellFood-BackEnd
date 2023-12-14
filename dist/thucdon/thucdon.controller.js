@@ -30,14 +30,20 @@ let ThucdonController = class ThucdonController {
         const footers = await this.footerService.findAllFooter();
         const slideOne = await this.appService.findSlideOne();
         const categories = [
-            food_entity_1.Category.Lau,
-            food_entity_1.Category.CANH,
+            food_entity_1.Category.STARTERS,
+            food_entity_1.Category.BEEF,
+            food_entity_1.Category.CHICKEN,
+            food_entity_1.Category.FISH,
             food_entity_1.Category.CHIEN,
-            food_entity_1.Category.XAO,
-            food_entity_1.Category.Hap,
-            food_entity_1.Category.KHO,
-            food_entity_1.Category.Luoc,
-            food_entity_1.Category.Nuong,
+            food_entity_1.Category.DESSERT,
+            food_entity_1.Category.MI,
+            food_entity_1.Category.PHO,
+            food_entity_1.Category.PORK,
+            food_entity_1.Category.SALAD,
+            food_entity_1.Category.SANDWICH,
+            food_entity_1.Category.SEEFOOD,
+            food_entity_1.Category.SPAGHETTIS,
+            food_entity_1.Category.DRINKING,
         ];
         const listFoodArrays = {};
         for (const category of categories) {

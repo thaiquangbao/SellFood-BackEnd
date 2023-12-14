@@ -24,14 +24,20 @@
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 export declare enum Category {
-    KHO = "Kho",
-    XAO = "X\u00E0o",
-    CHIEN = "Chi\u00EAn",
-    CANH = "Canh",
-    Nuong = "Nu\u1EDBng",
-    Lau = "L\u1EA9u",
-    Hap = "H\u1EA5p",
-    Luoc = "Lu\u1ED9c"
+    STARTERS = "Khai V\u1ECB",
+    FISH = "M\u00F3n C\u00E1",
+    SEEFOOD = "M\u00F3n H\u1EA3i S\u1EA3n",
+    CHIEN = "M\u00F3n C\u01A1m Chi\u00EAn",
+    PHO = "M\u00F3n Ph\u1EDF",
+    CHICKEN = "M\u00F3n G\u00E0",
+    BEEF = "M\u00F3n B\u00F2",
+    PORK = "M\u00F3n L\u1EE3n",
+    MI = "M\u00F3n M\u00EC",
+    SALAD = "M\u00F3n Salad",
+    DESSERT = "M\u00F3n Tr\u00E1ng Mi\u1EC7ng",
+    SANDWICH = "M\u00F3n SandWich",
+    SPAGHETTIS = "M\u00F3n M\u00EC SPAGHETTIS",
+    DRINKING = "Th\u1EE9c U\u1ED1ng"
 }
 export declare class Food {
     nameFood: string;

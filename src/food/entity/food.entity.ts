@@ -1,14 +1,20 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 export enum Category {
-  KHO = "Kho",
-  XAO = "Xào",
-  CHIEN = "Chiên",
-  CANH = "Canh",
-  Nuong = "Nuớng",
-  Lau = "Lẩu",
-  Hap = "Hấp",
-  Luoc = "Luộc",
+  STARTERS = "Khai Vị",
+  FISH = "Món Cá",
+  SEEFOOD = "Món Hải Sản",
+  CHIEN = "Món Cơm Chiên",
+  PHO = "Món Phở",
+  CHICKEN = "Món Gà",
+  BEEF = "Món Bò",
+  PORK = "Món Lợn",
+  MI = "Món Mì",
+  SALAD = "Món Salad",
+  DESSERT = "Món Tráng Miệng",
+  SANDWICH = "Món SandWich",
+  SPAGHETTIS = "Món Mì SPAGHETTIS",
+  DRINKING = "Thức Uống",
 }
 @Schema({
   timestamps: true,

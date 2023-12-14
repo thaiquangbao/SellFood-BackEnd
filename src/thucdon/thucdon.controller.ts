@@ -21,14 +21,20 @@ export class ThucdonController {
     const footers = await this.footerService.findAllFooter();
     const slideOne = await this.appService.findSlideOne();
     const categories = [
-      Category.Lau,
-      Category.CANH,
+      Category.STARTERS,
+      Category.BEEF,
+      Category.CHICKEN,
+      Category.FISH,
       Category.CHIEN,
-      Category.XAO,
-      Category.Hap,
-      Category.KHO,
-      Category.Luoc,
-      Category.Nuong,
+      Category.DESSERT,
+      Category.MI,
+      Category.PHO,
+      Category.PORK,
+      Category.SALAD,
+      Category.SANDWICH,
+      Category.SEEFOOD,
+      Category.SPAGHETTIS,
+      Category.DRINKING,
     ];
 
     // Sử dụng Promise.all để đợi cho tất cả các truy vấn hoàn thành
