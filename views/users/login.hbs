@@ -27,6 +27,15 @@
 </div>
 
 <script>
+    function checkCookie() {
+    let user = getCookie("token");
+    if (user !== "") {
+        
+        window.location.href="/"
+        
+    } 
+}
+checkCookie();
     function login(){
         var tk = $('#userName').val();
         var mk = $('#passWord').val();
