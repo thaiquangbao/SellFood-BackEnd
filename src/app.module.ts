@@ -83,6 +83,9 @@ export class AppModule implements NestModule {
     consumer
       .apply(MiddlewareService)
       .exclude({ path: "/", method: RequestMethod.GET })
-      .forRoutes(FoodController, AppController);
+      .forRoutes(FoodController, AppController, {
+        path: "/user/signup",
+        method: RequestMethod.POST,
+      });
   }
 }

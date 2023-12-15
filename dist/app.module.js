@@ -38,7 +38,10 @@ let AppModule = class AppModule {
         consumer
             .apply(middleware_service_1.MiddlewareService)
             .exclude({ path: "/", method: common_1.RequestMethod.GET })
-            .forRoutes(food_controller_1.FoodController, app_controller_1.AppController);
+            .forRoutes(food_controller_1.FoodController, app_controller_1.AppController, {
+            path: "/user/signup",
+            method: common_1.RequestMethod.POST,
+        });
     }
 };
 exports.AppModule = AppModule;
