@@ -32,6 +32,12 @@ export class Food {
   img: string;
   @Prop()
   noiBat: string;
+  @Prop()
+  deXuat: string;
+  @Prop()
+  ngonNgu?: string;
+  @Prop({ type: Boolean, default: false })
+  deleted: boolean;
 }
 export const FoodSchema = SchemaFactory.createForClass(Food);
 export const Categories = { Category };

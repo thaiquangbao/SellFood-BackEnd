@@ -14,6 +14,10 @@
                     <label style="margin-bottom: 10px;">Mô tả về món ăn</label>
                     <input type="text" class="form-control" id="moTa" data-origin="{{food.describe}}" value="{{food.describe}}" placeholder="Mô tả" style="width: 500px;">
                 </div>
+                <div class="col">
+                    <label style="margin-bottom: 10px;">Ngôn ngữ khác</label>
+                    <input type="text" class="form-control" id="ngonNgu" placeholder="Ngôn ngữ khác" data-origin="{{food.ngonNgu}}" value="{{food.ngonNgu}}" style="width: 500px;">
+                </div>
                 <div class="col ">
                     <label style="margin-bottom: 10px;">Loại món ăn</label>
                     <select data-origin="{{food.category}}" class="form-control form-select mb-3" id="category" aria-label=".form-select-lg example" style="width: 500px;">
@@ -23,17 +27,8 @@
                     {{/each}}
                     </select>
                 </div>
-                <div id="form-picture" class="col">
-                    <label style="margin-bottom: 10px;">Ảnh món ảnh</label>
-                    <div class="changeava">
-                        <img id="imgFood" data-origin="{{food.img}}" src= "{{food.img}}" alt="" class="ava">
-                            <div class="form-ava" style="margin-top: 40px;" >
-                                <input type="file" class="image-user" id="imageUpload" name="img" accept=".jpg, .png" onchange="previewImage(this)"/><br>
-                                
-                            </div> 
-                    </div>    
-                </div> 
-            <div class="col ">
+               
+                <div class="col ">
                     <label style="margin-bottom: 10px;">Nổi bật</label>
                     <select data-origin="{{food.noiBat}}" id="noiBat" class="form-control form-select mb-3" aria-label=".form-select-lg example" style="width: 500px;">
                         <option value="{{food.noiBat}}">{{food.noiBat}}</option>
@@ -44,6 +39,26 @@
             
 
                 </div>
+                 <div class="col ">
+                    <label style="margin-bottom: 10px;">Đề xuất</label>
+                    <select id="deXuat" data-origin="{{food.deXuat}}" class="form-control form-select mb-3" aria-label=".form-select-lg example" style="width: 500px;">
+                        <option value="{{food.deXuat}}">{{food.deXuat}}</option>
+                        <option value="Không">Không</option>
+                        <option value="Có">Có</option>
+                    </select>
+            
+
+                </div>
+                 <div id="form-picture" class="col">
+                    <label style="margin-bottom: 10px;">Ảnh món ảnh</label>
+                    <div class="changeava">
+                        <img id="imgFood" data-origin="{{food.img}}" src= "{{food.img}}" alt="" class="ava">
+                            <div class="form-ava" style="margin-top: 40px;" >
+                                <input type="file" class="image-user" id="imageUpload" name="img" accept=".jpg, .png" onchange="previewImage(this)"/><br>
+                                
+                            </div> 
+                    </div>    
+                </div> 
             </div>
             
         </div>    
@@ -70,6 +85,8 @@
             var loai = $('#category').val();
             var anh = $('#imgFood').attr('src');
             var noiBat = $('#noiBat').val();
+            var deXuat = $('#deXuat').val();
+            var ngonNgu = $('#ngonNgu').val();
             var tenInHoa = ten.toUpperCase();
              var originTen = $('#nameFood').data('origin');
             var originGia = $('#price').data('origin');
@@ -77,10 +94,13 @@
             var originLoai = $('#category').data('origin');
             var originAnh = $('#imgFood').data('origin');
             var originNoiBat = $('#noiBat').data('origin');
+            var originDeXuat = $('#deXuat').data('origin');
+            var originNgonNgu = $('#ngonNgu').data('origin');
             var imageFile = $('#imageUpload')[0].files[0];
             var formData = new FormData();
              formData.append("file", imageFile);
-        if (ten === originTen && gia === String(originGia) && moTa === originMoTa && loai === originLoai && anh === originAnh && noiBat === originNoiBat) {
+        if (ten === originTen && gia === String(originGia) && moTa === originMoTa && loai === originLoai && anh === originAnh 
+        && noiBat === originNoiBat && ngonNgu === originNgonNgu && deXuat === originDeXuat) {
         alert('Không có dữ liệu nào được thay đổi');
             window.location.href='/foods'
         return;
@@ -132,7 +152,9 @@
                                 describe:moTa,
                                 category:loai,
                                 img: anh,
-                                noiBat:noiBat
+                                noiBat:noiBat,
+                                deXuat:deXuat,
+                                ngonNgu:ngonNgu
                             }
                         })
                         .then(data =>{
@@ -170,7 +192,9 @@
                         describe:moTa,
                         category:loai,
                         img: anh,
-                        noiBat:noiBat        
+                        noiBat:noiBat,
+                        deXuat:deXuat,
+                        ngonNgu:ngonNgu        
                         }
                     })
                     .then(data =>{
@@ -236,7 +260,9 @@
                                             describe:moTa,
                                             category:loai,
                                             img: imageUrl,
-                                            noiBat:noiBat
+                                            noiBat:noiBat,
+                                            deXuat:deXuat,
+                                            ngonNgu:ngonNgu
                                         }
                                     })
                                     .then(data =>{
@@ -304,7 +330,9 @@
                                     describe:moTa,
                                     category:loai,
                                     img: imageUrl,
-                                    noiBat:noiBat
+                                    noiBat:noiBat,
+                                    deXuat:deXuat,
+                                    ngonNgu:ngonNgu
                                 }
                             })
                             .then(data =>{

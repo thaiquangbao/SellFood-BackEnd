@@ -55,6 +55,18 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], Food.prototype, "noiBat", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Food.prototype, "deXuat", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Food.prototype, "ngonNgu", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: Boolean, default: false }),
+    __metadata("design:type", Boolean)
+], Food.prototype, "deleted", void 0);
 exports.Food = Food = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,

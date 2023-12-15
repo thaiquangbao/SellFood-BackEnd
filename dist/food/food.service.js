@@ -33,6 +33,10 @@ let FoodService = class FoodService {
         const foods = await this.foodEntity.find({ noiBat: "Có" });
         return foods;
     }
+    async findAllFoodDX() {
+        const foods = await this.foodEntity.find({ deXuat: "Có" });
+        return foods;
+    }
     async insertFood(food) {
         const res = await this.foodEntity.create(food);
         return res;

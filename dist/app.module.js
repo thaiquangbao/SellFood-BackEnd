@@ -26,7 +26,17 @@ const infoRes_1 = require("./trangchu.entity/infoRes");
 const thucdon_controller_1 = require("./thucdon/thucdon.controller");
 const footer_service_1 = require("./footer/footer.service");
 const footer_1 = require("./trangchu.entity/footer");
+const user_module_1 = require("./user/user.module");
+const user_controller_1 = require("./user/user.controller");
+const user_service_1 = require("./user/user.service");
+const user_entity_1 = require("./user/entity/user.entity");
+const passport_1 = require("@nestjs/passport");
+const jwt_1 = require("@nestjs/jwt");
+const middleware_service_1 = require("./middleware/middleware.service");
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer.apply(middleware_service_1.MiddlewareService).forRoutes(app_controller_1.AppController);
+    }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
@@ -42,12 +52,31 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: "Slide", schema: slide_1.SlideSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Food", schema: food_entity_1.FoodSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Footer", schema: footer_1.FooterSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: "User", schema: user_entity_1.UserSchema }]),
             mongoose_1.MongooseModule.forFeature([
                 { name: "Information", schema: infoRes_1.InformationSchema },
             ]),
             cloudinary_module_1.CloudinaryModule,
+            user_module_1.UserModule,
+            passport_1.PassportModule.register({ defaultStrategy: "jwt" }),
+            jwt_1.JwtModule.registerAsync({
+                inject: [config_1.ConfigService],
+                useFactory: (config) => {
+                    return {
+                        secret: config.get("JWT_SECRET"),
+                        signOptions: {
+                            expiresIn: config.get("JWT_EXPIRES"),
+                        },
+                    };
+                },
+            }),
         ],
-        controllers: [app_controller_1.AppController, food_controller_1.FoodController, thucdon_controller_1.ThucdonController],
+        controllers: [
+            app_controller_1.AppController,
+            food_controller_1.FoodController,
+            thucdon_controller_1.ThucdonController,
+            user_controller_1.UserController,
+        ],
         providers: [
             app_service_1.AppService,
             food_service_1.FoodService,
@@ -55,6 +84,8 @@ exports.AppModule = AppModule = __decorate([
             cloudinary_provider_1.CloudinaryProvider,
             cloudinary_service_1.CloudinaryService,
             footer_service_1.FooterService,
+            user_service_1.UserService,
+            middleware_service_1.MiddlewareService,
         ],
     })
 ], AppModule);

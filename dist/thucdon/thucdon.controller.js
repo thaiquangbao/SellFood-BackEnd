@@ -25,8 +25,7 @@ let ThucdonController = class ThucdonController {
         this.footerService = footerService;
     }
     async thucDon(res) {
-        const slides = await this.appService.findAllSlide();
-        const foods = await this.foodService.findAllFoodNB();
+        const foods = await this.foodService.findAllFoodDX();
         const footers = await this.footerService.findAllFooter();
         const slideOne = await this.appService.findSlideOne();
         const categories = [
@@ -52,7 +51,6 @@ let ThucdonController = class ThucdonController {
         }
         return res.render("thucdons/thucdon", {
             Category: food_entity_1.Category,
-            slides,
             foods,
             footers,
             listFoodArrays,

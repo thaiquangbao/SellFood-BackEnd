@@ -1,0 +1,62 @@
+<div class="container" style="min-height: 500px; min-width: 900px;">
+    <div class="container-fluid" style="background-color: whitesmoke; width:60%; height: 300px; border-radius: 5%; margin-top: 5%;" >
+        <div class="container" style="text-align: center;">
+            <h1>Đăng nhập</h1>
+        </div>    
+        <div class="container" style="margin-left: 7%;" >
+            <div class="mb-3 row " >
+                <label  class="col-sm-2 col-form-label">UserName</label>
+                <div class="col-sm-7" >
+                <input type="username" class="form-control" id="userName" >
+                </div>
+            </div>
+            <div class="mb-3 row ">
+                <label class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-7">
+                <input type="password" class="form-control" id="passWord">
+                </div>
+            </div>
+            
+            
+        </div> 
+        <div class="container-fluid" style="text-align: center;">
+            <button onclick="login()" class="btn btn-primary" style="margin-top: 3%; width: 90%; ">Sign in</button>
+        </div>   
+    </div>
+   
+</div>
+
+<script>
+    function login(){
+        var tk = $('#userName').val();
+        var mk = $('#passWord').val();
+        if(tk.trim() === '' || mk.trim() === ''){
+            alert("Không được để trống thông tin !!!")
+        }
+        else if(mk.length > 12)
+            alert("Mật khẩu không được quá 12 ký tự")
+        else{
+            $.ajax({
+                url:"/user/login/accept",
+                type:"POST",
+                data:{
+                    userName: tk,
+                    passWord: mk
+                }
+            })
+            .then(data =>{
+                setCookie("token",data.token,1);
+                window.location.href="/"
+            })
+            .catch(error =>{
+                alert("tài khoản hoặc mật khẩu không đúng");
+            })
+        }
+    }
+     function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+</script>

@@ -15,6 +15,10 @@
                     <label style="margin-bottom: 10px;">Mô tả về món ăn</label>
                     <input type="text" class="form-control" id="moTa" placeholder="Mô tả" style="width: 500px;">
                 </div>
+                <div class="col">
+                    <label style="margin-bottom: 10px;">Ngôn ngữ khác</label>
+                    <input type="text" class="form-control" id="ngonNgu" placeholder="Ngôn ngữ khác" style="width: 500px;">
+                </div>
                 <div class="col ">
                     <label style="margin-bottom: 10px;">Loại món ăn</label>
                     <select class="form-control form-select mb-3" id="category" aria-label=".form-select-lg example" style="width: 500px;">
@@ -24,7 +28,31 @@
                     {{/each}}
                     </select>
                 </div>
-                <div id="form-picture" class="col">
+
+               
+                <div class="col ">
+                    <label style="margin-bottom: 10px;">Nổi bật</label>
+                    <select id="noiBat" class="form-control form-select mb-3" aria-label=".form-select-lg example" style="width: 500px;">
+                        <option value="Không">Không</option>
+                        <option value="Có">Có</option>
+                        
+                    
+                    </select>
+            
+
+                </div>
+                <div class="col ">
+                    <label style="margin-bottom: 10px;">Đề xuất</label>
+                    <select id="deXuat" class="form-control form-select mb-3" aria-label=".form-select-lg example" style="width: 500px;">
+                        <option value="Không">Không</option>
+                        <option value="Có">Có</option>
+                        
+                    
+                    </select>
+            
+
+                </div>
+                 <div id="form-picture" class="col">
                     <label style="margin-bottom: 10px;">Ảnh món ảnh</label>
                     <div class="changeava">
                         <img id="imgFood" data-origin="https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" src= "https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" alt="" class="ava">
@@ -34,16 +62,6 @@
                             </div> 
                     </div>    
                 </div> 
-            <div class="col ">
-                    <label style="margin-bottom: 10px;">Nổi bật</label>
-                    <select id="noiBat" class="form-control form-select mb-3" aria-label=".form-select-lg example" style="width: 500px;">
-                        <option value="Có">Có</option>
-                        <option value="Không">Không</option>
-                    
-                    </select>
-            
-
-                </div>
             </div>
             
         </div>    
@@ -71,6 +89,8 @@
             var loai = $('#category').val();
             var anh = $('#imgFood').attr('src');
             var noiBat = $('#noiBat').val();
+            var deXuat = $('#deXuat').val();
+            var ngonNgu = $('#ngonNgu').val();
             var tenInHoa = ten.toUpperCase();
             var imageFile = $('#imageUpload')[0].files[0];
             var formData = new FormData();
@@ -130,7 +150,9 @@
                                 describe:moTa,
                                 category:loai,
                                 img: imageUrl,
-                                noiBat:noiBat
+                                noiBat:noiBat,
+                                deXuat:deXuat,
+                                ngonNgu:ngonNgu
                             }
                         })
                         .then(data =>{

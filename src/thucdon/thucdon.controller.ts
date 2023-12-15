@@ -16,8 +16,8 @@ export class ThucdonController {
   ) {}
   @Get()
   async thucDon(@Res() res: Response) {
-    const slides = await this.appService.findAllSlide();
-    const foods = await this.foodService.findAllFoodNB();
+    //const slides = await this.appService.findAllSlide();
+    const foods = await this.foodService.findAllFoodDX();
     const footers = await this.footerService.findAllFooter();
     const slideOne = await this.appService.findSlideOne();
     const categories = [
@@ -52,7 +52,6 @@ export class ThucdonController {
     // Kết quả trả về sẽ là một mảng các danh sách món ăn theo từng category
     return res.render("thucdons/thucdon", {
       Category,
-      slides,
       foods,
       footers,
       listFoodArrays,

@@ -21,6 +21,7 @@
                      <div class="col-md-7" > 
                            <div class="card-body" style="color: black; " >
                               <a style="font-weight: bold;" >{{this.nameFood}}</a>
+                              <p style="color: rgb(48, 44, 248);">{{this.ngonNgu}}</p>
                               <p class="card-text">Giá :
                               <i style="color: rgb(250, 47, 47)" id="priceNB">{{this.price}} </i>
                               </p>
@@ -67,6 +68,7 @@
               <div class="col-md-7">
                 <div class="card-body" style="color: black; ">
                   <a style="font-weight: bold;">{{this.nameFood}}</a>
+                  <p style="color: rgb(48, 44, 248);">{{this.ngonNgu}}</p>
                   <p class="card-text">Giá :
                     <i style="color: rgb(250, 47, 47)" id="priceNB">{{this.price}} </i>
                   </p>
@@ -124,16 +126,5 @@ function removeBlurEffect(element) {
     }
   });
 </script>
-<script>
- const cardDiv = document.getElementById('list-example');
 
-  // Bắt sự kiện khi lăn chuột
-  document.addEventListener('scroll', () => {
-    // Lấy vị trí cuối cùng của trình duyệt
-    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-
-    // Đặt vị trí của div dựa trên vị trí cuối cùng của trình duyệt
-    cardDiv.style.top = `${1 + scrollPosition}px`; // 50 là vị trí ban đầu của div, bạn có thể điều chỉnh nếu cần
-  });
-</script>
     

@@ -46,6 +46,9 @@ export declare class Food {
     category: Category;
     img: string;
     noiBat: string;
+    deXuat: string;
+    ngonNgu?: string;
+    deleted: boolean;
 }
 export declare const FoodSchema: import("mongoose").Schema<Food, import("mongoose").Model<Food, any, any, any, import("mongoose").Document<unknown, any, Food> & Food & {
     _id: import("mongoose").Types.ObjectId;
