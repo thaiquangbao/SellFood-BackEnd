@@ -8,10 +8,10 @@ const fs = require("fs");
 const path = require("path");
 const hbs = require("hbs");
 const hbs_utils_1 = require("hbs-utils");
-const cookieParser = require("cookie-parser");
+const cookie_parser_1 = require("cookie-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.use(cookieParser());
+    app.use((0, cookie_parser_1.default)());
     app.useStaticAssets((0, path_1.join)(__dirname, "..", "public"));
     app.setBaseViewsDir((0, path_1.join)(__dirname, "..", "views"));
     const partialsDir = path.join(__dirname, "..", "views/layouts");
