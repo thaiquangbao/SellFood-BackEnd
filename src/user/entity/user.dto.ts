@@ -22,3 +22,6 @@ export class LoginDTO {
   @MinLength(12)
   readonly passWord: string;
 }
+export class UserCheck {
+  id: string;
+}

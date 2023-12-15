@@ -35,7 +35,10 @@ const jwt_1 = require("@nestjs/jwt");
 const middleware_service_1 = require("./middleware/middleware.service");
 let AppModule = class AppModule {
     configure(consumer) {
-        consumer.apply(middleware_service_1.MiddlewareService).forRoutes(app_controller_1.AppController);
+        consumer
+            .apply(middleware_service_1.MiddlewareService)
+            .exclude({ path: "/", method: common_1.RequestMethod.GET })
+            .forRoutes(food_controller_1.FoodController, app_controller_1.AppController);
     }
 };
 exports.AppModule = AppModule;

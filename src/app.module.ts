@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { FoodModule } from "./food/food.module";
@@ -75,6 +80,9 @@ import { MiddlewareService } from "./middleware/middleware.service";
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(MiddlewareService).forRoutes(AppController);
+    consumer
+      .apply(MiddlewareService)
+      .exclude({ path: "/", method: RequestMethod.GET })
+      .forRoutes(FoodController, AppController);
   }
 }

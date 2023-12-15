@@ -8,8 +8,10 @@ import * as path from "path";
 import * as hbs from "hbs";
 import hbsUtils from "hbs-utils";
 //import * as hbsUtils from "hbs-utils";
+import * as cookieParser from "cookie-parser";
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.use(cookieParser());
   app.useStaticAssets(join(__dirname, "..", "public"));
   app.setBaseViewsDir(join(__dirname, "..", "views"));
 
