@@ -62,7 +62,7 @@
                           <a class="nav-link" href="/footer">Quản lý Footer</a>
                       </li>
                       <li class="nav-item" style="margin-top: 15px;">
-                          <a class="nav-link" href="#">Đăng xuất</a>
+                          <button class="nav-link" style="background-color: white; border: none;" onclick="deleteToken()">Đăng xuất</button>
                       </li>
                     </ul>
                     
@@ -179,5 +179,15 @@ function checkCookie() {
   } 
 }
 checkCookie();
-
+  function deleteToken(){
+    let user = getCookie("token");
+    if(user){
+      setCookie("token",user,0)
+      window.location.href="/"
+    }
+    else{
+      alert("Bạn không có quyền sử dụng cứa năng này");
+      window.location.href="/"
+    }
+  }
 </script>
