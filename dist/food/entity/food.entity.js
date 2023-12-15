@@ -13,20 +13,20 @@ exports.Categories = exports.FoodSchema = exports.Food = exports.Category = void
 const mongoose_1 = require("@nestjs/mongoose");
 var Category;
 (function (Category) {
-    Category["STARTERS"] = "Khai V\u1ECB";
-    Category["FISH"] = "M\u00F3n C\u00E1";
-    Category["SEEFOOD"] = "M\u00F3n H\u1EA3i S\u1EA3n";
-    Category["CHIEN"] = "M\u00F3n C\u01A1m Chi\u00EAn";
-    Category["PHO"] = "M\u00F3n Ph\u1EDF";
-    Category["CHICKEN"] = "M\u00F3n G\u00E0";
-    Category["BEEF"] = "M\u00F3n B\u00F2";
-    Category["PORK"] = "M\u00F3n L\u1EE3n";
-    Category["MI"] = "M\u00F3n M\u00EC";
-    Category["SALAD"] = "M\u00F3n Salad";
-    Category["DESSERT"] = "M\u00F3n Tr\u00E1ng Mi\u1EC7ng";
-    Category["SANDWICH"] = "M\u00F3n SandWich";
-    Category["SPAGHETTIS"] = "M\u00F3n M\u00EC SPAGHETTIS";
-    Category["DRINKING"] = "Th\u1EE9c U\u1ED1ng";
+    Category["STARTERS"] = "KHAI V\u1ECA";
+    Category["FISH"] = "C\u00C1";
+    Category["SEEFOOD"] = "H\u1EA2I S\u1EA2N";
+    Category["CHIEN"] = "C\u01A0M CHI\u00CAN";
+    Category["PHO"] = "PH\u1EDE";
+    Category["CHICKEN"] = "G\u00C0";
+    Category["BEEF"] = "B\u00D2";
+    Category["PORK"] = "HEO";
+    Category["MI"] = "M\u00CC";
+    Category["SALAD"] = "SALAD";
+    Category["SANDWICH"] = "SANDWICH";
+    Category["SPAGHETTIS"] = "SPAGHETTIS";
+    Category["DESSERT"] = "TR\u00C1NG MI\u1EC6NG";
+    Category["DRINKING"] = "TH\u1EE8C U\u1ED0NG";
 })(Category || (exports.Category = Category = {}));
 let Food = class Food {
 };
