@@ -50,7 +50,7 @@ let UserService = class UserService {
         if (!checkPassword) {
             throw new common_1.UnauthorizedException("Tài khoản or mật khẩu không đúng");
         }
-        if (this.vertical !== "") {
+        if (this.vertical !== "" || this.vertical === "") {
             const reset = generateRandomString(6);
             this.vertical = reset;
         }
