@@ -24,11 +24,18 @@
 /// <reference types="mongoose/types/inferschematype" />
 import mongoose from "mongoose";
 import { Footer } from "src/trangchu.entity/footer";
+import { Icons } from "src/trangchu.entity/icons";
 export declare class FooterService {
     private footerEntity;
-    constructor(footerEntity: mongoose.Model<Footer>);
+    private iconsEntity;
+    constructor(footerEntity: mongoose.Model<Footer>, iconsEntity: mongoose.Model<Icons>);
     findAllFooter(): Promise<Footer[]>;
     insertFooter(footer: Footer): Promise<Footer>;
     findOneFooter(id: string): Promise<Footer>;
     updateFooter(id: string, footer: Footer): Promise<Footer>;
+    findAllIcons(): Promise<Icons[]>;
+    insertIcons(icons: Icons): Promise<Icons>;
+    findOneIcons(id: string): Promise<Icons>;
+    updateIcons(id: string, icons: Icons): Promise<Icons>;
+    deleteIcons(id: string): Promise<boolean>;
 }

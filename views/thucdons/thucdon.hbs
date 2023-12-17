@@ -2,46 +2,7 @@
    <div class="col-lg-12 justify-content-center " style="display: flex;">
       
       <div class="col-lg-12"  >
-         <section id="thucDon" class="food-menu" style="background-color: white;width: 100%; padding-top: 10%;">
-        <div class="container-fluid" >
-            <div style="display: flex; align-items: center;justify-content: center; ">
-                <span style="height: 2px; width: 36%; background-color: #999; "></span>
-                <h3 class="text-titler" style="color: black; height: 50px; margin: 0 30px;">Thức đơn</h3>
-                <span style="height: 2px; width: 36%; background-color: #999; "></span>
-            </div>
-           
-            <div style="display: flex; flex-wrap: wrap; " >
-            {{#each foods}}
-                
-                <div  class="card mb-3" style="max-width: 32%; background-color: white; width: 50%;  border: none;  margin-top: 3%;">
-                  <div class="row g-0"  style="margin-left: 20%; ">
-                     <div class="col-md-5" >
-                        <img style="border-radius: 50%; width: 400px; height: 150px;" src="{{this.img}}" onmouseover="addBlurEffect(this)" onmouseout="removeBlurEffect(this)" class="img-fluid rounded-start" alt="...">
-                     </div>
-                     <div class="col-md-7" > 
-                           <div class="card-body" style="color: black; " >
-                              <a style="font-weight: bold;" >{{this.nameFood}}</a>
-                              <p style="color: rgb(48, 44, 248);">{{this.ngonNgu}}</p>
-                              <p class="card-text">Giá :
-                              <i style="color: rgb(250, 47, 47)" id="priceNB">{{this.price}} </i>
-                              </p>
-                              
-                              <p class="card-text"><small class="text-muted">Mô tả:{{this.describe}} </small></p>
-                           </div>
-                     </div>
-                      
-                  </div>
-                 
-                </div>
-               
-            {{/each}}    
-            
-            </div>
-            
-            <div class="clearfix"></div>
-        </div>
-
-    </section>
+        
     {{#each listFoodArrays}}
     
     <section id="{{@key}}" class="food-menu" style="background-color: white; width: 100%;padding-top: 10%;">

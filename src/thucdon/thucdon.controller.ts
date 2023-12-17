@@ -17,16 +17,15 @@ export class ThucdonController {
   @Get()
   async thucDon(@Res() res: Response) {
     //const slides = await this.appService.findAllSlide();
-    const foods = await this.foodService.findAllFoodDX();
     const footers = await this.footerService.findAllFooter();
     const slideOne = await this.appService.findSlideOne();
     const categories = [
       Category.STARTERS,
+      Category.RICE,
       Category.BEEF,
       Category.CHICKEN,
       Category.FISH,
       Category.CHIEN,
-      Category.DESSERT,
       Category.MI,
       Category.PHO,
       Category.PORK,
@@ -34,6 +33,7 @@ export class ThucdonController {
       Category.SANDWICH,
       Category.SEEFOOD,
       Category.SPAGHETTIS,
+      Category.DESSERT,
       Category.DRINKING,
     ];
 
@@ -52,7 +52,6 @@ export class ThucdonController {
     // Kết quả trả về sẽ là một mảng các danh sách món ăn theo từng category
     return res.render("thucdons/thucdon", {
       Category,
-      foods,
       footers,
       listFoodArrays,
       slideOne,

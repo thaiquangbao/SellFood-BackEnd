@@ -1,0 +1,101 @@
+
+    <div class="form-input" style="min-height: 545px;">
+        <h1 style="margin-left: 700px;">Thêm Icons</h1>
+        <div class="form-aria" style="background-color: rgb(245, 240, 240); margin-right: 130px;margin-left: 130px; padding-bottom: 30px; padding-right: 30px; ">
+            <div class="row g-3" style="margin-left: 150px; margin-top: 30px; " >
+                <div class="col">
+                    <label style="margin-bottom: 10px;">Title Icons</label>
+                    <input type="text" class="form-control" id="titleIcons" placeholder="Title icons" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label style="margin-bottom: 10px;">Link Icons</label>
+                    <input type="text" class="form-control" id="linkIcons" placeholder="Link icons" style="width: 500px;">
+                </div>
+                 <div id="form-picture" class="col">
+                    <label style="margin-bottom: 10px;">Ảnh Icons</label>
+                    <div class="changeava">
+                        <img id="imgFood" src= "https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" alt="" class="ava">
+                            <div class="form-ava" style="margin-top: 40px;" >
+
+                                <input type="file" class="image-user" id="imageUpload" name="img" accept=".jpg, .png" onchange="previewImage(this)"/><br>
+                            </div> 
+                    </div>    
+                </div> 
+            </div>
+            
+        </div>    
+        <div class="add" style="margin-top: 30px;">
+            <button onclick="addIcons()" class="btn btn-primary" style="margin-left: 350px; width: 1000px; height: 40px;" >Thêm</button>
+        </div>
+    </div>
+    
+<script>
+    function previewImage(input) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        $('#imgFood').attr('src', e.target.result);
+    };
+
+    if (input.files && input.files[0]) {
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+        function addIcons(){
+            var title = $('#titleIcons').val();
+            var link = $('#linkIcons').val();
+            var imageFile = $('#imageUpload')[0].files[0];
+            var formData = new FormData();
+             formData.append("file", imageFile);
+        if (title.trim() === '') {
+            alert('Vui lòng nhập title');
+            return;
+        }
+        if (!imageFile) {
+            alert('Vui lòng chọn hình ảnh');
+            return;
+        }
+
+                $.ajax({
+                url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false
+                })
+                .then((cloudinaryResponse) => {
+                    // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
+                    var imageUrl = cloudinaryResponse.secure_url;
+                    $.ajax({
+                        url:'/footer/icons/insert',
+                            type:'POST',
+                            data:{
+                                titleIcons:title,
+                                linkIcons:link,
+                               imgIcons: imageUrl
+                               
+                            }
+                        })
+                        .then(data =>{
+                            if(data.code === 200)
+                            {
+                                alert("Thêm icons thành công");
+                                window.location.href='/footer'
+                            }
+                            else if(data.code === 500){
+                                alert("Thêm món ăn không thành công");
+                            }
+                        })
+                        .catch(error=>{
+                            alert("Lỗi")
+                        })
+                    
+                })
+                .catch((error) => {
+                    alert('Lỗi khi tải lên hình ảnh');
+                })
+    }
+
+    </script>
+     
+   

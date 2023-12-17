@@ -25,6 +25,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 export declare enum Category {
     STARTERS = "KHAI V\u1ECA",
+    RICE = "C\u01A0M NI\u00CAU",
     FISH = "C\u00C1",
     SEEFOOD = "H\u1EA2I S\u1EA2N",
     CHIEN = "C\u01A0M CHI\u00CAN",

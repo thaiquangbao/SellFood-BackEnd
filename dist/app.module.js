@@ -33,6 +33,9 @@ const user_entity_1 = require("./user/entity/user.entity");
 const passport_1 = require("@nestjs/passport");
 const jwt_1 = require("@nestjs/jwt");
 const middleware_service_1 = require("./middleware/middleware.service");
+const icons_1 = require("./trangchu.entity/icons");
+const mailer_service_1 = require("./mailer/mailer.service");
+const mailer_1 = require("@nestjs-modules/mailer");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -53,12 +56,23 @@ exports.AppModule = AppModule = __decorate([
                 isGlobal: true,
             }),
             mongoose_1.MongooseModule.forRoot(process.env.MONGO_DB),
+            mailer_1.MailerModule.forRoot({
+                transport: {
+                    host: process.env.MAIL_HOST,
+                    secure: false,
+                    auth: {
+                        user: process.env.USERMAILER,
+                        pass: process.env.PASSWORDMAILER,
+                    },
+                },
+            }),
             food_module_1.FoodModule,
             mongoose_1.MongooseModule.forFeature([{ name: "Memory", schema: kyNiemKH_1.MemorySchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Slide", schema: slide_1.SlideSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Food", schema: food_entity_1.FoodSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Footer", schema: footer_1.FooterSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "User", schema: user_entity_1.UserSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: "Icons", schema: icons_1.IconsSchema }]),
             mongoose_1.MongooseModule.forFeature([
                 { name: "Information", schema: infoRes_1.InformationSchema },
             ]),
@@ -92,6 +106,7 @@ exports.AppModule = AppModule = __decorate([
             footer_service_1.FooterService,
             user_service_1.UserService,
             middleware_service_1.MiddlewareService,
+            mailer_service_1.MailerService,
         ],
     })
 ], AppModule);

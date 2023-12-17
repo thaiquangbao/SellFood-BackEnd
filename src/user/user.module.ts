@@ -18,6 +18,7 @@ import { FoodSchema } from "src/food/entity/food.entity";
 import { MemorySchema } from "src/trangchu.entity/kyNiemKH";
 import { MemoryService } from "src/memory.service";
 import { CloudinaryService } from "src/cloudinary/cloudinary.service";
+import { IconsSchema } from "src/trangchu.entity/icons";
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { CloudinaryService } from "src/cloudinary/cloudinary.service";
     MongooseModule.forFeature([{ name: "Slide", schema: SlideSchema }]),
     MongooseModule.forFeature([{ name: "Footer", schema: FooterSchema }]),
     MongooseModule.forFeature([{ name: "User", schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: "Icons", schema: IconsSchema }]),
     MongooseModule.forFeature([
       { name: "Information", schema: InformationSchema },
     ]),

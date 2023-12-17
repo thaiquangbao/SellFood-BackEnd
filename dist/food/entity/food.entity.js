@@ -14,6 +14,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 var Category;
 (function (Category) {
     Category["STARTERS"] = "KHAI V\u1ECA";
+    Category["RICE"] = "C\u01A0M NI\u00CAU";
     Category["FISH"] = "C\u00C1";
     Category["SEEFOOD"] = "H\u1EA2I S\u1EA2N";
     Category["CHIEN"] = "C\u01A0M CHI\u00CAN";

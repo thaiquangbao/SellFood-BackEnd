@@ -19,10 +19,13 @@ const user_entity_1 = require("./entity/user.entity");
 const mongoose_2 = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt_1 = require("@nestjs/jwt");
+const mailer_1 = require("@nestjs-modules/mailer");
 let UserService = class UserService {
-    constructor(userEntity, jwtService) {
+    constructor(userEntity, jwtService, mailService) {
         this.userEntity = userEntity;
         this.jwtService = jwtService;
+        this.mailService = mailService;
+        this.vertical = generateRandomString(6);
     }
     async signUp(user) {
         const { userName, passWord, email } = user;
@@ -47,8 +50,35 @@ let UserService = class UserService {
         if (!checkPassword) {
             throw new common_1.UnauthorizedException("Tài khoản or mật khẩu không đúng");
         }
-        const token = this.jwtService.sign({ id: (await findUserName).id });
-        return { token };
+        if (this.vertical !== "") {
+            const reset = generateRandomString(6);
+            this.vertical = reset;
+        }
+        await this.mailService.sendMail({
+            to: findUserName.email,
+            from: "haisancomnieuphanthiet@gmail.com",
+            subject: "Welcome to BOMRESTAURANT",
+            html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là: ${this.vertical}</b>`,
+            context: {
+                name: findUserName.userName,
+            },
+        });
+        return findUserName;
+    }
+    async xacThuc(ma, userName) {
+        const userId = this.userEntity.findOne({ userName: userName });
+        if (ma.vertical === this.vertical) {
+            const token = this.jwtService.sign({ id: (await userId).id });
+            this.vertical = "";
+            return { token };
+        }
+        else {
+            throw new common_1.UnauthorizedException("Mã xác nhận không đúng");
+        }
+    }
+    async findOneUserName(userName) {
+        const user = this.userEntity.findOne({ userName: userName });
+        return user;
     }
 };
 exports.UserService = UserService;
@@ -56,6 +86,16 @@ exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_entity_1.User.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        mailer_1.MailerService])
 ], UserService);
+function generateRandomString(length) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+    return result;
+}
 //# sourceMappingURL=user.service.js.map

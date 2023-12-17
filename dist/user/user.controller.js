@@ -18,6 +18,7 @@ const user_service_1 = require("./user.service");
 const user_dto_1 = require("./entity/user.dto");
 const app_service_1 = require("../app.service");
 const footer_service_1 = require("../footer/footer.service");
+const food_entity_1 = require("../food/entity/food.entity");
 let UserController = class UserController {
     constructor(userService, appService, footerService) {
         this.userService = userService;
@@ -32,7 +33,7 @@ let UserController = class UserController {
         result
             .then((e) => {
             if (e) {
-                res.status(200).json({ token: e.token });
+                res.json({ code: 200 });
             }
         })
             .catch((error) => {
@@ -43,7 +44,29 @@ let UserController = class UserController {
         const slides = await this.appService.findAllSlide();
         const slideOne = await this.appService.findSlideOne();
         const footers = await this.footerService.findAllFooter();
-        return res.render("users/login", { slides, slideOne, footers });
+        return res.render("users/login", { slides, slideOne, footers, Category: food_entity_1.Category });
+    }
+    async xacNhanPage(res, userName) {
+        const slides = await this.appService.findAllSlide();
+        const slideOne = await this.appService.findSlideOne();
+        const footers = await this.footerService.findAllFooter();
+        const user = await this.userService.findOneUserName(userName);
+        res.render("users/formXacNhan", {
+            user,
+            slides,
+            slideOne,
+            footers,
+            Category: food_entity_1.Category,
+        });
+    }
+    async checkMaXacNhan(res, ma, userName) {
+        const result = await this.userService.xacThuc(ma, userName);
+        if (result) {
+            res.json({ code: 200, token: result.token });
+        }
+        else {
+            res.json({ code: 500 });
+        }
     }
 };
 exports.UserController = UserController;
@@ -69,6 +92,23 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "loginPage", null);
+__decorate([
+    (0, common_1.Get)("login/xacnhan/:userName"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Param)("userName")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "xacNhanPage", null);
+__decorate([
+    (0, common_1.Post)("checkMa/:userName"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Param)("userName")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, user_dto_1.UserCheck, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "checkMaXacNhan", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)("user"),
     __metadata("design:paramtypes", [user_service_1.UserService,

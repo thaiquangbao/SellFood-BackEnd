@@ -25,16 +25,15 @@ let ThucdonController = class ThucdonController {
         this.footerService = footerService;
     }
     async thucDon(res) {
-        const foods = await this.foodService.findAllFoodDX();
         const footers = await this.footerService.findAllFooter();
         const slideOne = await this.appService.findSlideOne();
         const categories = [
             food_entity_1.Category.STARTERS,
+            food_entity_1.Category.RICE,
             food_entity_1.Category.BEEF,
             food_entity_1.Category.CHICKEN,
             food_entity_1.Category.FISH,
             food_entity_1.Category.CHIEN,
-            food_entity_1.Category.DESSERT,
             food_entity_1.Category.MI,
             food_entity_1.Category.PHO,
             food_entity_1.Category.PORK,
@@ -42,6 +41,7 @@ let ThucdonController = class ThucdonController {
             food_entity_1.Category.SANDWICH,
             food_entity_1.Category.SEEFOOD,
             food_entity_1.Category.SPAGHETTIS,
+            food_entity_1.Category.DESSERT,
             food_entity_1.Category.DRINKING,
         ];
         const listFoodArrays = {};
@@ -51,7 +51,6 @@ let ThucdonController = class ThucdonController {
         }
         return res.render("thucdons/thucdon", {
             Category: food_entity_1.Category,
-            foods,
             footers,
             listFoodArrays,
             slideOne,

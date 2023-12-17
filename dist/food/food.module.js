@@ -24,6 +24,7 @@ const infoRes_1 = require("../trangchu.entity/infoRes");
 const thucdon_controller_1 = require("../thucdon/thucdon.controller");
 const footer_service_1 = require("../footer/footer.service");
 const footer_1 = require("../trangchu.entity/footer");
+const icons_1 = require("../trangchu.entity/icons");
 let FoodModule = class FoodModule {
 };
 exports.FoodModule = FoodModule;
@@ -34,6 +35,7 @@ exports.FoodModule = FoodModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: "Slide", schema: slide_1.SlideSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Memory", schema: kyNiemKH_1.MemorySchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Footer", schema: footer_1.FooterSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: "Icons", schema: icons_1.IconsSchema }]),
             mongoose_1.MongooseModule.forFeature([
                 { name: "Information", schema: infoRes_1.InformationSchema },
             ]),

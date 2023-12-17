@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const footer_1 = require("../trangchu.entity/footer");
+const icons_1 = require("../trangchu.entity/icons");
 let FooterService = class FooterService {
-    constructor(footerEntity) {
+    constructor(footerEntity, iconsEntity) {
         this.footerEntity = footerEntity;
+        this.iconsEntity = iconsEntity;
     }
     async findAllFooter() {
         const footers = await this.footerEntity.find();
@@ -40,11 +42,35 @@ let FooterService = class FooterService {
         });
         return result;
     }
+    async findAllIcons() {
+        const icons = await this.iconsEntity.find();
+        return icons;
+    }
+    async insertIcons(icons) {
+        const newicons = await this.iconsEntity.create(icons);
+        return newicons;
+    }
+    async findOneIcons(id) {
+        const icons = await this.iconsEntity.findById(id);
+        return icons;
+    }
+    async updateIcons(id, icons) {
+        const result = await this.iconsEntity.findByIdAndUpdate(id, icons, {
+            new: true,
+            runValidators: true,
+        });
+        return result;
+    }
+    async deleteIcons(id) {
+        this.iconsEntity.findByIdAndDelete(id);
+        return true;
+    }
 };
 exports.FooterService = FooterService;
 exports.FooterService = FooterService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(footer_1.Footer.name)),
-    __metadata("design:paramtypes", [mongoose_2.default.Model])
+    __param(1, (0, mongoose_1.InjectModel)(icons_1.Icons.name)),
+    __metadata("design:paramtypes", [mongoose_2.default.Model, mongoose_2.default.Model])
 ], FooterService);
 //# sourceMappingURL=footer.service.js.map

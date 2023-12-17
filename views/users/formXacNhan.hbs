@@ -1,0 +1,52 @@
+<div class="container" style="min-height: 500px; min-width: 900px;">
+    <div class="container-fluid" style="background-color: whitesmoke; width:60%; height: 300px; border-radius: 5%; margin-top: 5%;" >
+        <div class="container" style="text-align: center;">
+            <h1>Xác nhận</h1>
+        </div>    
+        <div class="container" style="margin-left: 7%;" >
+            <div class="mb-3 row " >
+                <label  class="col-sm-2 col-form-label">Mã xác nhận</label>
+                <div class="col-sm-5" >
+                <input type="username" class="form-control" id="userName" >
+                </div>
+            </div>
+           
+            
+            
+        </div> 
+        <div class="container-fluid" style="text-align: center;">
+            <button onclick="login('{{user.userName}}')" class="btn btn-primary" style="margin-top: 3%; width: 90%; ">Xác nhận</button>
+             <button onclick="window.location.href='/user/login'" class="btn btn-primary" style="margin-top: 3%; width: 90%; ">Trở về</button>
+        </div>   
+    </div>
+   
+</div>
+<script>
+    function login(tk){
+        var ma = $("#userName").val();
+        if(ma.trim() === ''){
+            alert("Vui lòng nhập mã");
+            return;
+        }
+        $.ajax({
+                    url:"/user/checkMa/"+ tk,
+                    type:"POST",
+                    data:{
+                        vertical: ma
+                    }
+                })
+                .then(data => {
+                    if(data.code === 200)
+                    {
+                        setCookie("token",data.token,1);
+                        window.location.href="/" 
+                    }
+                    
+                })
+                .catch(error => {
+                    alert("Mã xác nhận không đúng");
+                })
+    }
+
+</script>
+{{!--   --}}

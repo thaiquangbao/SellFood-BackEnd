@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 export enum Category {
   STARTERS = "KHAI VỊ",
+  RICE = "CƠM NIÊU",
   FISH = "CÁ",
   SEEFOOD = "HẢI SẢN",
   CHIEN = "CƠM CHIÊN",

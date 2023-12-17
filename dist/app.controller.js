@@ -23,6 +23,7 @@ const infoResDTO_1 = require("./trangchu.entity/dto/infoResDTO");
 const footer_service_1 = require("./footer/footer.service");
 const footerDTO_1 = require("./trangchu.entity/dto/footerDTO");
 const food_entity_1 = require("./food/entity/food.entity");
+const iconsDTO_1 = require("./trangchu.entity/dto/iconsDTO");
 let AppController = class AppController {
     constructor(foodService, appService, memoryService, footerService) {
         this.foodService = foodService;
@@ -34,9 +35,10 @@ let AppController = class AppController {
         const foods = await this.foodService.findAllFoodNB();
         const slides = await this.appService.findAllSlide();
         const slideOne = await this.appService.findSlideOne();
+        const footers = await this.footerService.findAllFooter();
         const memories = await this.memoryService.findAllMemory();
         const informations = await this.appService.findAllInformation();
-        const footers = await this.footerService.findAllFooter();
+        const icons = await this.footerService.findAllIcons();
         return res.render("index", {
             foods,
             slides,
@@ -45,17 +47,20 @@ let AppController = class AppController {
             footers,
             Category: food_entity_1.Category,
             slideOne,
+            icons,
         });
     }
     async getListSlide(res) {
         const slides = await this.appService.findAllSlide();
         const footers = await this.footerService.findAllFooter();
         const slideOne = await this.appService.findSlideOne();
+        const icons = await this.footerService.findAllIcons();
         return res.render("trang-chu/slider", {
             slides,
             footers,
             Category: food_entity_1.Category,
             slideOne,
+            icons,
         });
     }
     async insert(slide) {
@@ -67,12 +72,14 @@ let AppController = class AppController {
         const slides = await this.appService.findAllSlide();
         const footers = await this.footerService.findAllFooter();
         const slideOne = await this.appService.findSlideOne();
+        const icons = await this.footerService.findAllIcons();
         return res.render("trang-chu/updateslider", {
             slide,
             slides,
             footers,
             Category: food_entity_1.Category,
             slideOne,
+            icons,
         });
     }
     async update(id, slide, res) {
@@ -93,12 +100,14 @@ let AppController = class AppController {
         const slides = await this.appService.findAllSlide();
         const footers = await this.footerService.findAllFooter();
         const slideOne = await this.appService.findSlideOne();
+        const icons = await this.footerService.findAllIcons();
         return res.render("trang-chu/memory/listmemory", {
             memories,
             slides,
             footers,
             Category: food_entity_1.Category,
             slideOne,
+            icons,
         });
     }
     async insertMem(memory) {
@@ -110,12 +119,14 @@ let AppController = class AppController {
         const slides = await this.appService.findAllSlide();
         const footers = await this.footerService.findAllFooter();
         const slideOne = await this.appService.findSlideOne();
+        const icons = await this.footerService.findAllIcons();
         return res.render("trang-chu/memory/updateMemory", {
             slides,
             memory,
             footers,
             Category: food_entity_1.Category,
             slideOne,
+            icons,
         });
     }
     async updateMem(id, memory, res) {
@@ -136,12 +147,14 @@ let AppController = class AppController {
         const slides = await this.appService.findAllSlide();
         const footers = await this.footerService.findAllFooter();
         const slideOne = await this.appService.findSlideOne();
+        const icons = await this.footerService.findAllIcons();
         return res.render("trang-chu/gioithieu/listGioiThieu", {
             informations,
             slides,
             footers,
             Category: food_entity_1.Category,
             slideOne,
+            icons,
         });
     }
     async insertInformation(information) {
@@ -153,12 +166,14 @@ let AppController = class AppController {
         const slides = await this.appService.findAllSlide();
         const footers = await this.footerService.findAllFooter();
         const slideOne = await this.appService.findSlideOne();
+        const icons = await this.footerService.findAllIcons();
         return res.render("trang-chu/gioithieu/updateGioiThieu", {
             information,
             slides,
             footers,
             Category: food_entity_1.Category,
             slideOne,
+            icons,
         });
     }
     async updateInfoResDTO(id, information, res) {
@@ -178,11 +193,13 @@ let AppController = class AppController {
         const footers = await this.footerService.findAllFooter();
         const slides = await this.appService.findAllSlide();
         const slideOne = await this.appService.findSlideOne();
+        const icons = await this.footerService.findAllIcons();
         return res.render("trang-chu/footer/listFooter", {
             footers,
             slides,
             Category: food_entity_1.Category,
             slideOne,
+            icons,
         });
     }
     async insertFooter(footer) {
@@ -194,12 +211,14 @@ let AppController = class AppController {
         const slides = await this.appService.findAllSlide();
         const footers = await this.footerService.findAllFooter();
         const slideOne = await this.appService.findSlideOne();
+        const icons = await this.footerService.findAllIcons();
         return res.render("trang-chu/footer/formUpdateFooter", {
             footer,
             slides,
             footers,
             Category: food_entity_1.Category,
             slideOne,
+            icons,
         });
     }
     async updateFooterDTO(id, footer, res) {
@@ -213,6 +232,49 @@ let AppController = class AppController {
             res.json({
                 code: 500,
             });
+        }
+    }
+    async formAdd(res) {
+        const slides = await this.appService.findAllSlide();
+        const slideOne = await this.appService.findSlideOne();
+        const footers = await this.footerService.findAllFooter();
+        const icons = await this.footerService.findAllIcons();
+        res.render("trang-chu/Icons/createIcon", {
+            slides,
+            slideOne,
+            footers,
+            icons,
+        });
+    }
+    async addIcons(res, icons) {
+        const result = this.footerService.insertIcons(icons);
+        if (result) {
+            res.json({ code: 200 });
+        }
+        else {
+            res.json({ code: 500 });
+        }
+    }
+    async formUpdate(res, id) {
+        const icon = this.footerService.findOneIcons(id);
+        res.render("", { icon });
+    }
+    async updateIcons(res, id, icon) {
+        const icons = this.footerService.updateIcons(id, icon);
+        if (icons) {
+            res.json({ code: 200 });
+        }
+        else {
+            res.json({ code: 500 });
+        }
+    }
+    async deleteIcons(res, id) {
+        const result = await this.footerService.deleteIcons(id);
+        if (result === true) {
+            res.json({ code: 200 });
+        }
+        else {
+            res.json({ code: 500 });
         }
     }
 };
@@ -348,6 +410,46 @@ __decorate([
     __metadata("design:paramtypes", [String, footerDTO_1.NewFooterDTO, Object]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "updateFooterDTO", null);
+__decorate([
+    (0, common_1.Get)("footer/icons/formAdd"),
+    __param(0, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "formAdd", null);
+__decorate([
+    (0, common_1.Post)("footer/icons/insert"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, iconsDTO_1.IconDTO]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "addIcons", null);
+__decorate([
+    (0, common_1.Get)("footer/icons/:id"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "formUpdate", null);
+__decorate([
+    (0, common_1.Put)("footer/icons/:id/update"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Param)("id")),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, iconsDTO_1.IconUpdate]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "updateIcons", null);
+__decorate([
+    (0, common_1.Delete)("footer/icons/delete/:id"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "deleteIcons", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [food_service_1.FoodService,

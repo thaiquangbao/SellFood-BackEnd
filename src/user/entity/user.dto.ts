@@ -23,5 +23,7 @@ export class LoginDTO {
   readonly passWord: string;
 }
 export class UserCheck {
-  id: string;
+  readonly id: string;
+  readonly userName: string;
+  readonly vertical: string;
 }

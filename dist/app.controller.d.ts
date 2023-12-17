@@ -7,6 +7,7 @@ import { MemoryService } from "./memory.service";
 import { InfoResDTO, UpdateInfoResDTO } from "./trangchu.entity/dto/infoResDTO";
 import { FooterService } from "./footer/footer.service";
 import { FooterDTO, NewFooterDTO } from "./trangchu.entity/dto/footerDTO";
+import { IconDTO, IconUpdate } from "./trangchu.entity/dto/iconsDTO";
 export declare class AppController {
     private readonly foodService;
     private readonly appService;
@@ -30,4 +31,9 @@ export declare class AppController {
     insertFooter(footer: FooterDTO): Promise<import("./trangchu.entity/footer").Footer>;
     findOneFooterDTO(id: string, res: Response): Promise<void>;
     updateFooterDTO(id: string, footer: NewFooterDTO, res: Response): Promise<void>;
+    formAdd(res: Response): Promise<void>;
+    addIcons(res: Response, icons: IconDTO): Promise<void>;
+    formUpdate(res: Response, id: string): Promise<void>;
+    updateIcons(res: Response, id: string, icon: IconUpdate): Promise<void>;
+    deleteIcons(res: Response, id: string): Promise<void>;
 }

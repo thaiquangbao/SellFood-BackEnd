@@ -1,5 +1,5 @@
 import { UserService } from "./user.service";
-import { LoginDTO, UserDTO } from "./entity/user.dto";
+import { LoginDTO, UserCheck, UserDTO } from "./entity/user.dto";
 import { Response } from "express";
 import { AppService } from "src/app.service";
 import { FooterService } from "src/footer/footer.service";
@@ -13,4 +13,6 @@ export declare class UserController {
     }>;
     login(loginDTO: LoginDTO, res: Response): void;
     loginPage(res: Response): Promise<void>;
+    xacNhanPage(res: Response, userName: string): Promise<void>;
+    checkMaXacNhan(res: Response, ma: UserCheck, userName: string): Promise<void>;
 }

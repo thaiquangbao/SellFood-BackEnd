@@ -15,6 +15,7 @@ import { InformationSchema } from "src/trangchu.entity/infoRes";
 import { ThucdonController } from "src/thucdon/thucdon.controller";
 import { FooterService } from "src/footer/footer.service";
 import { FooterSchema } from "src/trangchu.entity/footer";
+import { IconsSchema } from "src/trangchu.entity/icons";
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { FooterSchema } from "src/trangchu.entity/footer";
     MongooseModule.forFeature([{ name: "Slide", schema: SlideSchema }]),
     MongooseModule.forFeature([{ name: "Memory", schema: MemorySchema }]),
     MongooseModule.forFeature([{ name: "Footer", schema: FooterSchema }]),
+    MongooseModule.forFeature([{ name: "Icons", schema: IconsSchema }]),
     MongooseModule.forFeature([
       { name: "Information", schema: InformationSchema },
     ]),

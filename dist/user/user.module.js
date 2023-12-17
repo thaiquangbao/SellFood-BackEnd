@@ -27,6 +27,7 @@ const food_entity_1 = require("../food/entity/food.entity");
 const kyNiemKH_1 = require("../trangchu.entity/kyNiemKH");
 const memory_service_1 = require("../memory.service");
 const cloudinary_service_1 = require("../cloudinary/cloudinary.service");
+const icons_1 = require("../trangchu.entity/icons");
 let UserModule = class UserModule {
 };
 exports.UserModule = UserModule;
@@ -50,6 +51,7 @@ exports.UserModule = UserModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: "Slide", schema: slide_1.SlideSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Footer", schema: footer_1.FooterSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "User", schema: user_entity_1.UserSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: "Icons", schema: icons_1.IconsSchema }]),
             mongoose_1.MongooseModule.forFeature([
                 { name: "Information", schema: infoRes_1.InformationSchema },
             ]),

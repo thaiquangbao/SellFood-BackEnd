@@ -8,5 +8,7 @@ export declare class LoginDTO {
     readonly passWord: string;
 }
 export declare class UserCheck {
-    id: string;
+    readonly id: string;
+    readonly userName: string;
+    readonly vertical: string;
 }

@@ -54,11 +54,12 @@ checkCookie();
                 }
             })
             .then(data =>{
-                setCookie("token",data.token,1);
-                window.location.href="/"
+                alert("Kiểm tra hộp thư gmail để nhận mã xác nhận");
+                window.location.href="login/xacnhan/"+ tk;
+               
             })
             .catch(error =>{
-                alert("tài khoản hoặc mật khẩu không đúng");
+                alert("Tài khoản hoặc mật khẩu không đúng");
             })
         }
     }
@@ -69,3 +70,4 @@ checkCookie();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 </script>
+{{!--  --}}

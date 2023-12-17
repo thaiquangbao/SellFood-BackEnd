@@ -29,6 +29,11 @@ import { UserSchema } from "./user/entity/user.entity";
 import { PassportModule } from "@nestjs/passport";
 import { JwtModule } from "@nestjs/jwt";
 import { MiddlewareService } from "./middleware/middleware.service";
+import { IconsSchema } from "./trangchu.entity/icons";
+import { MailerService } from "./mailer/mailer.service";
+import { MailerModule } from "@nestjs-modules/mailer";
+// import { join } from "path";
+// import { HandlebarsAdapter } from "@nestjs-modules/mailer/dist/adapters/handlebars.adapter";
 
 @Module({
   imports: [
@@ -37,12 +42,23 @@ import { MiddlewareService } from "./middleware/middleware.service";
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGO_DB),
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.MAIL_HOST,
+        secure: false,
+        auth: {
+          user: process.env.USERMAILER,
+          pass: process.env.PASSWORDMAILER,
+        },
+      },
+    }),
     FoodModule,
     MongooseModule.forFeature([{ name: "Memory", schema: MemorySchema }]),
     MongooseModule.forFeature([{ name: "Slide", schema: SlideSchema }]),
     MongooseModule.forFeature([{ name: "Food", schema: FoodSchema }]),
     MongooseModule.forFeature([{ name: "Footer", schema: FooterSchema }]),
     MongooseModule.forFeature([{ name: "User", schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: "Icons", schema: IconsSchema }]),
     MongooseModule.forFeature([
       { name: "Information", schema: InformationSchema },
     ]),
@@ -76,6 +92,7 @@ import { MiddlewareService } from "./middleware/middleware.service";
     FooterService,
     UserService,
     MiddlewareService,
+    MailerService,
   ],
 })
 export class AppModule implements NestModule {

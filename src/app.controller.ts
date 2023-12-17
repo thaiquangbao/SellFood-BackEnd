@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put, Res } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Res,
+} from "@nestjs/common";
 import { AppService } from "./app.service";
 import { Response } from "express";
 import { FoodService } from "./food/food.service";
@@ -10,6 +19,7 @@ import { InfoResDTO, UpdateInfoResDTO } from "./trangchu.entity/dto/infoResDTO";
 import { FooterService } from "./footer/footer.service";
 import { FooterDTO, NewFooterDTO } from "./trangchu.entity/dto/footerDTO";
 import { Category } from "./food/entity/food.entity";
+import { IconDTO, IconUpdate } from "./trangchu.entity/dto/iconsDTO";
 @Controller()
 export class AppController {
   constructor(
@@ -23,9 +33,10 @@ export class AppController {
     const foods = await this.foodService.findAllFoodNB();
     const slides = await this.appService.findAllSlide();
     const slideOne = await this.appService.findSlideOne();
+    const footers = await this.footerService.findAllFooter();
     const memories = await this.memoryService.findAllMemory();
     const informations = await this.appService.findAllInformation();
-    const footers = await this.footerService.findAllFooter();
+    const icons = await this.footerService.findAllIcons();
     return res.render("index", {
       foods,
       slides,
@@ -34,6 +45,7 @@ export class AppController {
       footers,
       Category,
       slideOne,
+      icons,
     });
   }
   @Get("slide")
@@ -41,11 +53,13 @@ export class AppController {
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
     const slideOne = await this.appService.findSlideOne();
+    const icons = await this.footerService.findAllIcons();
     return res.render("trang-chu/slider", {
       slides,
       footers,
       Category,
       slideOne,
+      icons,
     });
   }
   @Post("slide/insert")
@@ -59,12 +73,14 @@ export class AppController {
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
     const slideOne = await this.appService.findSlideOne();
+    const icons = await this.footerService.findAllIcons();
     return res.render("trang-chu/updateslider", {
       slide,
       slides,
       footers,
       Category,
       slideOne,
+      icons,
     });
   }
   @Put("slide/update/:id")
@@ -91,12 +107,14 @@ export class AppController {
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
     const slideOne = await this.appService.findSlideOne();
+    const icons = await this.footerService.findAllIcons();
     return res.render("trang-chu/memory/listmemory", {
       memories,
       slides,
       footers,
       Category,
       slideOne,
+      icons,
     });
   }
   @Post("memory/insert")
@@ -110,12 +128,14 @@ export class AppController {
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
     const slideOne = await this.appService.findSlideOne();
+    const icons = await this.footerService.findAllIcons();
     return res.render("trang-chu/memory/updateMemory", {
       slides,
       memory,
       footers,
       Category,
       slideOne,
+      icons,
     });
   }
   @Put("memory/update/:id")
@@ -142,12 +162,14 @@ export class AppController {
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
     const slideOne = await this.appService.findSlideOne();
+    const icons = await this.footerService.findAllIcons();
     return res.render("trang-chu/gioithieu/listGioiThieu", {
       informations,
       slides,
       footers,
       Category,
       slideOne,
+      icons,
     });
   }
   @Post("information/insert")
@@ -161,12 +183,14 @@ export class AppController {
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
     const slideOne = await this.appService.findSlideOne();
+    const icons = await this.footerService.findAllIcons();
     return res.render("trang-chu/gioithieu/updateGioiThieu", {
       information,
       slides,
       footers,
       Category,
       slideOne,
+      icons,
     });
   }
   @Put("information/update/:id")
@@ -192,11 +216,13 @@ export class AppController {
     const footers = await this.footerService.findAllFooter();
     const slides = await this.appService.findAllSlide();
     const slideOne = await this.appService.findSlideOne();
+    const icons = await this.footerService.findAllIcons();
     return res.render("trang-chu/footer/listFooter", {
       footers,
       slides,
       Category,
       slideOne,
+      icons,
     });
   }
   @Post("footer/insert")
@@ -210,12 +236,14 @@ export class AppController {
     const slides = await this.appService.findAllSlide();
     const footers = await this.footerService.findAllFooter();
     const slideOne = await this.appService.findSlideOne();
+    const icons = await this.footerService.findAllIcons();
     return res.render("trang-chu/footer/formUpdateFooter", {
       footer,
       slides,
       footers,
       Category,
       slideOne,
+      icons,
     });
   }
   @Put("footer/update/:id")
@@ -233,6 +261,56 @@ export class AppController {
       res.json({
         code: 500,
       });
+    }
+  }
+  //Icons
+  @Get("footer/icons/formAdd")
+  async formAdd(@Res() res: Response) {
+    const slides = await this.appService.findAllSlide();
+    const slideOne = await this.appService.findSlideOne();
+    const footers = await this.footerService.findAllFooter();
+    const icons = await this.footerService.findAllIcons();
+    res.render("trang-chu/Icons/createIcon", {
+      slides,
+      slideOne,
+      footers,
+      icons,
+    });
+  }
+  @Post("footer/icons/insert")
+  async addIcons(@Res() res: Response, @Body() icons: IconDTO) {
+    const result = this.footerService.insertIcons(icons);
+    if (result) {
+      res.json({ code: 200 });
+    } else {
+      res.json({ code: 500 });
+    }
+  }
+  @Get("footer/icons/:id")
+  async formUpdate(@Res() res: Response, @Param("id") id: string) {
+    const icon = this.footerService.findOneIcons(id);
+    res.render("", { icon });
+  }
+  @Put("footer/icons/:id/update")
+  async updateIcons(
+    @Res() res: Response,
+    @Param("id") id: string,
+    @Body() icon: IconUpdate,
+  ) {
+    const icons = this.footerService.updateIcons(id, icon);
+    if (icons) {
+      res.json({ code: 200 });
+    } else {
+      res.json({ code: 500 });
+    }
+  }
+  @Delete("footer/icons/delete/:id")
+  async deleteIcons(@Res() res: Response, @Param("id") id: string) {
+    const result = await this.footerService.deleteIcons(id);
+    if (result === true) {
+      res.json({ code: 200 });
+    } else {
+      res.json({ code: 500 });
     }
   }
 }
