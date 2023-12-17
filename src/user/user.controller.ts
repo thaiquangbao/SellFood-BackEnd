@@ -59,7 +59,7 @@ export class UserController {
     @Param("userName") userName: string,
   ) {
     const result = await this.userService.xacThuc(ma, userName);
-    if (result) {
+    if (result.token) {
       res.json({ code: 200, token: result.token });
     } else {
       res.json({ code: 500 });
