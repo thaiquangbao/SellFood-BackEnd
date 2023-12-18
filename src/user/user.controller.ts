@@ -38,13 +38,7 @@ export class UserController {
     result
       .then(async (e) => {
         if (e) {
-          if (
-            UserController.randomMa.trim() !== "" ||
-            UserController.randomMa.trim() === ""
-          ) {
-            const reset = generateRandomString(6);
-            UserController.randomMa = reset;
-          }
+          UserController.randomMa = generateRandomString(6);
           await this.mailService.sendMail({
             to: e.email,
             from: "haisancomnieuphanthiet@gmail.com",
