@@ -65,7 +65,7 @@ let UserController = class UserController {
             res.json({ code: 200, token: result.token, vertical: result.vertical });
         }
         else {
-            res.json({ code: 500 });
+            res.json({ code: 500, vertical: result.vertical });
         }
     }
 };

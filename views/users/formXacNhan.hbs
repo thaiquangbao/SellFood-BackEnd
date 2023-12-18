@@ -45,7 +45,8 @@
                     
                 })
                 .catch(error => {
-                    alert("Mã xác nhận không đúng");
+                    alert("Mã xác nhận không đúng", error.vertical);
+                    console.log(error)
                 })
     }
 
