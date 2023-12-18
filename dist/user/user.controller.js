@@ -62,7 +62,7 @@ let UserController = class UserController {
     async checkMaXacNhan(res, ma, userName) {
         const result = await this.userService.xacThuc(ma, userName);
         if (result.token) {
-            res.json({ code: 200, token: result.token });
+            res.json({ code: 200, token: result.token, vertical: result.vertical });
         }
         else {
             res.json({ code: 500 });

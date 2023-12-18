@@ -6,6 +6,7 @@ import { LoginDTO, UserCheck, UserDTO } from "./entity/user.dto";
 import * as bcrypt from "bcryptjs";
 import { JwtService } from "@nestjs/jwt";
 import { MailerService } from "@nestjs-modules/mailer";
+let vertical = generateRandomString(6);
 @Injectable()
 export class UserService {
   constructor(
@@ -14,7 +15,6 @@ export class UserService {
     private jwtService: JwtService,
     private mailService: MailerService,
   ) {}
-  vertical = generateRandomString(6);
   async signUp(user: UserDTO): Promise<{ token: string }> {
     const { userName, passWord, email } = user;
     const hashedPassword = await bcrypt.hash(passWord, 10);
@@ -41,27 +41,34 @@ export class UserService {
     if (!checkPassword) {
       throw new UnauthorizedException("Tài khoản or mật khẩu không đúng");
     }
-    if (this.vertical !== "" || this.vertical === "") {
+    console.log(vertical);
+    if (vertical !== "" || vertical === "") {
       const reset = generateRandomString(6);
-      this.vertical = reset;
+      vertical = reset;
     }
     await this.mailService.sendMail({
       to: findUserName.email,
       from: "haisancomnieuphanthiet@gmail.com",
       subject: "Welcome to BOMRESTAURANT",
-      html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là: ${this.vertical}</b>`,
+      html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${vertical}</b>`,
       context: {
         name: findUserName.userName,
       },
     });
+    console.log(vertical);
     return findUserName;
   }
-  async xacThuc(ma: UserCheck, userName: string): Promise<{ token: string }> {
+  async xacThuc(
+    ma: UserCheck,
+    userName: string,
+  ): Promise<{ token: string; vertical: string }> {
     const userId = this.userEntity.findOne({ userName: userName });
-    if (ma.vertical === this.vertical) {
+    if (ma.vertical === vertical) {
       const token = this.jwtService.sign({ id: (await userId).id });
-      this.vertical = "";
-      return { token };
+      console.log(vertical);
+      vertical = "";
+      console.log(vertical);
+      return { token, vertical };
     } else {
       throw new UnauthorizedException("Mã xác nhận không đúng");
     }
