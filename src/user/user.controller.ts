@@ -61,6 +61,7 @@ export class UserController {
             session: session.id,
             sessionN: session.userName,
           });
+          return;
         }
       })
       .catch((error) => {
@@ -108,8 +109,10 @@ export class UserController {
         maNhap: ma,
       });
       UserController.randomMa = "";
+      return;
     } else {
       res.json({ code: 500, ver: UserController.randomMa, maNhap: ma });
+      return;
     }
   }
 }
