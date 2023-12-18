@@ -42,8 +42,9 @@
                         window.location.href="/" 
                     }
                     else if(data.code === 500){
-                        alert("Sai mã xác thực", data.ver);
-                        window.location.reload();
+                        alert("Sai mã xác thực");
+                        console.log(data.ver)
+                        //window.location.reload();
                     }
                 })
                 .catch(error => {
