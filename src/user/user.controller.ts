@@ -29,7 +29,7 @@ export class UserController {
     return this.userService.signUp(userDTO);
   }
   @Post("login/accept")
-  login(
+  async login(
     @Body() loginDTO: LoginDTO,
     @Res() res: Response,
     @Session() session: Record<string, any>,
