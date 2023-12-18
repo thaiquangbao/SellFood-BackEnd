@@ -55,7 +55,6 @@ checkCookie();
             })
             .then(data =>{
                 alert("Kiểm tra hộp thư gmail để nhận mã xác nhận");
-                console.log(data.session, data.sessionN)
                 window.location.href="login/xacnhan/"+ tk +"/"+ data.session;
                
             })
