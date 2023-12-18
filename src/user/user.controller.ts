@@ -37,7 +37,7 @@ export class UserController {
     result
       .then(async (e) => {
         if (e) {
-          if (randomMa !== "" || randomMa === "") {
+          if (randomMa.trim() !== "" || randomMa.trim() === "") {
             const reset = generateRandomString(6);
             randomMa = reset;
           }
