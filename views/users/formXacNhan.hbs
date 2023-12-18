@@ -39,7 +39,8 @@
                     if(data.code === 200)
                     {
                         setCookie("token",data.token,1);
-                        window.location.href="/" 
+                        console.log(data.ver)
+                        //window.location.href="/" 
                     }
                     else if(data.code === 500){
                         alert("Sai mã xác thực");

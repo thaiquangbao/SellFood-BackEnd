@@ -101,10 +101,15 @@ export class UserController {
   ) {
     if (ma.vertical === UserController.randomMa) {
       const result = await this.userService.xacThuc(userName);
-      res.json({ code: 200, token: result.token });
+      res.json({
+        code: 200,
+        token: result.token,
+        ver: UserController.randomMa,
+        maNhap: ma,
+      });
       UserController.randomMa = "";
     } else {
-      res.json({ code: 500, ver: UserController.randomMa });
+      res.json({ code: 500, ver: UserController.randomMa, maNhap: ma });
     }
   }
 }
