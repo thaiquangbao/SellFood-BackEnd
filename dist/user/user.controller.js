@@ -19,21 +19,43 @@ const user_dto_1 = require("./entity/user.dto");
 const app_service_1 = require("../app.service");
 const footer_service_1 = require("../footer/footer.service");
 const food_entity_1 = require("../food/entity/food.entity");
+const mailer_1 = require("@nestjs-modules/mailer");
+let randomMa = "";
 let UserController = class UserController {
-    constructor(userService, appService, footerService) {
+    constructor(userService, appService, footerService, mailService) {
         this.userService = userService;
         this.appService = appService;
         this.footerService = footerService;
+        this.mailService = mailService;
     }
     signup(userDTO) {
         return this.userService.signUp(userDTO);
     }
-    login(loginDTO, res) {
+    login(loginDTO, res, session) {
         const result = this.userService.loGin(loginDTO);
         result
-            .then((e) => {
+            .then(async (e) => {
             if (e) {
-                res.json({ code: 200 });
+                if (randomMa !== "" || randomMa === "") {
+                    const reset = generateRandomString(6);
+                    randomMa = reset;
+                }
+                await this.mailService.sendMail({
+                    to: e.email,
+                    from: "haisancomnieuphanthiet@gmail.com",
+                    subject: "Welcome to BOMRESTAURANT",
+                    html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${randomMa}</b>`,
+                    context: {
+                        name: e.userName,
+                    },
+                });
+                session.authenticated = true;
+                session.userName = e.userName;
+                res.json({
+                    code: 200,
+                    session: session.id,
+                    sessionN: session.userName,
+                });
             }
         })
             .catch((error) => {
@@ -46,7 +68,7 @@ let UserController = class UserController {
         const footers = await this.footerService.findAllFooter();
         return res.render("users/login", { slides, slideOne, footers, Category: food_entity_1.Category });
     }
-    async xacNhanPage(res, userName) {
+    async xacNhanPage(res, session, userName) {
         const slides = await this.appService.findAllSlide();
         const slideOne = await this.appService.findSlideOne();
         const footers = await this.footerService.findAllFooter();
@@ -60,12 +82,13 @@ let UserController = class UserController {
         });
     }
     async checkMaXacNhan(res, ma, userName) {
-        const result = await this.userService.xacThuc(ma, userName);
-        if (result.token) {
-            res.json({ code: 200, token: result.token, vertical: result.vertical });
+        if (ma.vertical === randomMa) {
+            const result = await this.userService.xacThuc(userName);
+            res.json({ code: 200, token: result.token });
+            randomMa = "";
         }
         else {
-            res.json({ code: 500, vertical: result.vertical });
+            res.json({ code: 500 });
         }
     }
 };
@@ -81,8 +104,9 @@ __decorate([
     (0, common_1.Post)("login/accept"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
+    __param(2, (0, common_1.Session)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_dto_1.LoginDTO, Object]),
+    __metadata("design:paramtypes", [user_dto_1.LoginDTO, Object, Object]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "login", null);
 __decorate([
@@ -93,11 +117,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "loginPage", null);
 __decorate([
-    (0, common_1.Get)("login/xacnhan/:userName"),
+    (0, common_1.Get)("login/xacnhan/:userName/:sessionId"),
     __param(0, (0, common_1.Res)()),
-    __param(1, (0, common_1.Param)("userName")),
+    __param(1, (0, common_1.Session)()),
+    __param(2, (0, common_1.Param)("userName")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:paramtypes", [Object, Object, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "xacNhanPage", null);
 __decorate([
@@ -113,6 +138,16 @@ exports.UserController = UserController = __decorate([
     (0, common_1.Controller)("user"),
     __metadata("design:paramtypes", [user_service_1.UserService,
         app_service_1.AppService,
-        footer_service_1.FooterService])
+        footer_service_1.FooterService,
+        mailer_1.MailerService])
 ], UserController);
+function generateRandomString(length) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+    return result;
+}
 //# sourceMappingURL=user.controller.js.map

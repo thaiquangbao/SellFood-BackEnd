@@ -32,8 +32,7 @@ import { MiddlewareService } from "./middleware/middleware.service";
 import { IconsSchema } from "./trangchu.entity/icons";
 import { MailerService } from "./mailer/mailer.service";
 import { MailerModule } from "@nestjs-modules/mailer";
-// import { join } from "path";
-// import { HandlebarsAdapter } from "@nestjs-modules/mailer/dist/adapters/handlebars.adapter";
+import { SessionmiddlewareService } from "./sessionmiddleware/sessionmiddleware.service";
 
 @Module({
   imports: [
@@ -93,6 +92,7 @@ import { MailerModule } from "@nestjs-modules/mailer";
     UserService,
     MiddlewareService,
     MailerService,
+    SessionmiddlewareService,
   ],
 })
 export class AppModule implements NestModule {
@@ -104,5 +104,9 @@ export class AppModule implements NestModule {
         path: "/user/signup",
         method: RequestMethod.POST,
       });
+    consumer.apply(SessionmiddlewareService).forRoutes({
+      path: "/user/login/xacnhan/:userName/:sessionId",
+      method: RequestMethod.GET,
+    });
   }
 }

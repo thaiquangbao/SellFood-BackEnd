@@ -24,21 +24,21 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { User } from "./entity/user.entity";
 import { Model } from "mongoose";
-import { LoginDTO, UserCheck, UserDTO } from "./entity/user.dto";
+import { LoginDTO, UserDTO } from "./entity/user.dto";
 import { JwtService } from "@nestjs/jwt";
-import { MailerService } from "@nestjs-modules/mailer";
 export declare class UserService {
     private userEntity;
     private jwtService;
-    private mailService;
-    constructor(userEntity: Model<User>, jwtService: JwtService, mailService: MailerService);
+    constructor(userEntity: Model<User>, jwtService: JwtService);
     signUp(user: UserDTO): Promise<{
         token: string;
     }>;
     loGin(loginDTO: LoginDTO): Promise<User>;
-    xacThuc(ma: UserCheck, userName: string): Promise<{
+    xacThuc(userName: string): Promise<{
         token: string;
-        vertical: string;
     }>;
     findOneUserName(userName: string): Promise<User>;
+    checkSession({ session, }: Record<string, any>): Promise<{
+        token: string;
+    }>;
 }

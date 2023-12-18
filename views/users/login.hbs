@@ -27,15 +27,6 @@
 </div>
 
 <script>
-    function checkCookie() {
-    let user = getCookie("token");
-    if (user !== "") {
-        
-        window.location.href="/"
-        
-    } 
-}
-checkCookie();
     function login(){
         var tk = $('#userName').val();
         var mk = $('#passWord').val();
@@ -55,7 +46,8 @@ checkCookie();
             })
             .then(data =>{
                 alert("Kiểm tra hộp thư gmail để nhận mã xác nhận");
-                window.location.href="login/xacnhan/"+ tk;
+                console.log(data.session, data.sessionN)
+                window.location.href="login/xacnhan/"+ tk +"/"+ data.session;
                
             })
             .catch(error =>{

@@ -2,18 +2,16 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { User } from "./entity/user.entity";
 import { Model } from "mongoose";
-import { LoginDTO, UserCheck, UserDTO } from "./entity/user.dto";
+import { LoginDTO, UserDTO } from "./entity/user.dto";
 import * as bcrypt from "bcryptjs";
 import { JwtService } from "@nestjs/jwt";
-import { MailerService } from "@nestjs-modules/mailer";
-let vertical = generateRandomString(6);
+
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name)
     private userEntity: Model<User>,
     private jwtService: JwtService,
-    private mailService: MailerService,
   ) {}
   async signUp(user: UserDTO): Promise<{ token: string }> {
     const { userName, passWord, email } = user;
@@ -41,50 +39,22 @@ export class UserService {
     if (!checkPassword) {
       throw new UnauthorizedException("Tài khoản or mật khẩu không đúng");
     }
-    console.log(vertical);
-    if (vertical !== "" || vertical === "") {
-      const reset = generateRandomString(6);
-      vertical = reset;
-    }
-    await this.mailService.sendMail({
-      to: findUserName.email,
-      from: "haisancomnieuphanthiet@gmail.com",
-      subject: "Welcome to BOMRESTAURANT",
-      html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${vertical}</b>`,
-      context: {
-        name: findUserName.userName,
-      },
-    });
-    console.log(vertical);
+
     return findUserName;
   }
-  async xacThuc(
-    ma: UserCheck,
-    userName: string,
-  ): Promise<{ token: string; vertical: string }> {
+  async xacThuc(userName: string): Promise<{ token: string }> {
     const userId = this.userEntity.findOne({ userName: userName });
-    if (ma.vertical === vertical) {
-      const token = this.jwtService.sign({ id: (await userId).id });
-      console.log(vertical);
-      vertical = "";
-      console.log(vertical);
-      return { token, vertical };
-    } else {
-      throw new UnauthorizedException("Mã xác nhận không đúng");
-    }
+    const token = this.jwtService.sign({ id: (await userId).id });
+    return { token };
   }
   async findOneUserName(userName: string): Promise<User> {
     const user = this.userEntity.findOne({ userName: userName });
     return user;
   }
-}
-function generateRandomString(length: number): string {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    result += characters.charAt(randomIndex);
+  async checkSession({
+    session,
+  }: Record<string, any>): Promise<{ token: string }> {
+    const sessionId = session.id;
+    return { token: sessionId };
   }
-
-  return result;
 }

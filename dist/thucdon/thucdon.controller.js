@@ -18,6 +18,7 @@ const app_service_1 = require("../app.service");
 const footer_service_1 = require("../footer/footer.service");
 const food_service_1 = require("../food/food.service");
 const food_entity_1 = require("../food/entity/food.entity");
+const randomMa = generateRandomString(6);
 let ThucdonController = class ThucdonController {
     constructor(foodService, appService, footerService) {
         this.foodService = foodService;
@@ -56,10 +57,13 @@ let ThucdonController = class ThucdonController {
             slideOne,
         });
     }
-    async test() {
-        const slideOne = await this.appService.findSlideOne();
-        console.log(slideOne);
-        return slideOne;
+    async test(session) {
+        session.authenticated = true;
+        session.maHoa = randomMa;
+        console.log(session.maHoa);
+        console.log(typeof session.id);
+        console.log(session);
+        return session;
     }
 };
 exports.ThucdonController = ThucdonController;
@@ -72,8 +76,9 @@ __decorate([
 ], ThucdonController.prototype, "thucDon", null);
 __decorate([
     (0, common_1.Get)("test"),
+    __param(0, (0, common_1.Session)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ThucdonController.prototype, "test", null);
 exports.ThucdonController = ThucdonController = __decorate([
@@ -82,4 +87,13 @@ exports.ThucdonController = ThucdonController = __decorate([
         app_service_1.AppService,
         footer_service_1.FooterService])
 ], ThucdonController);
+function generateRandomString(length) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+    return result;
+}
 //# sourceMappingURL=thucdon.controller.js.map

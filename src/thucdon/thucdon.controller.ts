@@ -1,12 +1,12 @@
-import { Controller, Get, Res } from "@nestjs/common";
+import { Controller, Get, Res, Session } from "@nestjs/common";
 import { AppService } from "src/app.service";
 //import { FoodService } from "src/food/food.service";
 import { Response } from "express";
 import { FooterService } from "src/footer/footer.service";
 import { FoodService } from "src/food/food.service";
 import { Category } from "src/food/entity/food.entity";
-import { Slide } from "src/trangchu.entity/slide";
 
+const randomMa = generateRandomString(6);
 @Controller("thucdon")
 export class ThucdonController {
   constructor(
@@ -58,9 +58,23 @@ export class ThucdonController {
     });
   }
   @Get("test")
-  async test(): Promise<Slide> {
-    const slideOne = await this.appService.findSlideOne();
-    console.log(slideOne);
-    return slideOne;
+  async test(@Session() session: Record<string, any>) {
+    session.authenticated = true;
+    session.maHoa = randomMa;
+    console.log(session.maHoa);
+    console.log(typeof session.id);
+    console.log(session);
+    //const sessionKeys = Object.keys(session);
+    return session;
   }
+}
+function generateRandomString(length: number): string {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+
+  return result;
 }

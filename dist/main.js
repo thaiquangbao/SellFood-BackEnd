@@ -9,6 +9,7 @@ const path = require("path");
 const hbs = require("hbs");
 const hbs_utils_1 = require("hbs-utils");
 const cookie_parser_1 = require("cookie-parser");
+const express_session_1 = require("express-session");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.use((0, cookie_parser_1.default)());
@@ -27,6 +28,15 @@ async function bootstrap() {
     app.set("view options", {
         layout: "layouts/main",
     });
+    app.use((0, express_session_1.default)({
+        name: "Session_JS",
+        secret: process.env.SESSION_SECURITY,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 60000,
+        },
+    }));
     await app.listen(3000);
 }
 bootstrap();

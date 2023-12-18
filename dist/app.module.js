@@ -36,6 +36,7 @@ const middleware_service_1 = require("./middleware/middleware.service");
 const icons_1 = require("./trangchu.entity/icons");
 const mailer_service_1 = require("./mailer/mailer.service");
 const mailer_1 = require("@nestjs-modules/mailer");
+const sessionmiddleware_service_1 = require("./sessionmiddleware/sessionmiddleware.service");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -44,6 +45,10 @@ let AppModule = class AppModule {
             .forRoutes(food_controller_1.FoodController, app_controller_1.AppController, {
             path: "/user/signup",
             method: common_1.RequestMethod.POST,
+        });
+        consumer.apply(sessionmiddleware_service_1.SessionmiddlewareService).forRoutes({
+            path: "/user/login/xacnhan/:userName/:sessionId",
+            method: common_1.RequestMethod.GET,
         });
     }
 };
@@ -107,6 +112,7 @@ exports.AppModule = AppModule = __decorate([
             user_service_1.UserService,
             middleware_service_1.MiddlewareService,
             mailer_service_1.MailerService,
+            sessionmiddleware_service_1.SessionmiddlewareService,
         ],
     })
 ], AppModule);

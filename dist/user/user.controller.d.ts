@@ -3,16 +3,18 @@ import { LoginDTO, UserCheck, UserDTO } from "./entity/user.dto";
 import { Response } from "express";
 import { AppService } from "src/app.service";
 import { FooterService } from "src/footer/footer.service";
+import { MailerService } from "@nestjs-modules/mailer";
 export declare class UserController {
     private userService;
     private readonly appService;
     private readonly footerService;
-    constructor(userService: UserService, appService: AppService, footerService: FooterService);
+    private mailService;
+    constructor(userService: UserService, appService: AppService, footerService: FooterService, mailService: MailerService);
     signup(userDTO: UserDTO): Promise<{
         token: string;
     }>;
-    login(loginDTO: LoginDTO, res: Response): void;
+    login(loginDTO: LoginDTO, res: Response, session: Record<string, any>): void;
     loginPage(res: Response): Promise<void>;
-    xacNhanPage(res: Response, userName: string): Promise<void>;
+    xacNhanPage(res: Response, session: Record<string, any>, userName: string): Promise<void>;
     checkMaXacNhan(res: Response, ma: UserCheck, userName: string): Promise<void>;
 }

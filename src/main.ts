@@ -8,8 +8,11 @@ import * as path from "path";
 import * as hbs from "hbs";
 import hbsUtils from "hbs-utils";
 import cookieParser from "cookie-parser";
+import session from "express-session";
 // import * as hbsUtils from "hbs-utils";
 // import * as cookieParser from "cookie-parser";
+// import * as session from "express-session";
+//import * as passport from "passport";
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.use(cookieParser());
@@ -35,6 +38,17 @@ async function bootstrap() {
   app.set("view options", {
     layout: "layouts/main",
   });
+  app.use(
+    session({
+      name: "Session_JS",
+      secret: process.env.SESSION_SECURITY,
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        maxAge: 60000,
+      },
+    }),
+  );
   await app.listen(3000);
 }
 bootstrap();

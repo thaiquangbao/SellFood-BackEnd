@@ -39,14 +39,12 @@
                     if(data.code === 200)
                     {
                         setCookie("token",data.token,1);
-                        console.log(data.vertical);
-                        //window.location.href="/" 
+                        window.location.href="/" 
                     }
                     
                 })
                 .catch(error => {
-                    alert("Mã xác nhận không đúng", error.vertical);
-                    console.log(error)
+                    alert("Mã xác nhận không đúng");
                 })
     }
 
