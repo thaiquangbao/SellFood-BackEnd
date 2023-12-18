@@ -41,7 +41,10 @@
                         setCookie("token",data.token,1);
                         window.location.href="/" 
                     }
-                    
+                    else if(data.code === 500){
+                        alert("Sai mã xác thực");
+                        window.location.reload();
+                    }
                 })
                 .catch(error => {
                     alert("Mã xác nhận không đúng");
