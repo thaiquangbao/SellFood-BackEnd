@@ -9,6 +9,7 @@ export declare class UserController {
     private readonly appService;
     private readonly footerService;
     private mailService;
+    private static randomMa;
     constructor(userService: UserService, appService: AppService, footerService: FooterService, mailService: MailerService);
     signup(userDTO: UserDTO): Promise<{
         token: string;

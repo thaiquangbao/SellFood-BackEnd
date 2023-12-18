@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var UserController_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
@@ -20,8 +21,7 @@ const app_service_1 = require("../app.service");
 const footer_service_1 = require("../footer/footer.service");
 const food_entity_1 = require("../food/entity/food.entity");
 const mailer_1 = require("@nestjs-modules/mailer");
-let randomMa = "";
-let UserController = class UserController {
+let UserController = UserController_1 = class UserController {
     constructor(userService, appService, footerService, mailService) {
         this.userService = userService;
         this.appService = appService;
@@ -36,15 +36,16 @@ let UserController = class UserController {
         result
             .then(async (e) => {
             if (e) {
-                if (randomMa.trim() !== "" || randomMa.trim() === "") {
+                if (UserController_1.randomMa.trim() !== "" ||
+                    UserController_1.randomMa.trim() === "") {
                     const reset = generateRandomString(6);
-                    randomMa = reset;
+                    UserController_1.randomMa = reset;
                 }
                 await this.mailService.sendMail({
                     to: e.email,
                     from: "haisancomnieuphanthiet@gmail.com",
                     subject: "Welcome to BOMRESTAURANT",
-                    html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${randomMa}</b>`,
+                    html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${UserController_1.randomMa}</b>`,
                     context: {
                         name: e.userName,
                     },
@@ -82,17 +83,18 @@ let UserController = class UserController {
         });
     }
     async checkMaXacNhan(res, ma, userName) {
-        if (ma.vertical === randomMa) {
+        if (ma.vertical === UserController_1.randomMa) {
             const result = await this.userService.xacThuc(userName);
-            res.json({ code: 200, token: result.token, ver: randomMa });
-            randomMa = "";
+            res.json({ code: 200, token: result.token });
+            UserController_1.randomMa = "";
         }
         else {
-            res.json({ code: 500, ver: randomMa });
+            res.json({ code: 500, ver: UserController_1.randomMa });
         }
     }
 };
 exports.UserController = UserController;
+UserController.randomMa = "";
 __decorate([
     (0, common_1.Post)("signup"),
     __param(0, (0, common_1.Body)()),
@@ -134,7 +136,7 @@ __decorate([
     __metadata("design:paramtypes", [Object, user_dto_1.UserCheck, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "checkMaXacNhan", null);
-exports.UserController = UserController = __decorate([
+exports.UserController = UserController = UserController_1 = __decorate([
     (0, common_1.Controller)("user"),
     __metadata("design:paramtypes", [user_service_1.UserService,
         app_service_1.AppService,

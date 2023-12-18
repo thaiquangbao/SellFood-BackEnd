@@ -14,9 +14,10 @@ import { AppService } from "src/app.service";
 import { FooterService } from "src/footer/footer.service";
 import { Category } from "src/food/entity/food.entity";
 import { MailerService } from "@nestjs-modules/mailer";
-let randomMa = "";
+
 @Controller("user")
 export class UserController {
+  private static randomMa: string = "";
   constructor(
     private userService: UserService,
     private readonly appService: AppService,
@@ -37,15 +38,18 @@ export class UserController {
     result
       .then(async (e) => {
         if (e) {
-          if (randomMa.trim() !== "" || randomMa.trim() === "") {
+          if (
+            UserController.randomMa.trim() !== "" ||
+            UserController.randomMa.trim() === ""
+          ) {
             const reset = generateRandomString(6);
-            randomMa = reset;
+            UserController.randomMa = reset;
           }
           await this.mailService.sendMail({
             to: e.email,
             from: "haisancomnieuphanthiet@gmail.com",
             subject: "Welcome to BOMRESTAURANT",
-            html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${randomMa}</b>`,
+            html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${UserController.randomMa}</b>`,
             context: {
               name: e.userName,
             },
@@ -95,12 +99,12 @@ export class UserController {
     @Body() ma: UserCheck,
     @Param("userName") userName: string,
   ) {
-    if (ma.vertical === randomMa) {
+    if (ma.vertical === UserController.randomMa) {
       const result = await this.userService.xacThuc(userName);
-      res.json({ code: 200, token: result.token, ver: randomMa });
-      randomMa = "";
+      res.json({ code: 200, token: result.token });
+      UserController.randomMa = "";
     } else {
-      res.json({ code: 500, ver: randomMa });
+      res.json({ code: 500, ver: UserController.randomMa });
     }
   }
 }
