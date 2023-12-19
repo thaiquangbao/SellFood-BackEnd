@@ -110,7 +110,7 @@ export class AppModule implements NestModule {
         method: RequestMethod.GET,
       },
       // {
-      //   path: "/user/login/accept",
+      //   path: "/user/checkMa/:userName",
       //   method: RequestMethod.POST,
       // },
     );
