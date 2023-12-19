@@ -55,6 +55,7 @@ export class UserController {
             code: 200,
             session: session.id,
             sessionN: session.userName,
+            sessionO: session.maHOA,
           });
         }
       })
