@@ -91,7 +91,6 @@ export class UserController {
     @Param("userName") userName: string,
     @Session() session: Record<string, any>,
   ) {
-    console.log(session.id);
     if (ma.vertical === session.maHOA) {
       const result = await this.userService.xacThuc(userName);
       res.json({

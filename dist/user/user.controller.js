@@ -77,7 +77,6 @@ let UserController = class UserController {
         });
     }
     async checkMaXacNhan(res, ma, userName, session) {
-        console.log(session.id);
         if (ma.vertical === session.maHOA) {
             const result = await this.userService.xacThuc(userName);
             res.json({
