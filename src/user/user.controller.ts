@@ -55,7 +55,6 @@ export class UserController {
             code: 200,
             session: session.id,
             sessionN: session.userName,
-            sessionMa: session,
           });
         }
       })
@@ -76,14 +75,15 @@ export class UserController {
       res.json({
         code: 200,
         token: result.token,
-        ver: UserController.randomMa,
         maNhap: ma,
+        sessionO: session.maHOA,
+        sessionMa: session,
       });
     } else {
       res.json({
         code: 500,
-        ver: UserController.randomMa,
         maNhap: ma,
+        sessionO: session.maHOA,
         sessionMa: session,
       });
     }
