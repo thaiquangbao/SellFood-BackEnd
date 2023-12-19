@@ -54,7 +54,7 @@ let UserController = class UserController {
         const footers = await this.footerService.findAllFooter();
         return res.render("users/login", { slides, slideOne, footers, Category: food_entity_1.Category });
     }
-    async xacNhanPage(res, session, userName, req) {
+    async xacNhanPage(res, session, userName) {
         const slides = await this.appService.findAllSlide();
         const slideOne = await this.appService.findSlideOne();
         const footers = await this.footerService.findAllFooter();
@@ -63,7 +63,7 @@ let UserController = class UserController {
             to: user.email,
             from: "haisancomnieuphanthiet@gmail.com",
             subject: "Welcome to BOMRESTAURANT",
-            html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${req.headers.tk}</b>`,
+            html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHOA}</b>`,
             context: {
                 name: user.userName,
             },
@@ -78,18 +78,18 @@ let UserController = class UserController {
     }
     async checkMaXacNhan(res, ma, userName, session) {
         console.log(session.id);
-        if (ma.vertical === session.id) {
+        if (ma.vertical === session.maHOA) {
             const result = await this.userService.xacThuc(userName);
             res.json({
                 code: 200,
                 token: result.token,
-                session: session.id,
+                session: session.maHOA,
             });
         }
         else {
             res.json({
                 code: 500,
-                session: session.id,
+                session: session.maHOA,
             });
         }
     }
@@ -123,9 +123,8 @@ __decorate([
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Session)()),
     __param(2, (0, common_1.Param)("userName")),
-    __param(3, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object, String, Object]),
+    __metadata("design:paramtypes", [Object, Object, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "xacNhanPage", null);
 __decorate([

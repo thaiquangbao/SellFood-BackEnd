@@ -4,13 +4,12 @@ import {
   Get,
   Param,
   Post,
-  Req,
   Res,
   Session,
 } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { LoginDTO, UserCheck, UserDTO } from "./entity/user.dto";
-import { Response, Request } from "express";
+import { Response } from "express";
 import { AppService } from "src/app.service";
 import { FooterService } from "src/footer/footer.service";
 import { Category } from "src/food/entity/food.entity";
@@ -63,7 +62,6 @@ export class UserController {
     @Res() res: Response,
     @Session() session: Record<string, any>,
     @Param("userName") userName: string,
-    @Req() req: Request,
   ) {
     const slides = await this.appService.findAllSlide();
     const slideOne = await this.appService.findSlideOne();
@@ -73,7 +71,7 @@ export class UserController {
       to: user.email,
       from: "haisancomnieuphanthiet@gmail.com",
       subject: "Welcome to BOMRESTAURANT",
-      html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${req.headers.tk}</b>`,
+      html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHOA}</b>`,
       context: {
         name: user.userName,
       },
@@ -94,17 +92,17 @@ export class UserController {
     @Session() session: Record<string, any>,
   ) {
     console.log(session.id);
-    if (ma.vertical === session.id) {
+    if (ma.vertical === session.maHOA) {
       const result = await this.userService.xacThuc(userName);
       res.json({
         code: 200,
         token: result.token,
-        session: session.id,
+        session: session.maHOA,
       });
     } else {
       res.json({
         code: 500,
-        session: session.id,
+        session: session.maHOA,
       });
     }
   }
