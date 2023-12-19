@@ -104,9 +104,15 @@ export class AppModule implements NestModule {
         path: "/user/signup",
         method: RequestMethod.POST,
       });
-    consumer.apply(SessionmiddlewareService).forRoutes({
-      path: "/user/login/xacnhan/:userName/:sessionId",
-      method: RequestMethod.GET,
-    });
+    consumer.apply(SessionmiddlewareService).forRoutes(
+      {
+        path: "/user/login/xacnhan/:userName/:sessionId",
+        method: RequestMethod.GET,
+      },
+      // {
+      //   path: "/user/login/accept",
+      //   method: RequestMethod.POST,
+      // },
+    );
   }
 }

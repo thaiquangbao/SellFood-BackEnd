@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var UserController_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
@@ -21,7 +20,7 @@ const app_service_1 = require("../app.service");
 const footer_service_1 = require("../footer/footer.service");
 const food_entity_1 = require("../food/entity/food.entity");
 const mailer_1 = require("@nestjs-modules/mailer");
-let UserController = UserController_1 = class UserController {
+let UserController = class UserController {
     constructor(userService, appService, footerService, mailService) {
         this.userService = userService;
         this.appService = appService;
@@ -36,50 +35,18 @@ let UserController = UserController_1 = class UserController {
         result
             .then(async (e) => {
             if (e) {
-                UserController_1.randomMa = generateRandomString(6);
-                session.maHOA = UserController_1.randomMa;
-                await this.mailService.sendMail({
-                    to: e.email,
-                    from: "haisancomnieuphanthiet@gmail.com",
-                    subject: "Welcome to BOMRESTAURANT",
-                    html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${UserController_1.randomMa}</b>`,
-                    context: {
-                        name: e.userName,
-                    },
-                });
                 session.authenticated = true;
                 session.userName = e.userName;
                 res.json({
                     code: 200,
                     session: session.id,
                     sessionN: session.userName,
-                    sessionMa: session,
                 });
             }
         })
             .catch((error) => {
             res.status(500).json({ error: error.message });
         });
-    }
-    async checkMaXacNhan(res, ma, userName, session) {
-        session.authenticated = true;
-        if (ma.vertical === session.maHOA) {
-            const result = await this.userService.xacThuc(userName);
-            res.json({
-                code: 200,
-                token: result.token,
-                ver: UserController_1.randomMa,
-                maNhap: ma,
-            });
-        }
-        else {
-            res.json({
-                code: 500,
-                ver: UserController_1.randomMa,
-                maNhap: ma,
-                sessionMa: session,
-            });
-        }
     }
     async loginPage(res) {
         const slides = await this.appService.findAllSlide();
@@ -92,6 +59,15 @@ let UserController = UserController_1 = class UserController {
         const slideOne = await this.appService.findSlideOne();
         const footers = await this.footerService.findAllFooter();
         const user = await this.userService.findOneUserName(userName);
+        await this.mailService.sendMail({
+            to: user.email,
+            from: "haisancomnieuphanthiet@gmail.com",
+            subject: "Welcome to BOMRESTAURANT",
+            html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHOA}</b>`,
+            context: {
+                name: user.userName,
+            },
+        });
         res.render("users/formXacNhan", {
             user,
             slides,
@@ -100,9 +76,23 @@ let UserController = UserController_1 = class UserController {
             Category: food_entity_1.Category,
         });
     }
+    async checkMaXacNhan(res, ma, userName, session) {
+        session.authenticated = true;
+        if (ma.vertical === session.maHOA) {
+            const result = await this.userService.xacThuc(userName);
+            res.json({
+                code: 200,
+                token: result.token,
+            });
+        }
+        else {
+            res.json({
+                code: 500,
+            });
+        }
+    }
 };
 exports.UserController = UserController;
-UserController.randomMa = "";
 __decorate([
     (0, common_1.Post)("signup"),
     __param(0, (0, common_1.Body)()),
@@ -120,16 +110,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "login", null);
 __decorate([
-    (0, common_1.Post)("checkMa/:userName"),
-    __param(0, (0, common_1.Res)()),
-    __param(1, (0, common_1.Body)()),
-    __param(2, (0, common_1.Param)("userName")),
-    __param(3, (0, common_1.Session)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, user_dto_1.UserCheck, String, Object]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "checkMaXacNhan", null);
-__decorate([
     (0, common_1.Get)("login"),
     __param(0, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -145,20 +125,21 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "xacNhanPage", null);
-exports.UserController = UserController = UserController_1 = __decorate([
+__decorate([
+    (0, common_1.Post)("checkMa/:userName"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Param)("userName")),
+    __param(3, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, user_dto_1.UserCheck, String, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "checkMaXacNhan", null);
+exports.UserController = UserController = __decorate([
     (0, common_1.Controller)("user"),
     __metadata("design:paramtypes", [user_service_1.UserService,
         app_service_1.AppService,
         footer_service_1.FooterService,
         mailer_1.MailerService])
 ], UserController);
-function generateRandomString(length) {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let result = "";
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        result += characters.charAt(randomIndex);
-    }
-    return result;
-}
 //# sourceMappingURL=user.controller.js.map

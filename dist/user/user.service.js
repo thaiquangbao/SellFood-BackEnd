@@ -59,8 +59,10 @@ let UserService = class UserService {
         return user;
     }
     async checkSession({ session, }) {
+        session.maHOA = generateRandomString(6);
+        const maHoa = session.maHOA;
         const sessionId = session.id;
-        return { token: sessionId };
+        return { token: sessionId, maXN: maHoa };
     }
 };
 exports.UserService = UserService;
@@ -70,4 +72,13 @@ exports.UserService = UserService = __decorate([
     __metadata("design:paramtypes", [mongoose_2.Model,
         jwt_1.JwtService])
 ], UserService);
+function generateRandomString(length) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+    return result;
+}
 //# sourceMappingURL=user.service.js.map

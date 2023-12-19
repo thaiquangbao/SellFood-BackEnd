@@ -17,7 +17,6 @@ import { MailerService } from "@nestjs-modules/mailer";
 
 @Controller("user")
 export class UserController {
-  private static randomMa: string = "";
   constructor(
     private userService: UserService,
     private readonly appService: AppService,
@@ -38,57 +37,18 @@ export class UserController {
     result
       .then(async (e) => {
         if (e) {
-          UserController.randomMa = generateRandomString(6);
-          session.maHOA = UserController.randomMa;
-          await this.mailService.sendMail({
-            to: e.email,
-            from: "haisancomnieuphanthiet@gmail.com",
-            subject: "Welcome to BOMRESTAURANT",
-            html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${UserController.randomMa}</b>`,
-            context: {
-              name: e.userName,
-            },
-          });
           session.authenticated = true;
           session.userName = e.userName;
           res.json({
             code: 200,
             session: session.id,
             sessionN: session.userName,
-            sessionO: session.maHOA,
-            sessionL: session,
           });
         }
       })
       .catch((error) => {
         res.status(500).json({ error: error.message });
       });
-  }
-  @Post("checkMa/:userName")
-  async checkMaXacNhan(
-    @Res() res: Response,
-    @Body() ma: UserCheck,
-    @Param("userName") userName: string,
-    @Session() session: Record<string, any>,
-  ) {
-    session.authenticated = true;
-    if (ma.vertical === session.maHOA) {
-      const result = await this.userService.xacThuc(userName);
-      res.json({
-        code: 200,
-        token: result.token,
-        maNhap: ma,
-        sessionO: session.maHOA,
-        sessionMa: session,
-      });
-    } else {
-      res.json({
-        code: 500,
-        maNhap: ma,
-        sessionO: session.maHOA,
-        sessionMa: session,
-      });
-    }
   }
   @Get("login")
   async loginPage(@Res() res: Response) {
@@ -107,6 +67,15 @@ export class UserController {
     const slideOne = await this.appService.findSlideOne();
     const footers = await this.footerService.findAllFooter();
     const user = await this.userService.findOneUserName(userName);
+    await this.mailService.sendMail({
+      to: user.email,
+      from: "haisancomnieuphanthiet@gmail.com",
+      subject: "Welcome to BOMRESTAURANT",
+      html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHOA}</b>`,
+      context: {
+        name: user.userName,
+      },
+    });
     res.render("users/formXacNhan", {
       user,
       slides,
@@ -115,15 +84,25 @@ export class UserController {
       Category,
     });
   }
+  @Post("checkMa/:userName")
+  async checkMaXacNhan(
+    @Res() res: Response,
+    @Body() ma: UserCheck,
+    @Param("userName") userName: string,
+    @Session() session: Record<string, any>,
+  ) {
+    session.authenticated = true;
+    if (ma.vertical === session.maHOA) {
+      const result = await this.userService.xacThuc(userName);
+      res.json({
+        code: 200,
+        token: result.token,
+      });
+    } else {
+      res.json({
+        code: 500,
+      });
+    }
+  }
 }
 //Tp0964587504
-function generateRandomString(length: number): string {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    result += characters.charAt(randomIndex);
-  }
-
-  return result;
-}

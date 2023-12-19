@@ -40,5 +40,6 @@ export declare class UserService {
     findOneUserName(userName: string): Promise<User>;
     checkSession({ session, }: Record<string, any>): Promise<{
         token: string;
+        maXN: string;
     }>;
 }

@@ -61,7 +61,7 @@ let ThucdonController = class ThucdonController {
         session.authenticated = true;
         session.maHoa = randomMa;
         console.log(session.maHoa);
-        console.log(typeof session.id);
+        console.log(session.id);
         console.log(session);
         return session;
     }

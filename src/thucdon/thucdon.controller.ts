@@ -62,7 +62,7 @@ export class ThucdonController {
     session.authenticated = true;
     session.maHoa = randomMa;
     console.log(session.maHoa);
-    console.log(typeof session.id);
+    console.log(session.id);
     console.log(session);
     //const sessionKeys = Object.keys(session);
     return session;

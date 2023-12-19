@@ -53,8 +53,20 @@ export class UserService {
   }
   async checkSession({
     session,
-  }: Record<string, any>): Promise<{ token: string }> {
+  }: Record<string, any>): Promise<{ token: string; maXN: string }> {
+    session.maHOA = generateRandomString(6);
+    const maHoa = session.maHOA;
     const sessionId = session.id;
-    return { token: sessionId };
+    return { token: sessionId, maXN: maHoa };
   }
+}
+function generateRandomString(length: number): string {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+
+  return result;
 }
