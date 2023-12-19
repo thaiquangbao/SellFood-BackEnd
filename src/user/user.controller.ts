@@ -39,6 +39,7 @@ export class UserController {
       .then(async (e) => {
         if (e) {
           UserController.randomMa = generateRandomString(6);
+          session.maHOA = UserController.randomMa;
           await this.mailService.sendMail({
             to: e.email,
             from: "haisancomnieuphanthiet@gmail.com",
@@ -60,6 +61,26 @@ export class UserController {
       .catch((error) => {
         res.status(500).json({ error: error.message });
       });
+  }
+  @Post("checkMa/:userName")
+  async checkMaXacNhan(
+    @Res() res: Response,
+    @Body() ma: UserCheck,
+    @Param("userName") userName: string,
+    @Session() session: Record<string, any>,
+  ) {
+    session.authenticated = true;
+    if (ma.vertical === session.maHOA) {
+      const result = await this.userService.xacThuc(userName);
+      res.json({
+        code: 200,
+        token: result.token,
+        ver: UserController.randomMa,
+        maNhap: ma,
+      });
+    } else {
+      res.json({ code: 500, ver: UserController.randomMa, maNhap: ma });
+    }
   }
   @Get("login")
   async loginPage(@Res() res: Response) {
@@ -85,25 +106,6 @@ export class UserController {
       footers,
       Category,
     });
-  }
-
-  @Post("checkMa/:userName")
-  async checkMaXacNhan(
-    @Res() res: Response,
-    @Body() ma: UserCheck,
-    @Param("userName") userName: string,
-  ) {
-    if (ma.vertical === UserController.randomMa) {
-      const result = await this.userService.xacThuc(userName);
-      res.json({
-        code: 200,
-        token: result.token,
-        ver: UserController.randomMa,
-        maNhap: ma,
-      });
-    } else {
-      res.json({ code: 500, ver: UserController.randomMa, maNhap: ma });
-    }
   }
 }
 //Tp0964587504

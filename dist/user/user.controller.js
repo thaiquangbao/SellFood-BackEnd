@@ -31,16 +31,13 @@ let UserController = UserController_1 = class UserController {
     signup(userDTO) {
         return this.userService.signUp(userDTO);
     }
-    login(loginDTO, res, session) {
+    async login(loginDTO, res, session) {
         const result = this.userService.loGin(loginDTO);
         result
             .then(async (e) => {
             if (e) {
-                if (UserController_1.randomMa.trim() !== "" ||
-                    UserController_1.randomMa.trim() === "") {
-                    const reset = generateRandomString(6);
-                    UserController_1.randomMa = reset;
-                }
+                UserController_1.randomMa = generateRandomString(6);
+                session.maHOA = UserController_1.randomMa;
                 await this.mailService.sendMail({
                     to: e.email,
                     from: "haisancomnieuphanthiet@gmail.com",
@@ -63,6 +60,21 @@ let UserController = UserController_1 = class UserController {
             res.status(500).json({ error: error.message });
         });
     }
+    async checkMaXacNhan(res, ma, userName, session) {
+        session.authenticated = true;
+        if (ma.vertical === session.maHOA) {
+            const result = await this.userService.xacThuc(userName);
+            res.json({
+                code: 200,
+                token: result.token,
+                ver: UserController_1.randomMa,
+                maNhap: ma,
+            });
+        }
+        else {
+            res.json({ code: 500, ver: UserController_1.randomMa, maNhap: ma });
+        }
+    }
     async loginPage(res) {
         const slides = await this.appService.findAllSlide();
         const slideOne = await this.appService.findSlideOne();
@@ -82,16 +94,6 @@ let UserController = UserController_1 = class UserController {
             Category: food_entity_1.Category,
         });
     }
-    async checkMaXacNhan(res, ma, userName) {
-        if (ma.vertical === UserController_1.randomMa) {
-            const result = await this.userService.xacThuc(userName);
-            res.json({ code: 200, token: result.token });
-            UserController_1.randomMa = "";
-        }
-        else {
-            res.json({ code: 500, ver: UserController_1.randomMa });
-        }
-    }
 };
 exports.UserController = UserController;
 UserController.randomMa = "";
@@ -109,8 +111,18 @@ __decorate([
     __param(2, (0, common_1.Session)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_dto_1.LoginDTO, Object, Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "login", null);
+__decorate([
+    (0, common_1.Post)("checkMa/:userName"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Param)("userName")),
+    __param(3, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, user_dto_1.UserCheck, String, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "checkMaXacNhan", null);
 __decorate([
     (0, common_1.Get)("login"),
     __param(0, (0, common_1.Res)()),
@@ -127,15 +139,6 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "xacNhanPage", null);
-__decorate([
-    (0, common_1.Post)("checkMa/:userName"),
-    __param(0, (0, common_1.Res)()),
-    __param(1, (0, common_1.Body)()),
-    __param(2, (0, common_1.Param)("userName")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, user_dto_1.UserCheck, String]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "checkMaXacNhan", null);
 exports.UserController = UserController = UserController_1 = __decorate([
     (0, common_1.Controller)("user"),
     __metadata("design:paramtypes", [user_service_1.UserService,
