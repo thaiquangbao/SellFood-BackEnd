@@ -13,21 +13,20 @@ export class SessionmiddlewareService implements NestMiddleware {
       session: req.session,
     });
     if (newSession.token === ses) {
-      const cookirs = req.headers;
-      cookirs.tk = generateRandomString(6);
+      newSession.maXN;
       next();
     } else {
       res.redirect("/user/login");
     }
   }
 }
-function generateRandomString(length: number): string {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    result += characters.charAt(randomIndex);
-  }
+// function generateRandomString(length: number): string {
+//   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+//   let result = "";
+//   for (let i = 0; i < length; i++) {
+//     const randomIndex = Math.floor(Math.random() * characters.length);
+//     result += characters.charAt(randomIndex);
+//   }
 
-  return result;
-}
+//   return result;
+// }

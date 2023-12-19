@@ -76,19 +76,20 @@ let UserController = class UserController {
             Category: food_entity_1.Category,
         });
     }
-    async checkMaXacNhan(res, ma, userName, session, req) {
-        if (ma.vertical === req.headers.tk) {
+    async checkMaXacNhan(res, ma, userName, session) {
+        console.log(session.id);
+        if (ma.vertical === session.id) {
             const result = await this.userService.xacThuc(userName);
             res.json({
                 code: 200,
                 token: result.token,
-                session: req.headers.tk,
+                session: session.id,
             });
         }
         else {
             res.json({
                 code: 500,
-                session: req.headers.tk,
+                session: session.id,
             });
         }
     }
@@ -133,9 +134,8 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Param)("userName")),
     __param(3, (0, common_1.Session)()),
-    __param(4, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, user_dto_1.UserCheck, String, Object, Object]),
+    __metadata("design:paramtypes", [Object, user_dto_1.UserCheck, String, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "checkMaXacNhan", null);
 exports.UserController = UserController = __decorate([

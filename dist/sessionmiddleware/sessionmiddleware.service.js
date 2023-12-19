@@ -22,8 +22,7 @@ let SessionmiddlewareService = class SessionmiddlewareService {
             session: req.session,
         });
         if (newSession.token === ses) {
-            const cookirs = req.headers;
-            cookirs.tk = generateRandomString(6);
+            newSession.maXN;
             next();
         }
         else {
@@ -36,13 +35,4 @@ exports.SessionmiddlewareService = SessionmiddlewareService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], SessionmiddlewareService);
-function generateRandomString(length) {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let result = "";
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        result += characters.charAt(randomIndex);
-    }
-    return result;
-}
 //# sourceMappingURL=sessionmiddleware.service.js.map

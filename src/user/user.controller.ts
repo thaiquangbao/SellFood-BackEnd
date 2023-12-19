@@ -92,19 +92,19 @@ export class UserController {
     @Body() ma: UserCheck,
     @Param("userName") userName: string,
     @Session() session: Record<string, any>,
-    @Req() req: Request,
   ) {
-    if (ma.vertical === req.headers.tk) {
+    console.log(session.id);
+    if (ma.vertical === session.id) {
       const result = await this.userService.xacThuc(userName);
       res.json({
         code: 200,
         token: result.token,
-        session: req.headers.tk,
+        session: session.id,
       });
     } else {
       res.json({
         code: 500,
-        session: req.headers.tk,
+        session: session.id,
       });
     }
   }
