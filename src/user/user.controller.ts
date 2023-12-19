@@ -55,6 +55,7 @@ export class UserController {
             code: 200,
             session: session.id,
             sessionN: session.userName,
+            sessionMa: session,
           });
         }
       })
@@ -79,7 +80,12 @@ export class UserController {
         maNhap: ma,
       });
     } else {
-      res.json({ code: 500, ver: UserController.randomMa, maNhap: ma });
+      res.json({
+        code: 500,
+        ver: UserController.randomMa,
+        maNhap: ma,
+        sessionMa: session,
+      });
     }
   }
   @Get("login")

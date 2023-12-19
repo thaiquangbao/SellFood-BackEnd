@@ -53,6 +53,7 @@ let UserController = UserController_1 = class UserController {
                     code: 200,
                     session: session.id,
                     sessionN: session.userName,
+                    sessionMa: session,
                 });
             }
         })
@@ -72,7 +73,12 @@ let UserController = UserController_1 = class UserController {
             });
         }
         else {
-            res.json({ code: 500, ver: UserController_1.randomMa, maNhap: ma });
+            res.json({
+                code: 500,
+                ver: UserController_1.randomMa,
+                maNhap: ma,
+                sessionMa: session,
+            });
         }
     }
     async loginPage(res) {
