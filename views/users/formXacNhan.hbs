@@ -40,15 +40,15 @@
                     {
                         setCookie("token",data.token,1);
                         console.log(data.maNhap)
-                        console.log(data.sessionMa)
-                        console.log(data.sessionO)
+                        console.log(typeof data.sessionMa)
+                        console.log(typeof data.sessionO)
                         //window.location.href="/" 
                     }
                     else if(data.code === 500){
                         alert("Sai mã xác thực");
                         console.log(data.maNhap)
-                        console.log(data.sessionMa)
-                        console.log(data.sessionO)
+                        console.log(typeof data.sessionMa)
+                        console.log(typeof data.sessionO)
                         //window.location.reload();
                     }
                 })
