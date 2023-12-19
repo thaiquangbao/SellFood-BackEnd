@@ -83,13 +83,13 @@ let UserController = class UserController {
             res.json({
                 code: 200,
                 token: result.token,
-                session: session.maHOA,
+                session: session,
             });
         }
         else {
             res.json({
                 code: 500,
-                session: session.maHOA,
+                session: session,
             });
         }
     }
