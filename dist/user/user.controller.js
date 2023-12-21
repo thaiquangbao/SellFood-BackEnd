@@ -150,7 +150,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "sendMa", null);
 __decorate([
-    (0, common_1.Post)("checkMa/:userName/:sessionId"),
+    (0, common_1.Post)("checkMa/:userName"),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Param)("userName")),

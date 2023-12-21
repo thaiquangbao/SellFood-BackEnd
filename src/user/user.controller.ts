@@ -103,7 +103,7 @@ export class UserController {
       res.json({ code: 500 });
     }
   }
-  @Post("checkMa/:userName/:sessionId")
+  @Post("checkMa/:userName")
   async checkMaXacNhan(
     @Res() res: Response,
     @Body() ma: UserCheck,
