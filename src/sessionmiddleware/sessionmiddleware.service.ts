@@ -13,7 +13,6 @@ export class SessionmiddlewareService implements NestMiddleware {
       session: req.session,
     });
     if (newSession.token === ses) {
-      newSession.maXN;
       next();
     } else {
       res.redirect("/user/login");

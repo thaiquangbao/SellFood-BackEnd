@@ -83,7 +83,7 @@ export class UserController {
     @Session() session: Record<string, any>,
     @Body() user: UserDTO,
   ) {
-    //session.maHOA = generateRandomString(6);
+    session.maHOA = generateRandomString(6);
     const findUser = this.userService.findOneUserName(user.userName);
     const result = await this.mailService.sendMail({
       to: (await findUser).email,
@@ -126,13 +126,13 @@ export class UserController {
   }
 }
 //Tp0964587504
-// function generateRandomString(length: number): string {
-//   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-//   let result = "";
-//   for (let i = 0; i < length; i++) {
-//     const randomIndex = Math.floor(Math.random() * characters.length);
-//     result += characters.charAt(randomIndex);
-//   }
+function generateRandomString(length: number): string {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
 
-//   return result;
-// }
+  return result;
+}

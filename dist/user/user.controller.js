@@ -70,6 +70,7 @@ let UserController = class UserController {
         });
     }
     async sendMa(res, session, user) {
+        session.maHOA = generateRandomString(6);
         const findUser = this.userService.findOneUserName(user.userName);
         const result = await this.mailService.sendMail({
             to: (await findUser).email,
@@ -166,4 +167,13 @@ exports.UserController = UserController = __decorate([
         footer_service_1.FooterService,
         mailer_1.MailerService])
 ], UserController);
+function generateRandomString(length) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+    return result;
+}
 //# sourceMappingURL=user.controller.js.map

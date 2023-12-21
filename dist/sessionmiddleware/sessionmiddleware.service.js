@@ -22,7 +22,6 @@ let SessionmiddlewareService = class SessionmiddlewareService {
             session: req.session,
         });
         if (newSession.token === ses) {
-            newSession.maXN;
             next();
         }
         else {
