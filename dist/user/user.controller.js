@@ -59,36 +59,51 @@ let UserController = class UserController {
         const slideOne = await this.appService.findSlideOne();
         const footers = await this.footerService.findAllFooter();
         const user = await this.userService.findOneUserName(userName);
-        await this.mailService.sendMail({
-            to: user.email,
-            from: "haisancomnieuphanthiet@gmail.com",
-            subject: "Welcome to BOMRESTAURANT",
-            html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHOA}</b>`,
-            context: {
-                name: user.userName,
-            },
-        });
+        const sessionId = session.id;
         res.render("users/formXacNhan", {
             user,
             slides,
             slideOne,
             footers,
             Category: food_entity_1.Category,
+            sessionId,
         });
     }
+    async sendMa(res, session, user) {
+        session.maHoa = generateRandomString(6);
+        const findUser = this.userService.findOneUserName(user.userName);
+        const result = await this.mailService.sendMail({
+            to: (await findUser).email,
+            from: "haisancomnieuphanthiet@gmail.com",
+            subject: "Welcome to BOMRESTAURANT",
+            html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHoa}</b>`,
+            context: {
+                name: user.userName,
+            },
+        });
+        if (result) {
+            res.json({
+                code: 200,
+                message: "Kiểm tra hộp thư gmail để nhận mã xác nhận",
+            });
+        }
+        else {
+            res.json({ code: 500 });
+        }
+    }
     async checkMaXacNhan(res, ma, userName, session) {
-        if (ma.vertical === session.maHOA) {
+        if (ma.vertical === session.maHoa) {
             const result = await this.userService.xacThuc(userName);
             res.json({
                 code: 200,
                 token: result.token,
-                session: session.maHOA,
+                session: session.maHoa,
             });
         }
         else {
             res.json({
                 code: 500,
-                session: session.maHOA,
+                session: session.maHoa,
             });
         }
     }
@@ -127,7 +142,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "xacNhanPage", null);
 __decorate([
-    (0, common_1.Get)("checkMa/:userName"),
+    (0, common_1.Post)("sendEmail/:sessionId"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Session)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, user_dto_1.UserDTO]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "sendMa", null);
+__decorate([
+    (0, common_1.Post)("checkMa/:userName/:sessionId"),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Param)("userName")),
@@ -143,4 +167,13 @@ exports.UserController = UserController = __decorate([
         footer_service_1.FooterService,
         mailer_1.MailerService])
 ], UserController);
+function generateRandomString(length) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+    return result;
+}
 //# sourceMappingURL=user.controller.js.map

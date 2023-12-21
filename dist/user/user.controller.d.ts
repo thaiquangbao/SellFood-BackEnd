@@ -16,5 +16,6 @@ export declare class UserController {
     login(loginDTO: LoginDTO, res: Response, session: Record<string, any>): Promise<void>;
     loginPage(res: Response): Promise<void>;
     xacNhanPage(res: Response, session: Record<string, any>, userName: string): Promise<void>;
+    sendMa(res: Response, session: Record<string, any>, user: UserDTO): Promise<void>;
     checkMaXacNhan(res: Response, ma: UserCheck, userName: string, session: Record<string, any>): Promise<void>;
 }

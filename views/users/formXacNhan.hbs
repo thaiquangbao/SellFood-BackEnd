@@ -9,28 +9,49 @@
                 <div class="col-sm-5" >
                 <input type="username" class="form-control" id="userName" >
                 </div>
+                 <button onclick="sendMa('{{user.userName}}','{{sessionId}}')" class="btn btn-primary" style=" width: 20%; ">Gửi mã</button>   
             </div>
-           
-            
+
+
             
         </div> 
         <div class="container-fluid" style="text-align: center;">
-            <button onclick="login('{{user.userName}}')" class="btn btn-primary" style="margin-top: 3%; width: 90%; ">Xác nhận</button>
-             <button onclick="window.location.href='/user/login'" class="btn btn-primary" style="margin-top: 3%; width: 90%; ">Trở về</button>
+            <button onclick="login('{{user.userName}}','{{sessionId}}')" class="btn btn-primary" style="margin-top: 3%; width: 90%; ">Xác nhận</button>
+             
         </div>   
     </div>
    
 </div>
 <script>
-    function login(tk){
+   function sendMa(user,session) {
+        $.ajax({
+            url: "/user/sendEmail/"+session,
+            type: "POST",
+            data: {
+                userName: user,
+            }
+        })
+        .then(data =>{
+            if(data.code === 200){
+                alert(data.message);
+            }
+            else{
+                alert("Gửi mã xác thực thất bại !!!");
+            }
+        })
+        .catch(err =>{
+            alert("Error");
+        })
+   }
+   function login(tk,session){
         var ma = $("#userName").val();
         if(ma.trim() === ''){
             alert("Vui lòng nhập mã");
             return;
         }
         $.ajax({
-                    url:"/user/checkMa/"+ tk,
-                    type:"GET",
+                    url:"/user/checkMa/"+ tk+"/"+session,
+                    type:"POST",
                     data:{
                         vertical: ma
                     }
@@ -40,7 +61,7 @@
                     {
                         setCookie("token",data.token,1);
                         console.log(data.session)
-                        window.location.href="/" 
+                        
                     }
                     else if(data.code === 500){
                         alert("Sai mã xác thực");
@@ -53,4 +74,4 @@
     }
 
 </script>
-{{!--   --}}
+{{!--    --}}

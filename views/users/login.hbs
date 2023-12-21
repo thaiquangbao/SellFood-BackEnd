@@ -54,20 +54,18 @@ checkCookie();
                 }
             })
             .then(data =>{
-                alert("Kiểm tra hộp thư gmail để nhận mã xác nhận");
-                window.location.href="login/xacnhan/"+ tk +"/"+ data.session;
+                
+                
+                alert("Mời bạn gửi mã xác nhận về email");
+                window.location.href="/user/login/xacnhan/"+tk+ "/" +data.session
+                
+               
                
             })
             .catch(error =>{
                 alert("Tài khoản hoặc mật khẩu không đúng");
             })
         }
-    }
-     function setCookie(cname, cvalue, exdays) {
-        const d = new Date();
-        d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        let expires = "expires="+ d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 </script>
 {{!--  --}}

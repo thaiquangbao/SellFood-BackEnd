@@ -67,43 +67,72 @@ export class UserController {
     const slideOne = await this.appService.findSlideOne();
     const footers = await this.footerService.findAllFooter();
     const user = await this.userService.findOneUserName(userName);
-    await this.mailService.sendMail({
-      to: user.email,
-      from: "haisancomnieuphanthiet@gmail.com",
-      subject: "Welcome to BOMRESTAURANT",
-      html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHOA}</b>`,
-      context: {
-        name: user.userName,
-      },
-    });
+    const sessionId = session.id;
     res.render("users/formXacNhan", {
       user,
       slides,
       slideOne,
       footers,
       Category,
+      sessionId,
     });
   }
-  @Get("checkMa/:userName")
+  @Post("sendEmail/:sessionId")
+  async sendMa(
+    @Res() res: Response,
+    @Session() session: Record<string, any>,
+    @Body() user: UserDTO,
+  ) {
+    session.maHoa = generateRandomString(6);
+    const findUser = this.userService.findOneUserName(user.userName);
+    const result = await this.mailService.sendMail({
+      to: (await findUser).email,
+      from: "haisancomnieuphanthiet@gmail.com",
+      subject: "Welcome to BOMRESTAURANT",
+      html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHoa}</b>`,
+      context: {
+        name: user.userName,
+      },
+    });
+    if (result) {
+      res.json({
+        code: 200,
+        message: "Kiểm tra hộp thư gmail để nhận mã xác nhận",
+      });
+    } else {
+      res.json({ code: 500 });
+    }
+  }
+  @Post("checkMa/:userName/:sessionId")
   async checkMaXacNhan(
     @Res() res: Response,
     @Body() ma: UserCheck,
     @Param("userName") userName: string,
     @Session() session: Record<string, any>,
   ) {
-    if (ma.vertical === session.maHOA) {
+    if (ma.vertical === session.maHoa) {
       const result = await this.userService.xacThuc(userName);
       res.json({
         code: 200,
         token: result.token,
-        session: session.maHOA,
+        session: session.maHoa,
       });
     } else {
       res.json({
         code: 500,
-        session: session.maHOA,
+        session: session.maHoa,
       });
     }
   }
 }
 //Tp0964587504
+function generateRandomString(length: number): string {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+
+  return result;
+}

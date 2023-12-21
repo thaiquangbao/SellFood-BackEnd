@@ -109,10 +109,14 @@ export class AppModule implements NestModule {
         path: "/user/login/xacnhan/:userName/:sessionId",
         method: RequestMethod.GET,
       },
-      // {
-      //   path: "/user/checkMa/:userName",
-      //   method: RequestMethod.POST,
-      // },
+      {
+        path: "/user/sendEmail/:sessionId",
+        method: RequestMethod.POST,
+      },
+      {
+        path: "/user/checkMa/:userName/:sessionId",
+        method: RequestMethod.POST,
+      },
     );
   }
 }
