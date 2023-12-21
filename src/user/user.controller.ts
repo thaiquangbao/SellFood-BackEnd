@@ -83,13 +83,13 @@ export class UserController {
     @Session() session: Record<string, any>,
     @Body() user: UserDTO,
   ) {
-    session.maHoa = generateRandomString(6);
+    //session.maHOA = generateRandomString(6);
     const findUser = this.userService.findOneUserName(user.userName);
     const result = await this.mailService.sendMail({
       to: (await findUser).email,
       from: "haisancomnieuphanthiet@gmail.com",
       subject: "Welcome to BOMRESTAURANT",
-      html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHoa}</b>`,
+      html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHOA}</b>`,
       context: {
         name: user.userName,
       },
@@ -110,29 +110,29 @@ export class UserController {
     @Param("userName") userName: string,
     @Session() session: Record<string, any>,
   ) {
-    if (ma.vertical === session.maHoa) {
+    if (ma.vertical === session.maHOA) {
       const result = await this.userService.xacThuc(userName);
       res.json({
         code: 200,
         token: result.token,
-        session: session.maHoa,
+        session: session.maHOA,
       });
     } else {
       res.json({
         code: 500,
-        session: session.maHoa,
+        session: session.maHOA,
       });
     }
   }
 }
 //Tp0964587504
-function generateRandomString(length: number): string {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    result += characters.charAt(randomIndex);
-  }
+// function generateRandomString(length: number): string {
+//   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+//   let result = "";
+//   for (let i = 0; i < length; i++) {
+//     const randomIndex = Math.floor(Math.random() * characters.length);
+//     result += characters.charAt(randomIndex);
+//   }
 
-  return result;
-}
+//   return result;
+// }

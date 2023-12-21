@@ -52,9 +52,6 @@ let AppModule = class AppModule {
         }, {
             path: "/user/sendEmail/:sessionId",
             method: common_1.RequestMethod.POST,
-        }, {
-            path: "/user/checkMa/:userName/:sessionId",
-            method: common_1.RequestMethod.POST,
         });
     }
 };

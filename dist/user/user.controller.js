@@ -70,13 +70,12 @@ let UserController = class UserController {
         });
     }
     async sendMa(res, session, user) {
-        session.maHoa = generateRandomString(6);
         const findUser = this.userService.findOneUserName(user.userName);
         const result = await this.mailService.sendMail({
             to: (await findUser).email,
             from: "haisancomnieuphanthiet@gmail.com",
             subject: "Welcome to BOMRESTAURANT",
-            html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHoa}</b>`,
+            html: `<b>BOM RESTAURANT: Mã xác nhận của bạn là ${session.maHOA}</b>`,
             context: {
                 name: user.userName,
             },
@@ -92,18 +91,18 @@ let UserController = class UserController {
         }
     }
     async checkMaXacNhan(res, ma, userName, session) {
-        if (ma.vertical === session.maHoa) {
+        if (ma.vertical === session.maHOA) {
             const result = await this.userService.xacThuc(userName);
             res.json({
                 code: 200,
                 token: result.token,
-                session: session.maHoa,
+                session: session.maHOA,
             });
         }
         else {
             res.json({
                 code: 500,
-                session: session.maHoa,
+                session: session.maHOA,
             });
         }
     }
@@ -167,13 +166,4 @@ exports.UserController = UserController = __decorate([
         footer_service_1.FooterService,
         mailer_1.MailerService])
 ], UserController);
-function generateRandomString(length) {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let result = "";
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        result += characters.charAt(randomIndex);
-    }
-    return result;
-}
 //# sourceMappingURL=user.controller.js.map

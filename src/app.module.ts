@@ -113,10 +113,10 @@ export class AppModule implements NestModule {
         path: "/user/sendEmail/:sessionId",
         method: RequestMethod.POST,
       },
-      {
-        path: "/user/checkMa/:userName/:sessionId",
-        method: RequestMethod.POST,
-      },
+      // {
+      //   path: "/user/checkMa/:userName/:sessionId",
+      //   method: RequestMethod.POST,
+      // },
     );
   }
 }
