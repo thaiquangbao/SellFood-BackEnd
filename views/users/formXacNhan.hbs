@@ -34,7 +34,7 @@
 checkCookie();
    function sendMa(user,session) {
         $.ajax({
-            url: "/user/sendEmail"
+            url: "/user/sendEmail",
             type: "POST",
             data: {
                 userName: user,
