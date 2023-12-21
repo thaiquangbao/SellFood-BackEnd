@@ -23,6 +23,15 @@
    
 </div>
 <script>
+    function checkCookie() {
+    let user = getCookie("token");
+    if (user !== "") {
+        
+        window.location.href="/"
+        
+    } 
+}
+checkCookie();
    function sendMa(user,session) {
         $.ajax({
             url: "/user/sendEmail/"+session,
@@ -61,11 +70,11 @@
                     {
                         setCookie("token",data.token,1);
                         console.log(data.session)
-                        
+                        window.location.href="/";
                     }
                     else if(data.code === 500){
                         alert("Sai mã xác thực");
-                        console.log(data.session)
+                        
                     }
                 })
                 .catch(error => {
