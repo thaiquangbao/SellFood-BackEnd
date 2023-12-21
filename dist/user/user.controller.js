@@ -141,7 +141,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "xacNhanPage", null);
 __decorate([
-    (0, common_1.Post)("sendEmail/:sessionId"),
+    (0, common_1.Post)("sendEmail"),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Session)()),
     __param(2, (0, common_1.Body)()),

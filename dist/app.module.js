@@ -49,9 +49,6 @@ let AppModule = class AppModule {
         consumer.apply(sessionmiddleware_service_1.SessionmiddlewareService).forRoutes({
             path: "/user/login/xacnhan/:userName/:sessionId",
             method: common_1.RequestMethod.GET,
-        }, {
-            path: "/user/sendEmail/:sessionId",
-            method: common_1.RequestMethod.POST,
         });
     }
 };

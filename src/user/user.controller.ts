@@ -77,7 +77,7 @@ export class UserController {
       sessionId,
     });
   }
-  @Post("sendEmail/:sessionId")
+  @Post("sendEmail")
   async sendMa(
     @Res() res: Response,
     @Session() session: Record<string, any>,
