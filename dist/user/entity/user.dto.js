@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserCheck = exports.LoginDTO = exports.UserDTO = void 0;
+exports.UpdatePassWord = exports.UpdateEmail = exports.UserCheck = exports.LoginDTO = exports.UserDTO = void 0;
 const class_validator_1 = require("class-validator");
 class UserDTO {
 }
@@ -47,4 +47,21 @@ __decorate([
 class UserCheck {
 }
 exports.UserCheck = UserCheck;
+class UpdateEmail {
+}
+exports.UpdateEmail = UpdateEmail;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsEmail)({}, { message: "Vui lòng điền đúng form email" }),
+    __metadata("design:type", String)
+], UpdateEmail.prototype, "email", void 0);
+class UpdatePassWord {
+}
+exports.UpdatePassWord = UpdatePassWord;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(12),
+    __metadata("design:type", String)
+], UpdatePassWord.prototype, "passWord", void 0);
 //# sourceMappingURL=user.dto.js.map

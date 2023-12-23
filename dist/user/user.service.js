@@ -58,11 +58,30 @@ let UserService = class UserService {
         const user = this.userEntity.findOne({ userName: userName });
         return user;
     }
+    async findOneByIdU(id) {
+        const user = this.userEntity.findById(id);
+        return user;
+    }
     async checkSession({ session, }) {
         session.maHOA = generateRandomString(6);
         const maHoa = session.maHOA;
         const sessionId = session.id;
         return { token: sessionId, maXN: maHoa };
+    }
+    async updateUser(id, user) {
+        return this.userEntity.findByIdAndUpdate(id, user);
+    }
+    async checkPassword(id, users) {
+        const user = this.userEntity.findById(id);
+        const checkPassword = await bcrypt.compare(users.passWord, (await user).passWord);
+        return checkPassword;
+    }
+    async updatePassWord(id, passWord) {
+        const hashedPassword = await bcrypt.hash(passWord, 10);
+        const update = await this.userEntity.findByIdAndUpdate(id, {
+            passWord: hashedPassword,
+        });
+        return update;
     }
 };
 exports.UserService = UserService;

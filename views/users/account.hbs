@@ -1,0 +1,79 @@
+<div class="container mt-5" style="min-height: 500px;">
+    <div class="avatar">
+        <div class="HoTen">
+            <h1>{{users.userName}}</h1>
+            <p>Update your username and manage your account</p>
+        </div> 
+    </div> 
+    <div class="col-lg-12 menu-and-treatment" style="display: flex; sans-serif;">
+        <div class="col-lg-4" style="margin-top: 10px; border-right: 2px solid #000;">
+            <div class='menu-item general active'><a class="dropdown-item" style="width: 300px; margin-left: 1px;" href="/user/account/general">General</a></div>
+            <div class='menu-item general active'><a class="dropdown-item" style="width: 300px; margin-left: 1px;" href="/user/account/password">Password</a></div>
+        </div>
+        {{!-- <div class="col-lg-1" style=""></div> --}}
+        <div class="col-lg-8 "  style="margin-left: 5%;">
+           
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="username" class="form-control" id="username" disabled value="{{users.userName}}"> 
+                </div>
+                <div class="form-group" style="margin-top: 5%;">
+                    <label for="email">Email </label>
+                    <input type="email" data-origin="{{users.email}}" class="form-control" name= "email"id="email" aria-describedby="emailHelp" value="{{users.email}}">
+                    
+                </div>
+                <button onclick="saveChange()" type="submit" class="btn btn-primary" style="float: right; margin-top: 5%;">Save Change</button>
+            
+
+        </div>
+    </div>
+</div>
+<script>
+    function saveChange() {
+        var email = $("#email").val();
+        var origin = $("#email").data("origin");
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; 
+        if(email.trim() === "") {
+            alert("Không được để trống dữ liệu");
+            window.location.reload();
+            return;
+
+        }
+        if(email === origin) {
+            alert("Không có dữ liệu nào được thay đổi");
+            window.location.reload();
+            return;
+        }
+        if(!emailRegex.test(email)) {
+            alert("Không đúng định dạng email");
+            return;
+        }
+        $.ajax({
+            url: "/user/updateEmail",
+            type:"PUT",
+            data: {
+                email: email
+            }
+        })
+        .then(data =>{
+            if(data.code === 200) {
+                alert(data.message);
+                window.location.reload();
+            }
+            else if(data.code === 500) {
+                alert(data.message);
+            }
+            else{
+                alert("Lỗi!!!");
+                window.location.reload();
+            }
+        })
+        .catch(error =>{
+            alert("ERROR!!!");
+            window.location.reload();
+        })
+        
+    }
+
+</script>

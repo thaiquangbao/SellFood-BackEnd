@@ -33,6 +33,8 @@ import { IconsSchema } from "./trangchu.entity/icons";
 import { MailerService } from "./mailer/mailer.service";
 import { MailerModule } from "@nestjs-modules/mailer";
 import { SessionmiddlewareService } from "./sessionmiddleware/sessionmiddleware.service";
+import { LienheService } from "./lienhe/lienhe.service";
+import { LienheController } from "./lienhe/lienhe.controller";
 
 @Module({
   imports: [
@@ -81,6 +83,7 @@ import { SessionmiddlewareService } from "./sessionmiddleware/sessionmiddleware.
     FoodController,
     ThucdonController,
     UserController,
+    LienheController,
   ],
   providers: [
     AppService,
@@ -93,6 +96,7 @@ import { SessionmiddlewareService } from "./sessionmiddleware/sessionmiddleware.
     MiddlewareService,
     MailerService,
     SessionmiddlewareService,
+    LienheService,
   ],
 })
 export class AppModule implements NestModule {
@@ -100,23 +104,37 @@ export class AppModule implements NestModule {
     consumer
       .apply(MiddlewareService)
       .exclude({ path: "/", method: RequestMethod.GET })
-      .forRoutes(FoodController, AppController, {
-        path: "/user/signup",
-        method: RequestMethod.POST,
-      });
-    consumer.apply(SessionmiddlewareService).forRoutes(
-      {
-        path: "/user/login/xacnhan/:userName/:sessionId",
-        method: RequestMethod.GET,
-      },
-      // {
-      //   path: "/user/sendEmail/:sessionId",
-      //   method: RequestMethod.POST,
-      // },
-      // {
-      //   path: "/user/checkMa/:userName/:sessionId",
-      //   method: RequestMethod.POST,
-      // },
-    );
+      .forRoutes(
+        FoodController,
+        AppController,
+        {
+          path: "/user/signup",
+          method: RequestMethod.POST,
+        },
+        {
+          path: "/user/account/general",
+          method: RequestMethod.GET,
+        },
+        {
+          path: "/user/account/password",
+          method: RequestMethod.GET,
+        },
+        {
+          path: "/user/updateEmail",
+          method: RequestMethod.PUT,
+        },
+        {
+          path: "/user/checkPassWord",
+          method: RequestMethod.POST,
+        },
+        {
+          path: "/user/updatePassword",
+          method: RequestMethod.PUT,
+        },
+      );
+    consumer.apply(SessionmiddlewareService).forRoutes({
+      path: "/user/login/xacnhan/:userName/:sessionId",
+      method: RequestMethod.GET,
+    });
   }
 }

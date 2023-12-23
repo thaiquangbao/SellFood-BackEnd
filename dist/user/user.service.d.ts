@@ -24,7 +24,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { User } from "./entity/user.entity";
 import { Model } from "mongoose";
-import { LoginDTO, UserDTO } from "./entity/user.dto";
+import { LoginDTO, UpdateEmail, UpdatePassWord, UserDTO } from "./entity/user.dto";
 import { JwtService } from "@nestjs/jwt";
 export declare class UserService {
     private userEntity;
@@ -38,8 +38,14 @@ export declare class UserService {
         token: string;
     }>;
     findOneUserName(userName: string): Promise<User>;
+    findOneByIdU(id: string): Promise<User | null>;
     checkSession({ session, }: Record<string, any>): Promise<{
         token: string;
         maXN: string;
+    }>;
+    updateUser(id: string, user: UpdateEmail): Promise<UpdateEmail>;
+    checkPassword(id: string, users: UpdatePassWord): Promise<boolean>;
+    updatePassWord(id: string, passWord: string): Promise<import("mongoose").Document<unknown, {}, User> & User & {
+        _id: import("mongoose").Types.ObjectId;
     }>;
 }

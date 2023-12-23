@@ -10,5 +10,11 @@ export declare class LoginDTO {
 export declare class UserCheck {
     readonly id: string;
     readonly userName: string;
-    readonly vertical: string;
+    readonly vertical?: string;
+}
+export declare class UpdateEmail {
+    readonly email: string;
+}
+export declare class UpdatePassWord {
+    readonly passWord: string;
 }

@@ -4,12 +4,20 @@ import {
   Get,
   Param,
   Post,
+  Put,
+  Req,
   Res,
   Session,
 } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { LoginDTO, UserCheck, UserDTO } from "./entity/user.dto";
-import { Response } from "express";
+import {
+  LoginDTO,
+  UpdateEmail,
+  UpdatePassWord,
+  UserCheck,
+  UserDTO,
+} from "./entity/user.dto";
+import { Response, Request } from "express";
 import { AppService } from "src/app.service";
 import { FooterService } from "src/footer/footer.service";
 import { Category } from "src/food/entity/food.entity";
@@ -122,6 +130,67 @@ export class UserController {
         code: 500,
         session: session.maHOA,
       });
+    }
+  }
+  // QL Account
+  @Get("account/general")
+  async account(@Res() res: Response, @Req() req: Request) {
+    const slides = await this.appService.findAllSlide();
+    const slideOne = await this.appService.findSlideOne();
+    const footers = await this.footerService.findAllFooter();
+    const ma: string = String(req.user);
+    const users = await this.userService.findOneByIdU(ma);
+    res.render("users/account", { users, slides, slideOne, footers });
+  }
+  @Get("account/password")
+  async passWordPage(@Res() res: Response, @Req() req: Request) {
+    const slides = await this.appService.findAllSlide();
+    const slideOne = await this.appService.findSlideOne();
+    const footers = await this.footerService.findAllFooter();
+    const ma: string = String(req.user);
+    const users = await this.userService.findOneByIdU(ma);
+    res.render("users/password", { users, slides, slideOne, footers });
+  }
+  @Put("updateEmail")
+  async email(
+    @Res() res: Response,
+    @Req() req: Request,
+    @Body() user: UpdateEmail,
+  ) {
+    const ma: string = String(req.user);
+    const update = this.userService.updateUser(ma, user);
+    if (update) {
+      res.json({ code: 200, message: "Cập nhật email thành công" });
+    } else {
+      res.json({ code: 500, message: "Cập nhật email không thành công" });
+    }
+  }
+  @Put("updatePassword")
+  async password(
+    @Res() res: Response,
+    @Req() req: Request,
+    @Body() user: UpdatePassWord,
+  ) {
+    const ma: string = String(req.user);
+    const update = this.userService.updatePassWord(ma, user.passWord);
+    if (update) {
+      res.json({ code: 200, message: "Cập nhật mật khẩu thành công" });
+    } else {
+      res.json({ code: 500 });
+    }
+  }
+  @Post("checkPassWord")
+  async checkPass(
+    @Res() res: Response,
+    @Req() req: Request,
+    @Body() user: UpdatePassWord,
+  ) {
+    const ma: string = String(req.user);
+    const check = this.userService.checkPassword(ma, user);
+    if ((await check) === true) {
+      res.json({ code: 200 });
+    } else {
+      res.json({ code: 500, message: "Mật khẩu hiện tại không đúng" });
     }
   }
 }

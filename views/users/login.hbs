@@ -42,8 +42,9 @@ checkCookie();
         if(tk.trim() === '' || mk.trim() === ''){
             alert("Không được để trống thông tin !!!")
         }
-        else if(mk.length > 12)
+        else if(mk.length > 12){
             alert("Mật khẩu không được quá 12 ký tự")
+        }   
         else{
             $.ajax({
                 url:"/user/login/accept",

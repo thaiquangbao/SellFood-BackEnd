@@ -107,6 +107,52 @@ let UserController = class UserController {
             });
         }
     }
+    async account(res, req) {
+        const slides = await this.appService.findAllSlide();
+        const slideOne = await this.appService.findSlideOne();
+        const footers = await this.footerService.findAllFooter();
+        const ma = String(req.user);
+        const users = await this.userService.findOneByIdU(ma);
+        res.render("users/account", { users, slides, slideOne, footers });
+    }
+    async passWordPage(res, req) {
+        const slides = await this.appService.findAllSlide();
+        const slideOne = await this.appService.findSlideOne();
+        const footers = await this.footerService.findAllFooter();
+        const ma = String(req.user);
+        const users = await this.userService.findOneByIdU(ma);
+        res.render("users/password", { users, slides, slideOne, footers });
+    }
+    async email(res, req, user) {
+        const ma = String(req.user);
+        const update = this.userService.updateUser(ma, user);
+        if (update) {
+            res.json({ code: 200, message: "Cập nhật email thành công" });
+        }
+        else {
+            res.json({ code: 500, message: "Cập nhật email không thành công" });
+        }
+    }
+    async password(res, req, user) {
+        const ma = String(req.user);
+        const update = this.userService.updatePassWord(ma, user.passWord);
+        if (update) {
+            res.json({ code: 200, message: "Cập nhật mật khẩu thành công" });
+        }
+        else {
+            res.json({ code: 500 });
+        }
+    }
+    async checkPass(res, req, user) {
+        const ma = String(req.user);
+        const check = this.userService.checkPassword(ma, user);
+        if ((await check) === true) {
+            res.json({ code: 200 });
+        }
+        else {
+            res.json({ code: 500, message: "Mật khẩu hiện tại không đúng" });
+        }
+    }
 };
 exports.UserController = UserController;
 __decorate([
@@ -160,6 +206,49 @@ __decorate([
     __metadata("design:paramtypes", [Object, user_dto_1.UserCheck, String, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "checkMaXacNhan", null);
+__decorate([
+    (0, common_1.Get)("account/general"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "account", null);
+__decorate([
+    (0, common_1.Get)("account/password"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "passWordPage", null);
+__decorate([
+    (0, common_1.Put)("updateEmail"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, user_dto_1.UpdateEmail]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "email", null);
+__decorate([
+    (0, common_1.Put)("updatePassword"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, user_dto_1.UpdatePassWord]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "password", null);
+__decorate([
+    (0, common_1.Post)("checkPassWord"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, user_dto_1.UpdatePassWord]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "checkPass", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)("user"),
     __metadata("design:paramtypes", [user_service_1.UserService,

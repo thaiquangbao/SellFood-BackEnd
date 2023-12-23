@@ -1,6 +1,6 @@
 import { UserService } from "./user.service";
-import { LoginDTO, UserCheck, UserDTO } from "./entity/user.dto";
-import { Response } from "express";
+import { LoginDTO, UpdateEmail, UpdatePassWord, UserCheck, UserDTO } from "./entity/user.dto";
+import { Response, Request } from "express";
 import { AppService } from "src/app.service";
 import { FooterService } from "src/footer/footer.service";
 import { MailerService } from "@nestjs-modules/mailer";
@@ -18,4 +18,9 @@ export declare class UserController {
     xacNhanPage(res: Response, session: Record<string, any>, userName: string): Promise<void>;
     sendMa(res: Response, session: Record<string, any>, user: UserDTO): Promise<void>;
     checkMaXacNhan(res: Response, ma: UserCheck, userName: string, session: Record<string, any>): Promise<void>;
+    account(res: Response, req: Request): Promise<void>;
+    passWordPage(res: Response, req: Request): Promise<void>;
+    email(res: Response, req: Request, user: UpdateEmail): Promise<void>;
+    password(res: Response, req: Request, user: UpdatePassWord): Promise<void>;
+    checkPass(res: Response, req: Request, user: UpdatePassWord): Promise<void>;
 }

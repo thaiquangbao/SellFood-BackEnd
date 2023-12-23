@@ -25,5 +25,16 @@ export class LoginDTO {
 export class UserCheck {
   readonly id: string;
   readonly userName: string;
-  readonly vertical: string;
+  readonly vertical?: string;
+}
+export class UpdateEmail {
+  @IsNotEmpty()
+  @IsEmail({}, { message: "Vui lòng điền đúng form email" })
+  readonly email: string;
+}
+export class UpdatePassWord {
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(12)
+  readonly passWord: string;
 }

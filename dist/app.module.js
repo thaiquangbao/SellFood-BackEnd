@@ -37,6 +37,8 @@ const icons_1 = require("./trangchu.entity/icons");
 const mailer_service_1 = require("./mailer/mailer.service");
 const mailer_1 = require("@nestjs-modules/mailer");
 const sessionmiddleware_service_1 = require("./sessionmiddleware/sessionmiddleware.service");
+const lienhe_service_1 = require("./lienhe/lienhe.service");
+const lienhe_controller_1 = require("./lienhe/lienhe.controller");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -45,6 +47,21 @@ let AppModule = class AppModule {
             .forRoutes(food_controller_1.FoodController, app_controller_1.AppController, {
             path: "/user/signup",
             method: common_1.RequestMethod.POST,
+        }, {
+            path: "/user/account/general",
+            method: common_1.RequestMethod.GET,
+        }, {
+            path: "/user/account/password",
+            method: common_1.RequestMethod.GET,
+        }, {
+            path: "/user/updateEmail",
+            method: common_1.RequestMethod.PUT,
+        }, {
+            path: "/user/checkPassWord",
+            method: common_1.RequestMethod.POST,
+        }, {
+            path: "/user/updatePassword",
+            method: common_1.RequestMethod.PUT,
         });
         consumer.apply(sessionmiddleware_service_1.SessionmiddlewareService).forRoutes({
             path: "/user/login/xacnhan/:userName/:sessionId",
@@ -101,6 +118,7 @@ exports.AppModule = AppModule = __decorate([
             food_controller_1.FoodController,
             thucdon_controller_1.ThucdonController,
             user_controller_1.UserController,
+            lienhe_controller_1.LienheController,
         ],
         providers: [
             app_service_1.AppService,
@@ -113,6 +131,7 @@ exports.AppModule = AppModule = __decorate([
             middleware_service_1.MiddlewareService,
             mailer_service_1.MailerService,
             sessionmiddleware_service_1.SessionmiddlewareService,
+            lienhe_service_1.LienheService,
         ],
     })
 ], AppModule);
