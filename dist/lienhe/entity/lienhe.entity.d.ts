@@ -21,15 +21,19 @@
 /// <reference types="mongoose/types/utility" />
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
+/// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Reply } from "./entity/lienhe.entity";
-import mongoose from "mongoose";
-export declare class LienheService {
-    private replyEntity;
-    constructor(replyEntity: mongoose.Model<Reply>);
-    insertLH(reply: Reply): Promise<Reply>;
-    findAllLH(): Promise<Reply[]>;
-    deleteLH(id: string): Promise<mongoose.ModifyResult<mongoose.Document<unknown, {}, Reply> & Reply & {
-        _id: mongoose.Types.ObjectId;
-    }>>;
+export declare class Reply {
+    hoTen: string;
+    sdt: number;
+    address: string;
+    email: string;
+    title: string;
+    noiDung: string;
+    img: string;
 }
+export declare const ReplySchema: import("mongoose").Schema<Reply, import("mongoose").Model<Reply, any, any, any, import("mongoose").Document<unknown, any, Reply> & Reply & {
+    _id: import("mongoose").Types.ObjectId;
+}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Reply, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Reply>> & import("mongoose").FlatRecord<Reply> & {
+    _id: import("mongoose").Types.ObjectId;
+}>;

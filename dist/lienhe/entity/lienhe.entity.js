@@ -9,43 +9,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FooterSchema = exports.Footer = void 0;
+exports.ReplySchema = exports.Reply = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
-let Footer = class Footer {
+let Reply = class Reply {
 };
-exports.Footer = Footer;
+exports.Reply = Reply;
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ type: String, required: false }),
     __metadata("design:type", String)
-], Footer.prototype, "logo", void 0);
+], Reply.prototype, "hoTen", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], Footer.prototype, "address", void 0);
+    (0, mongoose_1.Prop)({ type: Number, required: false }),
+    __metadata("design:type", Number)
+], Reply.prototype, "sdt", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ type: String, required: false }),
     __metadata("design:type", String)
-], Footer.prototype, "hotline", void 0);
+], Reply.prototype, "address", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ type: String, required: false }),
     __metadata("design:type", String)
-], Footer.prototype, "mail", void 0);
+], Reply.prototype, "email", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ type: String, required: false }),
     __metadata("design:type", String)
-], Footer.prototype, "timeWork", void 0);
+], Reply.prototype, "title", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ type: String, required: false }),
     __metadata("design:type", String)
-], Footer.prototype, "iframe", void 0);
+], Reply.prototype, "noiDung", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ type: String, required: false }),
     __metadata("design:type", String)
-], Footer.prototype, "website", void 0);
-exports.Footer = Footer = __decorate([
+], Reply.prototype, "img", void 0);
+exports.Reply = Reply = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,
     })
-], Footer);
-exports.FooterSchema = mongoose_1.SchemaFactory.createForClass(Footer);
-//# sourceMappingURL=footer.js.map
+], Reply);
+exports.ReplySchema = mongoose_1.SchemaFactory.createForClass(Reply);
+//# sourceMappingURL=lienhe.entity.js.map

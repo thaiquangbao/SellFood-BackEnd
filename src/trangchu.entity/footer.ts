@@ -15,5 +15,7 @@ export class Footer {
   timeWork: string;
   @Prop()
   iframe: string;
+  @Prop()
+  website: string;
 }
 export const FooterSchema = SchemaFactory.createForClass(Footer);

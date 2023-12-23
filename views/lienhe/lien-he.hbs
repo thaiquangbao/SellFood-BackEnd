@@ -1,0 +1,179 @@
+<div class="container">
+    <div class="title" style="text-align: center; ">
+        <span style=" font-size: 36px; color: coral; font-family: SVNVintageRegular;line-height: 1.4; font-weight: 500;">LIÊN HỆ</span>
+    </div>
+   <div class="col-lg-12 justify-content-center " style="display: flex; margin-top: 5%;">
+        {{#each footers}}
+        <div class="col-lg-6"  >
+            <p>Địa chỉ: {{this.address}}</p>
+            <p>Hotline: {{this.hotline}}</p>
+            <p>Email: {{this.mail}}</p>
+            <p>Website: {{this.website}}</p>
+        </div>
+        {{/each}}
+        <div class="col-lg-6"  >
+            <div class="row g-3">
+                <div class="col-md-6">
+                   
+                    <input type="text" class="form-control" id="hoTen" placeholder="Họ và tên">
+                </div>
+                <div class="col-md-6">
+                    
+                    <input type="text" class="form-control" id="sdt" placeholder="Số điện thoại">
+                </div>
+                <div class="col-md-6">
+                    
+                    <input type="text" class="form-control" id="address" placeholder="Địa chỉ">
+                </div>
+                <div class="col-md-6">
+                    
+                    <input type="text" class="form-control" id="email" placeholder="Email">
+                </div>
+                 <div class="col-12">
+                    
+                    <input type="text" class="form-control" id="title" placeholder="Tiêu đề">
+                </div>
+                <div class="col-12">
+                    
+                    <textarea style="resize: none; width: 100%; height: 150px;" type="text" class="form-control" id="noiDung" placeholder="Nội dung"></textarea>
+                </div>
+                 <div class="col-md-7">
+                    <label for="formFile" class="form-label">Đính kèm ảnh</label>
+                    <input type="file" class="image-user" id="imageUpload" name="img" accept=".jpg, .png" onchange="previewImage(this)"/><br>
+                </div>
+                
+                <div class="col-md-5" style="text-align: center;">
+                    <img id="imgFood" style="width: 40%;" data-origin="https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" src= "https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" alt="" class="ava">
+                </div>
+                <div class="col-12">
+                    <button onclick="send()" class="btn btn-primary">Gửi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{#each footers}}
+    <div class="col-lg-12 justify-content-center " style="display: flex;">
+        <iframe style='width: 100%; margin-top: 5%;;'  src='{{this.iframe}}' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy' referrerpolicy='no-referrer-when-downgrade'></iframe>
+    </div>
+    {{/each}}
+</div>
+
+<script>
+    function previewImage(input) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        $('#imgFood').attr('src', e.target.result);
+    };
+
+    if (input.files && input.files[0]) {
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+<script>
+    function send() {
+      var hoTen = document.getElementById("hoTen").value;
+        var sdt = document.getElementById("sdt").value;
+        var address = document.getElementById("address").value;
+        var email = document.getElementById("email").value;
+        var title = document.getElementById("title").value;
+        var noiDung = document.getElementById("noiDung").value;
+        var imageFile = $('#imageUpload')[0].files[0];
+        var formData = new FormData();
+        formData.append("file", imageFile);
+        // Kiểm tra xem các trường có trống không
+        if (hoTen === "" || sdt === "" || address === "" || email === "" || title === "" || noiDung === "") {
+            alert("Vui lòng điền đầy đủ thông tin!");
+            return;
+        }
+
+        // Kiểm tra định dạng email
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert("Email không hợp lệ!");
+            return;
+        }
+        console.log(hoTen, sdt,address,email,title,noiDung);
+        // Kiểm tra định dạng số điện thoại
+        var phoneRegex = /^[0-9]{10,11}$/;
+        if (!phoneRegex.test(sdt)) {
+            alert("Số điện thoại không hợp lệ!");
+            return;
+        }
+        if(!imageFile) {
+            const imgNull = "";
+            $.ajax({
+                url:"/lien-he/up-reply",
+                type:"POST",
+                data:{
+                    hoTen: hoTen,
+                    sdt: sdt,
+                    address: address,
+                    email: email,
+                    title: title,
+                    noiDung: noiDung,
+                    img: imgNull
+                }
+            })
+            .then(data =>{
+                if(data.code === 200){
+                    alert("Gửi phản hồi thành công. Cảm ơn quỷ khách đã đóng góp ý kiến !!!");
+                    window.location.reload();
+                }
+                else{
+                    alert("Gửi phản hồi không thành công");
+                }
+            })
+            .catch(error =>{
+                alert("ERROR!!!")
+            })
+        }
+       else{
+            $.ajax({
+                url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false
+            })
+            .then((cloudinaryResponse) => {
+                    // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
+                    var imageUrl = cloudinaryResponse.secure_url;
+                    $.ajax({
+                        url:'/lien-he/up-reply',
+                            type:'POST',
+                            data:{
+                                hoTen: hoTen,
+                                sdt: sdt,
+                                address: address,
+                                email: email,
+                                title: title,
+                                noiDung: noiDung,
+                                img: imageUrl
+                            }
+                        })
+                        .then(result =>{
+                            if(result.code === 200)
+                            {
+                                alert("Gửi phản hồi thành công. Cảm ơn quỷ khách đã đóng góp ý kiến !!!");
+                                window.location.reload()
+                            }
+                            else {
+                                alert("Gửi phản hồi không thành công");
+                            }
+                        })
+                        .catch(error=>{
+                            alert("Lỗi")
+                        })
+                    
+                    })
+                    .catch((error) => {
+                            alert('Lỗi khi tải lên hình ảnh');
+                            
+                    }); 
+       }
+    }
+
+</script>

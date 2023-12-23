@@ -30,6 +30,7 @@ export declare class Footer {
     mail: string;
     timeWork: string;
     iframe: string;
+    website: string;
 }
 export declare const FooterSchema: import("mongoose").Schema<Footer, import("mongoose").Model<Footer, any, any, any, import("mongoose").Document<unknown, any, Footer> & Footer & {
     _id: import("mongoose").Types.ObjectId;

@@ -6,6 +6,7 @@ export declare class FooterDTO {
     readonly mail: string;
     readonly timeWork: string;
     readonly iframe: string;
+    readonly website: string;
 }
 export declare class NewFooterDTO {
     readonly logo: string;
@@ -14,4 +15,5 @@ export declare class NewFooterDTO {
     readonly mail: string;
     readonly timeWork: string;
     readonly iframe: string;
+    readonly website: string;
 }

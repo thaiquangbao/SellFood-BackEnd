@@ -35,6 +35,7 @@ import { MailerModule } from "@nestjs-modules/mailer";
 import { SessionmiddlewareService } from "./sessionmiddleware/sessionmiddleware.service";
 import { LienheService } from "./lienhe/lienhe.service";
 import { LienheController } from "./lienhe/lienhe.controller";
+import { ReplySchema } from "./lienhe/entity/lienhe.entity";
 
 @Module({
   imports: [
@@ -60,6 +61,7 @@ import { LienheController } from "./lienhe/lienhe.controller";
     MongooseModule.forFeature([{ name: "Footer", schema: FooterSchema }]),
     MongooseModule.forFeature([{ name: "User", schema: UserSchema }]),
     MongooseModule.forFeature([{ name: "Icons", schema: IconsSchema }]),
+    MongooseModule.forFeature([{ name: "Reply", schema: ReplySchema }]),
     MongooseModule.forFeature([
       { name: "Information", schema: InformationSchema },
     ]),

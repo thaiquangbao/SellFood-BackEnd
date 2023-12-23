@@ -39,6 +39,7 @@ const mailer_1 = require("@nestjs-modules/mailer");
 const sessionmiddleware_service_1 = require("./sessionmiddleware/sessionmiddleware.service");
 const lienhe_service_1 = require("./lienhe/lienhe.service");
 const lienhe_controller_1 = require("./lienhe/lienhe.controller");
+const lienhe_entity_1 = require("./lienhe/entity/lienhe.entity");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -95,6 +96,7 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: "Footer", schema: footer_1.FooterSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "User", schema: user_entity_1.UserSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Icons", schema: icons_1.IconsSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: "Reply", schema: lienhe_entity_1.ReplySchema }]),
             mongoose_1.MongooseModule.forFeature([
                 { name: "Information", schema: infoRes_1.InformationSchema },
             ]),
