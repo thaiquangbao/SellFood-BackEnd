@@ -15,13 +15,13 @@ var Category;
 (function (Category) {
     Category["STARTERS"] = "KHAI V\u1ECA";
     Category["RICE"] = "C\u01A0M NI\u00CAU";
-    Category["FISH"] = "C\u00C1";
     Category["SEEFOOD"] = "H\u1EA2I S\u1EA2N";
     Category["CHIEN"] = "C\u01A0M CHI\u00CAN";
     Category["PHO"] = "PH\u1EDE";
-    Category["CHICKEN"] = "G\u00C0";
-    Category["BEEF"] = "B\u00D2";
-    Category["PORK"] = "HEO";
+    Category["FISH"] = "C\u00C1C M\u00D3N V\u1EC0 C\u00C1";
+    Category["CHICKEN"] = "C\u00C1C M\u00D3N V\u1EC0 G\u00C0";
+    Category["BEEF"] = "C\u00C1C M\u00D3N V\u1EC0 B\u00D2";
+    Category["PORK"] = "C\u00C1C M\u00D3N V\u1EC0 HEO";
     Category["MI"] = "M\u00CC";
     Category["SALAD"] = "SALAD";
     Category["SANDWICH"] = "SANDWICH";
