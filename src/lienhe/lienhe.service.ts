@@ -17,7 +17,8 @@ export class LienheService {
     const result = await this.replyEntity.find();
     return result;
   }
-  async deleteLH(id: string) {
-    return this.replyEntity.findByIdAndDelete(id);
+  async deleteLH(id: string): Promise<boolean> {
+    await this.replyEntity.findByIdAndDelete(id);
+    return true;
   }
 }

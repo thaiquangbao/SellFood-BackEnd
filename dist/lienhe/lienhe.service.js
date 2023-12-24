@@ -30,7 +30,8 @@ let LienheService = class LienheService {
         return result;
     }
     async deleteLH(id) {
-        return this.replyEntity.findByIdAndDelete(id);
+        await this.replyEntity.findByIdAndDelete(id);
+        return true;
     }
 };
 exports.LienheService = LienheService;

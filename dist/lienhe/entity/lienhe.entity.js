@@ -38,10 +38,6 @@ __decorate([
     (0, mongoose_1.Prop)({ type: String, required: false }),
     __metadata("design:type", String)
 ], Reply.prototype, "noiDung", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ type: String, required: false }),
-    __metadata("design:type", String)
-], Reply.prototype, "img", void 0);
 exports.Reply = Reply = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,

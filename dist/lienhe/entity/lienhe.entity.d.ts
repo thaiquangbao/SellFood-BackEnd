@@ -30,7 +30,6 @@ export declare class Reply {
     email: string;
     title: string;
     noiDung: string;
-    img: string;
 }
 export declare const ReplySchema: import("mongoose").Schema<Reply, import("mongoose").Model<Reply, any, any, any, import("mongoose").Document<unknown, any, Reply> & Reply & {
     _id: import("mongoose").Types.ObjectId;

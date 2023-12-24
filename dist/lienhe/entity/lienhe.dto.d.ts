@@ -6,5 +6,4 @@ export declare class ReplyDTO {
     readonly email: string;
     readonly title: string;
     readonly noiDung: string;
-    readonly img: string;
 }

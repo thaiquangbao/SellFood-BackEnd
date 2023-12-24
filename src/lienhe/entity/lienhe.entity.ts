@@ -15,7 +15,5 @@ export class Reply {
   title: string;
   @Prop({ type: String, required: false })
   noiDung: string;
-  @Prop({ type: String, required: false })
-  img: string;
 }
 export const ReplySchema = SchemaFactory.createForClass(Reply);

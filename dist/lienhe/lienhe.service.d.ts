@@ -29,7 +29,5 @@ export declare class LienheService {
     constructor(replyEntity: mongoose.Model<Reply>);
     insertLH(reply: Reply): Promise<Reply>;
     findAllLH(): Promise<Reply[]>;
-    deleteLH(id: string): Promise<mongoose.ModifyResult<mongoose.Document<unknown, {}, Reply> & Reply & {
-        _id: mongoose.Types.ObjectId;
-    }>>;
+    deleteLH(id: string): Promise<boolean>;
 }

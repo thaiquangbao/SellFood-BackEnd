@@ -33,7 +33,9 @@ export class UserController {
   ) {}
   @Post("signup")
   signup(@Body() userDTO: UserDTO): Promise<{ token: string }> {
-    return this.userService.signUp(userDTO);
+    const result = this.userService.signUp(userDTO);
+    console.log(result);
+    return result;
   }
   @Post("login/accept")
   async login(

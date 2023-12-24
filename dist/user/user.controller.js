@@ -28,7 +28,9 @@ let UserController = class UserController {
         this.mailService = mailService;
     }
     signup(userDTO) {
-        return this.userService.signUp(userDTO);
+        const result = this.userService.signUp(userDTO);
+        console.log(result);
+        return result;
     }
     async login(loginDTO, res, session) {
         const result = this.userService.loGin(loginDTO);

@@ -44,8 +44,8 @@ let AppModule = class AppModule {
     configure(consumer) {
         consumer
             .apply(middleware_service_1.MiddlewareService)
-            .exclude({ path: "/", method: common_1.RequestMethod.GET })
-            .forRoutes(food_controller_1.FoodController, app_controller_1.AppController, {
+            .exclude({ path: "/", method: common_1.RequestMethod.GET }, { path: "/lien-he", method: common_1.RequestMethod.GET }, { path: "/lien-he/up-reply", method: common_1.RequestMethod.POST })
+            .forRoutes(food_controller_1.FoodController, lienhe_controller_1.LienheController, app_controller_1.AppController, {
             path: "/user/signup",
             method: common_1.RequestMethod.POST,
         }, {

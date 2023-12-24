@@ -1,0 +1,107 @@
+<div class="container-fluid body-table" >
+        <div class="head">
+            <h1>Quản lý phản hồi</h1>
+           
+            
+        </div>
+        
+        <div class="table-students">
+            <table class="table" >
+                <thead class="table-dark" >
+                    <tr >
+                  
+                    <th scope="col" style="width: 50px;">#</th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                        Họ tên
+                        
+                    </th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                        Số điện thoại
+                       
+                    </th>
+                    <th scope="col" style="width: 100px ;text-align: center;">
+                        Địa chỉ
+                    </th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                       Email
+                     </th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                        Tiêu đề
+                     </th>
+                     <th scope="col" style="width: 200px ;text-align: center;">
+                        Nội dung
+                     </th>
+                     <th scope="col" style="width: 200px ;text-align: center;">
+                        Hình ảnh
+                     </th>
+                     <th scope="col" style="width: 100px ;text-align: center;">
+                        Chỉnh sửa
+                     </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each lienHe}}
+                    <tr>
+                   
+                    <th scope="row"><span class="stt"></span></th>
+                    <td style="text-align: center;">{{this.hoTen}}</td>
+                    <td style="text-align: center;">{{this.sdt}}</td>
+                    <td style="text-align: center;">{{this.address}}</td>
+                    <td style="text-align: center;">{{this.email}}</td>
+                    <td style="text-align: center;">{{this.title}}</td>
+                    <td style="text-align: center;">
+                        {{this.noiDung}}
+                        
+                    </td>
+                    <td style="text-align: center;">
+                        <img style="width:200px; height: 100px; " src="{{this.img}}" >
+
+                    </td>
+                    
+                    <td style="text-align: center;">
+                        <button onclick="deleteLH('{{this.id}}')" class="btn btn-link ">Xóa</button>
+                       
+                    </td>
+                    </tr>
+                    
+                    {{/each}}
+                </tbody>
+            </table>
+            
+        </div>
+       
+         <div hidden class="inserthv" style="margin-top: 50px; text-align: center;">
+                <button onclick="changePage()" class="btn btn-primary" style="border-top: 30px;,height: 100px; width: 200px; text-align: center; background-color: chocolate; border-color: chocolate;">Thêm Icon</button>
+        </div> 
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+         let stt = 1;
+    const sttElements1 = document.querySelectorAll('span.stt');
+
+    sttElements1.forEach(function(element) {
+      element.textContent = stt++;
+    });
+    });
+</script>
+<script>
+    function deleteLH(id) {
+        $.ajax({
+            url:"/lien-he/delete/"+id,
+            type: "DELETE"
+        })
+        .then(data =>{
+            if(data.code === 200) {
+                alert("Xóa thành công");
+                window.location.reload();
+            }
+            else{
+                alert("Xóa không thành công");
+            }
+        })
+        .catch(error =>{
+            alert("ERROR!!!")
+        })
+    }
+
+</script>

@@ -37,14 +37,6 @@
                     
                     <textarea style="resize: none; width: 100%; height: 150px;" type="text" class="form-control" id="noiDung" placeholder="Nội dung"></textarea>
                 </div>
-                 <div class="col-md-7">
-                    <label for="formFile" class="form-label">Đính kèm ảnh</label>
-                    <input type="file" class="image-user" id="imageUpload" name="img" accept=".jpg, .png" onchange="previewImage(this)"/><br>
-                </div>
-                
-                <div class="col-md-5" style="text-align: center;">
-                    <img id="imgFood" style="width: 40%;" data-origin="https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" src= "https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png" alt="" class="ava">
-                </div>
                 <div class="col-12">
                     <button onclick="send()" class="btn btn-primary">Gửi</button>
                 </div>
@@ -59,19 +51,7 @@
     {{/each}}
 </div>
 
-<script>
-    function previewImage(input) {
-    var reader = new FileReader();
 
-    reader.onload = function (e) {
-        $('#imgFood').attr('src', e.target.result);
-    };
-
-    if (input.files && input.files[0]) {
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-</script>
 <script>
     function send() {
       var hoTen = document.getElementById("hoTen").value;
@@ -80,9 +60,6 @@
         var email = document.getElementById("email").value;
         var title = document.getElementById("title").value;
         var noiDung = document.getElementById("noiDung").value;
-        var imageFile = $('#imageUpload')[0].files[0];
-        var formData = new FormData();
-        formData.append("file", imageFile);
         // Kiểm tra xem các trường có trống không
         if (hoTen === "" || sdt === "" || address === "" || email === "" || title === "" || noiDung === "") {
             alert("Vui lòng điền đầy đủ thông tin!");
@@ -102,8 +79,6 @@
             alert("Số điện thoại không hợp lệ!");
             return;
         }
-        if(!imageFile) {
-            const imgNull = "";
             $.ajax({
                 url:"/lien-he/up-reply",
                 type:"POST",
@@ -113,8 +88,7 @@
                     address: address,
                     email: email,
                     title: title,
-                    noiDung: noiDung,
-                    img: imgNull
+                    noiDung: noiDung
                 }
             })
             .then(data =>{
@@ -129,51 +103,8 @@
             .catch(error =>{
                 alert("ERROR!!!")
             })
-        }
-       else{
-            $.ajax({
-                url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false
-            })
-            .then((cloudinaryResponse) => {
-                    // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
-                    var imageUrl = cloudinaryResponse.secure_url;
-                    $.ajax({
-                        url:'/lien-he/up-reply',
-                            type:'POST',
-                            data:{
-                                hoTen: hoTen,
-                                sdt: sdt,
-                                address: address,
-                                email: email,
-                                title: title,
-                                noiDung: noiDung,
-                                img: imageUrl
-                            }
-                        })
-                        .then(result =>{
-                            if(result.code === 200)
-                            {
-                                alert("Gửi phản hồi thành công. Cảm ơn quỷ khách đã đóng góp ý kiến !!!");
-                                window.location.reload()
-                            }
-                            else {
-                                alert("Gửi phản hồi không thành công");
-                            }
-                        })
-                        .catch(error=>{
-                            alert("Lỗi")
-                        })
-                    
-                    })
-                    .catch((error) => {
-                            alert('Lỗi khi tải lên hình ảnh');
-                            
-                    }); 
-       }
+
+       
     }
 
 </script>
