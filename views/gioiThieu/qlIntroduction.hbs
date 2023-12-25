@@ -47,7 +47,7 @@
                     </td>
                     
                     <td style="text-align: center;">
-                        <button onclick="updateLH('{{introduction.id}}')" class="btn btn-link ">Sửa</button>
+                        <button onclick="updateLH()" class="btn btn-link ">Sửa</button>
                         
                        
                     </td>
@@ -98,7 +98,7 @@
                     </td>
                     
                     <td style="text-align: center;">
-                        <button onclick="updateLH()" class="btn btn-link ">Sửa</button>
+                        <button onclick="updateLHN('{{this.nameCate}}')" class="btn btn-link ">Sửa</button>
                  
                        
                     </td>
@@ -135,5 +135,8 @@
 <script>
     function updateLH() {
         window.location.href="/gioi-thieu/introductions/update"
+    }
+    function updateLHN(nameCate) {
+         window.location.href="/gioi-thieu/introductions/update#"+nameCate;
     }
 </script>

@@ -73,6 +73,33 @@ let GioiThieuController = class GioiThieuController {
             introduction,
         });
     }
+    async update(res, nameCate, nameFood, name) {
+        const result = await this.introductionService.updateName(process.env.ID_INTRODUCTION, nameCate, nameFood, name.newName);
+        if (result === null) {
+            res.json({ code: 500 });
+        }
+        else {
+            res.json({ code: 200 });
+        }
+    }
+    async updateCate(res, nameCate, name) {
+        const result = await this.introductionService.updateCate(process.env.ID_INTRODUCTION, nameCate, name.newName);
+        if (result === null) {
+            res.json({ code: 500 });
+        }
+        else {
+            res.json({ code: 200 });
+        }
+    }
+    async updateBody(res, id, introduction) {
+        const result = await this.introductionService.update(id, introduction);
+        if (result === null) {
+            res.json({ code: 500 });
+        }
+        else {
+            res.json({ code: 200 });
+        }
+    }
 };
 exports.GioiThieuController = GioiThieuController;
 __decorate([
@@ -104,6 +131,34 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], GioiThieuController.prototype, "updateQLPage", null);
+__decorate([
+    (0, common_1.Patch)("introductions/update/:nameCate/:name"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Param)("nameCate")),
+    __param(2, (0, common_1.Param)("name")),
+    __param(3, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, String, Object]),
+    __metadata("design:returntype", Promise)
+], GioiThieuController.prototype, "update", null);
+__decorate([
+    (0, common_1.Patch)("introductions/update/:nameCate"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Param)("nameCate")),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, Object]),
+    __metadata("design:returntype", Promise)
+], GioiThieuController.prototype, "updateCate", null);
+__decorate([
+    (0, common_1.Put)("introductions/update/:id"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Param)("id")),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, gioi_thieu_dto_1.IntroductionBody]),
+    __metadata("design:returntype", Promise)
+], GioiThieuController.prototype, "updateBody", null);
 exports.GioiThieuController = GioiThieuController = __decorate([
     (0, common_1.Controller)("gioi-thieu"),
     __metadata("design:paramtypes", [app_service_1.AppService,

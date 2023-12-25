@@ -10,20 +10,7 @@
                     <label style="margin-bottom: 10px;">Nội dung giới thiệu</label>
                     <textarea style="resize: none; width: 500px; height: 100px;" type="text" class="form-control" data-origin="{{introduction.noiDung}}"   id="noiDung" >{{introduction.noiDung}}</textarea>
                 </div>
-                {{!-- {{#each introduction.foods}}
-                <div class="col">
-                    <label style="margin-bottom: 10px;">Loại đồ ăn </label>
-                    <input type="text" class="form-control" id="title" data-origin="{{this.nameCate}}" value="{{this.nameCate}}"  style="width: 500px;">
-                    
-                </div>
-                {{#each this.food}}
-                 <div class="col">
-                    <label style="margin-bottom: 10px;">Các loại đồ ăn </label>
-                    <input type="text" class="form-control" id="title" data-origin="{{this.name}}" value="{{this.name}}"  style="width: 500px;">
-                    
-                </div>
-                {{/each}}
-                {{/each}} --}}
+                
                 <div class="col">
                     <label style="margin-bottom: 10px;">Nội dung phần kết</label>
                     <textarea style="resize: none; width: 500px; height: 100px;" type="text" class="form-control" data-origin="{{introduction.noiDungKhac}}" id="noiDungKhac" >{{introduction.noiDungKhac}}</textarea>
@@ -41,8 +28,11 @@
             </div>
             
         </div>
+        <div class="add" style="margin-top: 30px; padding-bottom: 10px;">
+            <button onclick="update('{{introduction.id}}')" class="btn btn-primary" style="margin-left: 350px; width: 1000px; height: 40px;" >Sửa</button>
+        </div>
         {{#each introduction.foods}}    
-        <h1 style="margin-left: 400px; margin-top: 3%;">Cập nhật món ăn của {{this.nameCate}}</h1>
+        <h1 id="{{this.nameCate}}" style="margin-left: 400px; margin-top: 3%; padding-top: 10%;">Cập nhật món ăn của {{this.nameCate}}</h1>
         <div class="form-aria" style="background-color: rgb(245, 240, 240); margin-right: 130px;margin-left: 130px; padding-bottom: 30px; padding-right: 30px; ">
             <div class="row g-3" style="margin-left: 150px; margin-top: 30px; " >
                 
@@ -64,10 +54,11 @@
             </div>
             
         </div> 
-        {{/each}} 
         <div class="add" style="margin-top: 30px; padding-bottom: 10px;">
-            <button onclick="updateSlide('{{introduction.id}}')" class="btn btn-primary" style="margin-left: 350px; width: 1000px; height: 40px;" >Sửa</button>
+            <button onclick="updateSlide()" class="btn btn-primary" style="margin-left: 350px; width: 1000px; height: 40px;" >Sửa</button>
         </div>
+        {{/each}} 
+        
 </div>
 <script>
     function previewImage(input) {

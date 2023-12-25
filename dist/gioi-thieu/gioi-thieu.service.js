@@ -37,6 +37,32 @@ let GioiThieuService = class GioiThieuService {
         const result = await this.introducEntity.find();
         return result;
     }
+    async updateName(id, nameCategory, foodName, newName) {
+        return this.introducEntity.findOneAndUpdate({
+            _id: id,
+            "foods.nameCate": nameCategory,
+            "foods.food.name": foodName,
+        }, {
+            $set: { "foods.$[category].food.$[food].name": newName },
+        }, {
+            new: true,
+            arrayFilters: [
+                { "category.nameCate": nameCategory },
+                { "food.name": foodName },
+            ],
+        });
+    }
+    async updateCate(id, nameCategory, newCategory) {
+        return this.introducEntity.findOneAndUpdate({
+            _id: id,
+            "foods.nameCate": nameCategory,
+        }, {
+            $set: { "foods.$[category].nameCate": newCategory },
+        }, {
+            new: true,
+            arrayFilters: [{ "category.nameCate": nameCategory }],
+        });
+    }
 };
 exports.GioiThieuService = GioiThieuService;
 exports.GioiThieuService = GioiThieuService = __decorate([

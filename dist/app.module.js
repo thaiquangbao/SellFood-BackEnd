@@ -66,6 +66,12 @@ let AppModule = class AppModule {
         }, {
             path: "/user/updatePassword",
             method: common_1.RequestMethod.PUT,
+        }, {
+            path: "/gioi-thieu/insert",
+            method: common_1.RequestMethod.POST,
+        }, {
+            path: "/gioi-thieu/introductions",
+            method: common_1.RequestMethod.GET,
         });
         consumer.apply(sessionmiddleware_service_1.SessionmiddlewareService).forRoutes({
             path: "/user/login/xacnhan/:userName/:sessionId",

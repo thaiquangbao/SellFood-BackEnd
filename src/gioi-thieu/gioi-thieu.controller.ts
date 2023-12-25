@@ -1,10 +1,19 @@
-import { Body, Controller, Get, Post, Res } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Res,
+} from "@nestjs/common";
 import { AppService } from "src/app.service";
 import { FooterService } from "src/footer/footer.service";
 import { GioiThieuService } from "./gioi-thieu.service";
 import { Response } from "express";
 import { Category } from "src/food/entity/food.entity";
-import { IntroductionDTO } from "./dto/gioi-thieu.dto";
+import { IntroductionBody, IntroductionDTO } from "./dto/gioi-thieu.dto";
 @Controller("gioi-thieu")
 export class GioiThieuController {
   constructor(
@@ -71,5 +80,55 @@ export class GioiThieuController {
       Category,
       introduction,
     });
+  }
+  // Trong controller
+  @Patch("introductions/update/:nameCate/:name")
+  async update(
+    @Res() res: Response,
+    @Param("nameCate") nameCate: string,
+    @Param("name") nameFood: string,
+    @Body() name: { newName: string }, // Sửa thành truyền một đối tượng chứa newName
+  ) {
+    const result = await this.introductionService.updateName(
+      process.env.ID_INTRODUCTION,
+      nameCate,
+      nameFood,
+      name.newName, // Truyền newName từ đối tượng name
+    );
+    if (result === null) {
+      res.json({ code: 500 });
+    } else {
+      res.json({ code: 200 });
+    }
+  }
+  @Patch("introductions/update/:nameCate")
+  async updateCate(
+    @Res() res: Response,
+    @Param("nameCate") nameCate: string,
+    @Body() name: { newName: string }, // Sửa thành truyền một đối tượng chứa newName
+  ) {
+    const result = await this.introductionService.updateCate(
+      process.env.ID_INTRODUCTION,
+      nameCate,
+      name.newName, // Truyền newName từ đối tượng name
+    );
+    if (result === null) {
+      res.json({ code: 500 });
+    } else {
+      res.json({ code: 200 });
+    }
+  }
+  @Put("introductions/update/:id")
+  async updateBody(
+    @Res() res: Response,
+    @Param("id") id: string,
+    @Body() introduction: IntroductionBody, // Sửa thành truyền một đối tượng chứa newName
+  ) {
+    const result = await this.introductionService.update(id, introduction);
+    if (result === null) {
+      res.json({ code: 500 });
+    } else {
+      res.json({ code: 200 });
+    }
   }
 }

@@ -24,15 +24,22 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { Introduction } from "./entity/gioi-thieu.entity";
 import mongoose from "mongoose";
+import { IntroductionBody } from "./dto/gioi-thieu.dto";
 export declare class GioiThieuService {
     private introducEntity;
     constructor(introducEntity: mongoose.Model<Introduction>);
     insert(gioiThieu: Introduction): Promise<Introduction>;
-    update(id: string, gioiThieu: Introduction): Promise<mongoose.Document<unknown, {}, Introduction> & Introduction & {
+    update(id: string, gioiThieu: IntroductionBody): Promise<mongoose.Document<unknown, {}, Introduction> & Introduction & {
         _id: mongoose.Types.ObjectId;
     }>;
     findOne(id: string): Promise<mongoose.Document<unknown, {}, Introduction> & Introduction & {
         _id: mongoose.Types.ObjectId;
     }>;
     findAll(): Promise<Introduction[]>;
+    updateName(id: string, nameCategory: string, foodName: string, newName: string): Promise<mongoose.Document<unknown, {}, Introduction> & Introduction & {
+        _id: mongoose.Types.ObjectId;
+    }>;
+    updateCate(id: string, nameCategory: string, newCategory: string): Promise<mongoose.Document<unknown, {}, Introduction> & Introduction & {
+        _id: mongoose.Types.ObjectId;
+    }>;
 }
