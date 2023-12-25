@@ -1,0 +1,139 @@
+<div class="container-fluid body-table" style="margin-bottom: 5%;" >
+        <div class="head">
+            <h1>Quản lý giới thiệu</h1>
+           
+            
+        </div>
+        
+        <div class="table-students">
+            <table class="table" >
+                <thead class="table-dark" >
+                    <tr >
+                  
+                    <th scope="col" style="width: 50px;">#</th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                        Tiêu đề
+                        
+                    </th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                        Nội dung
+                       
+                    </th>
+                     <th scope="col" style="width: 200px ;text-align: center;">
+                        Nội dung khác
+                     </th>
+                     <th scope="col" style="width: 200px ;text-align: center;">
+                        Hình ảnh
+                     </th>
+                     <th scope="col" style="width: 100px ;text-align: center;">
+                        Chỉnh sửa
+                     </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                   
+                    <th scope="row"><span class="stt"></span></th>
+                    <td style="text-align: center;">{{introduction.title}}</td>
+                    <td style="text-align: center;">{{introduction.noiDung}}</td>
+                    <td style="text-align: center;">
+                        {{introduction.noiDungKhac}}
+                        
+                    </td>
+                    <td style="text-align: center;">
+                        <img style="width:200px; height: 100px; " src="{{introduction.img}}" >
+
+                    </td>
+                    
+                    <td style="text-align: center;">
+                        <button onclick="updateLH('{{introduction.id}}')" class="btn btn-link ">Sửa</button>
+                        
+                       
+                    </td>
+                    </tr>
+                    
+                
+                </tbody>
+            </table>
+            
+        </div>
+        
+       
+        <div class="head">
+            <h1>Quản lý món ăn</h1>
+           
+            
+        </div>
+        
+        <div class="table-students">
+            <table class="table" >
+                <thead class="table-dark" >
+                    <tr >
+                  
+                    <th scope="col" style="width: 50px;">#</th>
+                    <th scope="col" style="width: 200px ;text-align: center;">
+                        Tên
+                        
+                    </th>
+                    <th scope="col" style="width: 500px ;text-align: center;">
+                        Tên các món ăn 
+                        
+                    </th>
+                     <th scope="col" style="width: 100px ;text-align: center;">
+                        Chỉnh sửa
+                     </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each introduction.foods}}
+                    <tr>
+                   
+                    <th scope="row"><span class="stt2"></span></th>
+                    <td style="text-align: center;">{{this.nameCate}}</td>
+                    <td style="text-align: center;">
+                        {{#each this.food}}
+                            <p>{{this.name}}</p>
+                        {{/each}}
+                    </td>
+                    
+                    <td style="text-align: center;">
+                        <button onclick="updateLH()" class="btn btn-link ">Sửa</button>
+                 
+                       
+                    </td>
+                    </tr>
+                    {{/each}}
+                
+                </tbody>
+            </table>
+            
+        </div>
+         
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+         let stt = 1;
+    const sttElements1 = document.querySelectorAll('span.stt');
+
+    sttElements1.forEach(function(element) {
+      element.textContent = stt++;
+    });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+         let stt = 1;
+    const sttElements1 = document.querySelectorAll('span.stt2');
+
+    sttElements1.forEach(function(element) {
+      element.textContent = stt++;
+    });
+    });
+
+</script>
+<script>
+    function updateLH() {
+        window.location.href="/gioi-thieu/introductions/update"
+    }
+</script>

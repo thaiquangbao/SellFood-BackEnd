@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="title" style="text-align: center; ">
+        <span style=" font-size: 36px; color: coral; font-family: SVNVintageRegular;line-height: 1.4; font-weight: 500;">BỜM RESTAURANT</span>
+    </div>
+   <div class="col-lg-12 justify-content-center " style="display: flex; margin-top: 5%;">
+        <div style="float: left;">
+            
+                <b>{{introduction.title}}</b>    
+                <p>{{introduction.noiDung}}</p>
+                <b>Những loại đồ ăn quán phục vụ: </b>
+                {{#each introduction.foods}}
+                    <p style="font-style: italic; font-weight: bold;" >{{this.nameCate}}</p>
+                    {{#each this.food}}
+                    <p>&#8226; {{this.name}}</p>
+                    {{/each}}
+                {{/each}}
+                <p style="text-align: center;">
+                    <img style="width: 90%;" src="{{introduction.img}}">  
+                </p>
+                <p>{{introduction.noiDungKhac}}</p>
+            
+            
+        </div>    
+    </div>
+    <p>BỜM RESTAURANT</p>
+    {{#each footers}}
+        <div class="col-lg-6"  >
+            <p>Địa chỉ: {{this.address}}</p>
+            <p>Hotline: {{this.hotline}}</p>
+            <p>Email: {{this.mail}}</p>
+            <p>Website: {{this.website}}</p>
+        </div>
+    {{/each}}
+</div>

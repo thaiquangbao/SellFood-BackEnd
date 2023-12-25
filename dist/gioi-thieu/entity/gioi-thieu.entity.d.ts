@@ -23,39 +23,23 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-export declare enum Category {
-    STARTERS = "KHAI V\u1ECA",
-    RICE = "C\u01A0M NI\u00CAU",
-    SEEFOOD = "H\u1EA2I S\u1EA2N",
-    CHIEN = "C\u01A0M CHI\u00CAN",
-    PHO = "PH\u1EDE",
-    FISH = "C\u00C1C M\u00D3N C\u00C1",
-    CHICKEN = "C\u00C1C M\u00D3N G\u00C0",
-    BEEF = "C\u00C1C M\u00D3N B\u00D2",
-    PORK = "C\u00C1C M\u00D3N HEO",
-    MI = "M\u00CC",
-    SALAD = "SALAD",
-    SANDWICH = "SANDWICH",
-    SPAGHETTIS = "SPAGHETTIS",
-    DESSERT = "TR\u00C1NG MI\u1EC6NG",
-    DRINKING = "TH\u1EE8C U\u1ED0NG"
+interface Food {
+    name: string;
 }
-export declare class Food {
-    nameFood: string;
-    price: number;
-    describe: string;
-    category: Category;
+interface CategoryFood {
+    nameCate: string;
+    food: Array<Food>;
+}
+export declare class Introduction {
+    title: string;
+    noiDung: string;
+    foods: Array<CategoryFood>;
     img: string;
-    noiBat: string;
-    deXuat: string;
-    ngonNgu?: string;
-    deleted: boolean;
+    noiDungKhac: string;
 }
-export declare const FoodSchema: import("mongoose").Schema<Food, import("mongoose").Model<Food, any, any, any, import("mongoose").Document<unknown, any, Food> & Food & {
+export declare const IntroductionSchema: import("mongoose").Schema<Introduction, import("mongoose").Model<Introduction, any, any, any, import("mongoose").Document<unknown, any, Introduction> & Introduction & {
     _id: import("mongoose").Types.ObjectId;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Food, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Food>> & import("mongoose").FlatRecord<Food> & {
+}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Introduction, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Introduction>> & import("mongoose").FlatRecord<Introduction> & {
     _id: import("mongoose").Types.ObjectId;
 }>;
-export declare const Categories: {
-    Category: typeof Category;
-};
+export {};

@@ -36,6 +36,9 @@ import { SessionmiddlewareService } from "./sessionmiddleware/sessionmiddleware.
 import { LienheService } from "./lienhe/lienhe.service";
 import { LienheController } from "./lienhe/lienhe.controller";
 import { ReplySchema } from "./lienhe/entity/lienhe.entity";
+import { GioiThieuService } from "./gioi-thieu/gioi-thieu.service";
+import { GioiThieuController } from "./gioi-thieu/gioi-thieu.controller";
+import { IntroductionSchema } from "./gioi-thieu/entity/gioi-thieu.entity";
 
 @Module({
   imports: [
@@ -63,6 +66,9 @@ import { ReplySchema } from "./lienhe/entity/lienhe.entity";
     MongooseModule.forFeature([{ name: "Icons", schema: IconsSchema }]),
     MongooseModule.forFeature([{ name: "Reply", schema: ReplySchema }]),
     MongooseModule.forFeature([
+      { name: "Introduction", schema: IntroductionSchema },
+    ]),
+    MongooseModule.forFeature([
       { name: "Information", schema: InformationSchema },
     ]),
     CloudinaryModule,
@@ -86,6 +92,7 @@ import { ReplySchema } from "./lienhe/entity/lienhe.entity";
     ThucdonController,
     UserController,
     LienheController,
+    GioiThieuController,
   ],
   providers: [
     AppService,
@@ -99,6 +106,7 @@ import { ReplySchema } from "./lienhe/entity/lienhe.entity";
     MailerService,
     SessionmiddlewareService,
     LienheService,
+    GioiThieuService,
   ],
 })
 export class AppModule implements NestModule {

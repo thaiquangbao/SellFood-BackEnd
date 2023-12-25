@@ -40,6 +40,9 @@ const sessionmiddleware_service_1 = require("./sessionmiddleware/sessionmiddlewa
 const lienhe_service_1 = require("./lienhe/lienhe.service");
 const lienhe_controller_1 = require("./lienhe/lienhe.controller");
 const lienhe_entity_1 = require("./lienhe/entity/lienhe.entity");
+const gioi_thieu_service_1 = require("./gioi-thieu/gioi-thieu.service");
+const gioi_thieu_controller_1 = require("./gioi-thieu/gioi-thieu.controller");
+const gioi_thieu_entity_1 = require("./gioi-thieu/entity/gioi-thieu.entity");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -98,6 +101,9 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: "Icons", schema: icons_1.IconsSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Reply", schema: lienhe_entity_1.ReplySchema }]),
             mongoose_1.MongooseModule.forFeature([
+                { name: "Introduction", schema: gioi_thieu_entity_1.IntroductionSchema },
+            ]),
+            mongoose_1.MongooseModule.forFeature([
                 { name: "Information", schema: infoRes_1.InformationSchema },
             ]),
             cloudinary_module_1.CloudinaryModule,
@@ -121,6 +127,7 @@ exports.AppModule = AppModule = __decorate([
             thucdon_controller_1.ThucdonController,
             user_controller_1.UserController,
             lienhe_controller_1.LienheController,
+            gioi_thieu_controller_1.GioiThieuController,
         ],
         providers: [
             app_service_1.AppService,
@@ -134,6 +141,7 @@ exports.AppModule = AppModule = __decorate([
             mailer_service_1.MailerService,
             sessionmiddleware_service_1.SessionmiddlewareService,
             lienhe_service_1.LienheService,
+            gioi_thieu_service_1.GioiThieuService,
         ],
     })
 ], AppModule);
