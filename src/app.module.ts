@@ -154,6 +154,22 @@ export class AppModule implements NestModule {
           path: "/gioi-thieu/introductions",
           method: RequestMethod.GET,
         },
+        {
+          path: "/gioi-thieu/introductions/update",
+          method: RequestMethod.GET,
+        },
+        {
+          path: "/gioi-thieu/introductions/:nameCate/:name",
+          method: RequestMethod.PATCH,
+        },
+        {
+          path: "/gioi-thieu/introductions/update/:nameCate",
+          method: RequestMethod.PATCH,
+        },
+        {
+          path: "/gioi-thieu/introductions/update/:id",
+          method: RequestMethod.PUT,
+        },
       );
     consumer.apply(SessionmiddlewareService).forRoutes({
       path: "/user/login/xacnhan/:userName/:sessionId",

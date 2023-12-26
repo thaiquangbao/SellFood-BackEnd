@@ -1,4 +1,4 @@
-<div class="form-input" style="min-height: 545px; margin-top: 20px;">
+<div class="form-input" style="min-height: 600px; margin-top: 20px;">
         <h1 style="margin-left: 600px;">Cập nhật thông tin giới thiệu</h1>
         <div class="form-aria" style="background-color: rgb(245, 240, 240); margin-right: 130px;margin-left: 130px; padding-bottom: 30px; padding-right: 30px; ">
             <div class="row g-3" style="margin-left: 150px; margin-top: 30px; " >
@@ -33,20 +33,25 @@
         </div>
         {{#each introduction.foods}}    
         <h1 id="{{this.nameCate}}" style="margin-left: 400px; margin-top: 3%; padding-top: 10%;">Cập nhật món ăn của {{this.nameCate}}</h1>
-        <div class="form-aria" style="background-color: rgb(245, 240, 240); margin-right: 130px;margin-left: 130px; padding-bottom: 30px; padding-right: 30px; ">
+        <div class="form-aria" style="background-color: rgb(245, 240, 240); margin-right: 130px;margin-left: 130px; padding-bottom: 5%; padding-right: 30px; ">
             <div class="row g-3" style="margin-left: 150px; margin-top: 30px; " >
                 
                 
                 <div class="col">
                     <label style="margin-bottom: 10px;">Loại đồ ăn </label>
-                    <input type="text" class="form-control" id="title" data-origin="{{this.nameCate}}" value="{{this.nameCate}}"  style="width: 500px;">
-                    
+                    <div style="display: flex; align-items: center;">
+                        <input type="text" class="form-control" id="nameCate" data-origin="{{this.nameCate}}" value="{{this.nameCate}}"  style="width: 400px;" onchange="handleInputChangeCate(this)">
+                        <button class="btn btn-primary" style="margin-left: 3%;" onclick="changCate('{{this.nameCate}}')">Sửa</button>
+                    </div>
                 </div>
                 {{#each this.food}}
                  <div class="col">
                     <label style="margin-bottom: 10px;">Các loại đồ ăn </label>
-                    <input type="text" class="form-control" id="title" data-origin="{{this.name}}" value="{{this.name}}"  style="width: 500px;">
                     
+                     <div style="display: flex; align-items: center;">
+                       <input type="text" class="form-control" id="name" data-origin="{{this.name}}" value="{{this.name}}"  style="width: 400px;" onchange="handleInputChangeName(this)">
+                        <button onclick="changName('{{this.name}}','{{../nameCate}}')" class="btn btn-primary" style="margin-left: 3%;">Sửa</button>
+                    </div>
                 </div>
                 {{/each}}
                 
@@ -54,9 +59,7 @@
             </div>
             
         </div> 
-        <div class="add" style="margin-top: 30px; padding-bottom: 10px;">
-            <button onclick="updateSlide()" class="btn btn-primary" style="margin-left: 350px; width: 1000px; height: 40px;" >Sửa</button>
-        </div>
+       
         {{/each}} 
         
 </div>
@@ -74,3 +77,214 @@
     }
 
 </script>
+<script>
+    function update(id) {
+        var currentTitle = $("#title").val();
+        var currentNoiDung = $("#noiDung").val();
+        var currentNoiDungKhac = $("#noiDungKhac").val();
+        var currentAnh = $('#imgSlide').attr('src');
+
+        var originTitle = $("#title").data("origin");
+        var originNoiDung = $("#noiDung").data("origin");
+        var originNoiDungKhac = $("#noiDungKhac").data("origin");
+        var originAnh = $('#imgSlide').data('origin');
+        var imageFile = $('#imageUpload')[0].files[0];
+            var formData = new FormData();
+             formData.append("file", imageFile);
+            // Kiểm tra không được để trống
+            if (currentTitle.trim() === "" || currentNoiDung.trim() === "" || currentNoiDungKhac.trim() === "") {
+                alert("Vui lòng nhập đầy đủ thông tin.");
+                return;
+            }
+
+            // Kiểm tra nếu dữ liệu không thay đổi
+            if (currentTitle === originTitle && currentNoiDung === originNoiDung && currentNoiDungKhac === originNoiDungKhac && currentAnh === originAnh) {
+                alert("Không có dữ liệu nào được thay đổi.");
+                window.location.reload();
+                return;
+            }
+            if(currentAnh === originAnh){
+                $.ajax({
+                        url: "/gioi-thieu/introductions/update/"+id,
+                        type:"PUT",
+                        data: {
+                            title: currentTitle,
+                            noiDung: currentNoiDung,
+                            noiDungKhac: currentNoiDungKhac,
+                            img: currentAnh 
+                        }
+                    })  
+                    .then(data =>{
+                        if(data.code === 200) {
+                            alert("Cập nhật dữ liệu thành công");
+                            window.location.reload();
+                        }
+                        else{
+                            alert("Cập nhật dữ liệu không thành công!!!");
+                        }
+                    })
+                    .catch(err =>{
+                        alert("ERROR!!!")
+                    })
+            }
+            else{
+                const imageUrl = String(originAnh);
+                const parts = imageUrl.split('/');
+                const result = parts.slice(-2).join('/'); // Lấy hai phần tử cuối cùng và nối lại
+                const cut = result.split('.')
+                const deleteImageDto = cut[0]
+                $.ajax({
+                    url:"/foods/deleteCloud",
+                    type:"POST",
+                    data:{
+                        imgDTO:deleteImageDto
+                    } 
+                })
+                .then(data =>{
+                    $.ajax({
+                        url: '/foods/uploads', // Đổi thành đường dẫn bạn cần xử lý hình ảnh
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false
+                    })
+                    .then((cloudinaryResponse) => {
+                        // Lấy đường dẫn hình ảnh từ kết quả trả về Cloudinary
+                        var imageUrl = cloudinaryResponse.secure_url;
+                        $.ajax({
+                            url: "/gioi-thieu/introductions/update/"+id,
+                            type:"PUT",
+                            data: {
+                                title: currentTitle,
+                                noiDung: currentNoiDung,
+                                noiDungKhac: currentNoiDungKhac,
+                                img: imageUrl 
+                            }
+                        })  
+                        .then(data =>{
+                            if(data.code === 200) {
+                                alert("Cập nhật dữ liệu thành công!!!");
+                                window.location.reload();
+                            }
+                            else{
+                                alert("Cập nhật dữ liệu không thành công!!!");
+                            }
+                        })
+                        .catch(err =>{
+                            alert("ERROR!!!")
+                        })
+                        
+                    })
+                    .catch((error) => {
+                        alert('Lỗi khi tải lên hình ảnh');
+                        
+                    });
+                })
+                .catch(error =>{
+                    alert("Lỗi xóa ảnh");
+                })
+               
+            }
+            
+       
+    }
+</script>
+<script>
+    var currentValue = "";
+    var originValue = "";
+    function handleInputChangeCate(inputElement)
+    {
+          currentValue = inputElement.value;
+          originValue = inputElement.getAttribute("data-origin");
+    }
+   function changCate(nameCate)
+    {    
+       
+        if(currentValue.trim() === "" && originValue !== ""){
+            alert("Không được để trống dữ liệu");
+            return;
+        }
+        if(currentValue === originValue ){
+            alert("Không có dữ liệu nào được thay đổi");
+            window.location.reload();
+            return;
+        }
+        if(currentValue.trim() === " " && originValue !== "")
+        {
+            alert("Không có dữ liệu nào được thay đổi");
+            window.location.reload();
+            return;
+        }
+        if(currentValue !== currentValue.toUpperCase()){
+            alert("Tên loại thức ăn phải viết hoa!!!");
+            return;
+        }
+        $.ajax({
+            url:"/gioi-thieu/introductions/update/"+nameCate,
+            type:"PATCH",
+            data: {
+                newName: currentValue
+            }
+        })
+        .then(data =>{
+            if(data.code === 200){
+                alert("Cập nhật thành công");
+                window.location.reload();
+            }
+            else {
+                alert("Cập nhật không thành công!!!");
+                return;
+            }
+        })
+        .catch(err =>{
+            alert("ERROR!!!");
+        })
+    }    
+</script>
+<script>
+    var currentValueN = "";
+    var originValueN = "";
+    function handleInputChangeName(attr) {
+        currentValueN = attr.value;
+        originValueN = attr.getAttribute("data-origin");
+    }
+    function changName(name,nameCate) {
+        if(currentValueN.trim() === "" && originValueN !== ""){
+            alert("Không được để trống dữ liệu");
+            return;
+        }
+        if(currentValueN === originValueN ){
+            alert("Không có dữ liệu nào được thay đổi");
+            window.location.reload();
+            return;
+        }
+        if(currentValueN.trim() === " " && originValueN !== "")
+        {
+            alert("Không có dữ liệu nào được thay đổi");
+            window.location.reload();
+            return;
+        }
+        $.ajax({
+            url:"/gioi-thieu/introductions/update/"+nameCate+"/"+name,
+            type:"PATCH",
+            data: {
+                newName: currentValueN
+            }
+        })
+        .then(data =>{
+            if(data.code === 200){
+                alert("Cập nhật thành công");
+                window.location.reload();
+            }
+            else {
+                alert("Cập nhật không thành công!!!");
+                return;
+            }
+        })
+        .catch(err =>{
+            alert("ERROR!!!");
+        })
+    }
+</script>
+
+{{!--   --}}

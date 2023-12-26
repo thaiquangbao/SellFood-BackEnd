@@ -72,6 +72,18 @@ let AppModule = class AppModule {
         }, {
             path: "/gioi-thieu/introductions",
             method: common_1.RequestMethod.GET,
+        }, {
+            path: "/gioi-thieu/introductions/update",
+            method: common_1.RequestMethod.GET,
+        }, {
+            path: "/gioi-thieu/introductions/:nameCate/:name",
+            method: common_1.RequestMethod.PATCH,
+        }, {
+            path: "/gioi-thieu/introductions/update/:nameCate",
+            method: common_1.RequestMethod.PATCH,
+        }, {
+            path: "/gioi-thieu/introductions/update/:id",
+            method: common_1.RequestMethod.PUT,
         });
         consumer.apply(sessionmiddleware_service_1.SessionmiddlewareService).forRoutes({
             path: "/user/login/xacnhan/:userName/:sessionId",
