@@ -90,7 +90,7 @@ export class GioiThieuController {
     @Body() name: { newName: string }, // Sửa thành truyền một đối tượng chứa newName
   ) {
     const result = await this.introductionService.updateName(
-      process.env.ID_INTRODUCTION,
+      "65890fb52118b837792c9de0",
       nameCate,
       nameFood,
       name.newName, // Truyền newName từ đối tượng name
@@ -108,7 +108,7 @@ export class GioiThieuController {
     @Body() name: { newName: string }, // Sửa thành truyền một đối tượng chứa newName
   ) {
     const result = await this.introductionService.updateCate(
-      process.env.ID_INTRODUCTION,
+      "65890fb52118b837792c9de0",
       nameCate,
       name.newName, // Truyền newName từ đối tượng name
     );

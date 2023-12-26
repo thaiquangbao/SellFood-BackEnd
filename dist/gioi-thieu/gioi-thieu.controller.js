@@ -74,7 +74,7 @@ let GioiThieuController = class GioiThieuController {
         });
     }
     async update(res, nameCate, nameFood, name) {
-        const result = await this.introductionService.updateName(process.env.ID_INTRODUCTION, nameCate, nameFood, name.newName);
+        const result = await this.introductionService.updateName("65890fb52118b837792c9de0", nameCate, nameFood, name.newName);
         if (result === null) {
             res.json({ code: 500 });
         }
@@ -83,7 +83,7 @@ let GioiThieuController = class GioiThieuController {
         }
     }
     async updateCate(res, nameCate, name) {
-        const result = await this.introductionService.updateCate(process.env.ID_INTRODUCTION, nameCate, name.newName);
+        const result = await this.introductionService.updateCate("65890fb52118b837792c9de0", nameCate, name.newName);
         if (result === null) {
             res.json({ code: 500 });
         }
