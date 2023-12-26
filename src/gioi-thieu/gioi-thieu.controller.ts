@@ -82,11 +82,11 @@ export class GioiThieuController {
     });
   }
   // Trong controller
-  @Patch("introductions/update/:nameCate/:name")
+  @Patch("introductions/update/name")
   async update(
     @Res() res: Response,
-    @Param("nameCate") nameCate: string,
-    @Param("name") nameFood: string,
+    @Body("nameCate") nameCate: string,
+    @Body("nameFood") nameFood: string,
     @Body() name: { newName: string }, // Sửa thành truyền một đối tượng chứa newName
   ) {
     const result = await this.introductionService.updateName(
@@ -101,10 +101,10 @@ export class GioiThieuController {
       res.json({ code: 200 });
     }
   }
-  @Patch("introductions/update/:nameCate")
+  @Patch("introductions/update/nameCate")
   async updateCate(
     @Res() res: Response,
-    @Param("nameCate") nameCate: string,
+    @Body("nameCate") nameCate: string,
     @Body() name: { newName: string }, // Sửa thành truyền một đối tượng chứa newName
   ) {
     const result = await this.introductionService.updateCate(

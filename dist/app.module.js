@@ -76,10 +76,10 @@ let AppModule = class AppModule {
             path: "/gioi-thieu/introductions/update",
             method: common_1.RequestMethod.GET,
         }, {
-            path: "/gioi-thieu/introductions/:nameCate/:name",
+            path: "/gioi-thieu/introductions/update/name",
             method: common_1.RequestMethod.PATCH,
         }, {
-            path: "/gioi-thieu/introductions/update/:nameCate",
+            path: "/gioi-thieu/introductions/update/nameCate",
             method: common_1.RequestMethod.PATCH,
         }, {
             path: "/gioi-thieu/introductions/update/:id",
