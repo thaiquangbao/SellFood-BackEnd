@@ -221,9 +221,9 @@
         }
         $.ajax({
             url:"/gioi-thieu/introductions/update/nameCate",
-            type:"PATCH",
+            type:"PUT",
             data: {
-                nameCate: originValue, 
+                nameCate: nameCate, 
                 newName: currentValue
             }
         })
@@ -267,10 +267,10 @@
         }
         $.ajax({
             url:"/gioi-thieu/introductions/update/name",
-            type:"PATCH",
+            type:"PUT",
             data: {
                 nameCate: nameCate,
-                nameFood: originValueN,
+                nameFood: name,
                 newName: currentValueN
             }
         })

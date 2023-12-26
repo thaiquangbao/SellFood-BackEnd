@@ -82,7 +82,7 @@ export class GioiThieuController {
     });
   }
   // Trong controller
-  @Patch("introductions/update/name")
+  @Put("introductions/update/name")
   async update(
     @Res() res: Response,
     @Body("nameCate") nameCate: string,
@@ -101,7 +101,7 @@ export class GioiThieuController {
       res.json({ code: 200 });
     }
   }
-  @Patch("introductions/update/nameCate")
+  @Put("introductions/update/nameCate")
   async updateCate(
     @Res() res: Response,
     @Body("nameCate") nameCate: string,

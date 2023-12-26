@@ -132,7 +132,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], GioiThieuController.prototype, "updateQLPage", null);
 __decorate([
-    (0, common_1.Patch)("introductions/update/name"),
+    (0, common_1.Put)("introductions/update/name"),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)("nameCate")),
     __param(2, (0, common_1.Body)("nameFood")),
@@ -142,7 +142,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], GioiThieuController.prototype, "update", null);
 __decorate([
-    (0, common_1.Patch)("introductions/update/nameCate"),
+    (0, common_1.Put)("introductions/update/nameCate"),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)("nameCate")),
     __param(2, (0, common_1.Body)()),
