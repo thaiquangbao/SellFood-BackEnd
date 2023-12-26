@@ -160,11 +160,11 @@ export class AppModule implements NestModule {
         },
         {
           path: "/gioi-thieu/introductions/update/name",
-          method: RequestMethod.PATCH,
+          method: RequestMethod.PUT,
         },
         {
           path: "/gioi-thieu/introductions/update/nameCate",
-          method: RequestMethod.PATCH,
+          method: RequestMethod.PUT,
         },
         {
           path: "/gioi-thieu/introductions/update/:id",
