@@ -7,12 +7,12 @@ const handlebars_1 = require("handlebars");
 const fs = require("fs");
 const path = require("path");
 const hbs = require("hbs");
-const hbs_utils_1 = require("hbs-utils");
-const cookie_parser_1 = require("cookie-parser");
-const express_session_1 = require("express-session");
+const hbsUtils = require("hbs-utils");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.use((0, cookie_parser_1.default)());
+    app.use(cookieParser());
     app.useStaticAssets((0, path_1.join)(__dirname, "..", "public"));
     app.setBaseViewsDir((0, path_1.join)(__dirname, "..", "views"));
     const partialsDir = path.join(__dirname, "..", "views/layouts");
@@ -23,12 +23,12 @@ async function bootstrap() {
         const partialContent = fs.readFileSync(partialPath, "utf8");
         handlebars_1.default.registerPartial(partialName, handlebars_1.default.compile(partialContent));
     });
-    (0, hbs_utils_1.default)(hbs).registerWatchedPartials((0, path_1.join)(__dirname, "..", "views/partials"));
+    hbsUtils(hbs).registerWatchedPartials((0, path_1.join)(__dirname, "..", "views/partials"));
     app.setViewEngine("hbs");
     app.set("view options", {
         layout: "layouts/main",
     });
-    app.use((0, express_session_1.default)({
+    app.use(session({
         name: "Session_JS",
         secret: process.env.SESSION_SECURITY,
         resave: false,
