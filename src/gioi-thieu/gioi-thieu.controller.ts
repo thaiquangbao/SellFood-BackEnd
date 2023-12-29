@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Put,
-  Res,
-} from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Res } from "@nestjs/common";
 import { AppService } from "src/app.service";
 import { FooterService } from "src/footer/footer.service";
 import { GioiThieuService } from "./gioi-thieu.service";
