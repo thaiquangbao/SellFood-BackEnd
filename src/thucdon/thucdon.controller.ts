@@ -49,7 +49,6 @@ export class ThucdonController {
       Category.DESSERT,
       Category.DRINKING,
     ];
-
     // Sử dụng Promise.all để đợi cho tất cả các truy vấn hoàn thành
 
     const listFoodArrays = {};
